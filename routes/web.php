@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.web');
-});
+Route::resource('/justice/trial', 'TrialController');
+Route::resource('/history', 'HistoryController');

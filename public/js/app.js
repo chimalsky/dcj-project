@@ -43374,6 +43374,7 @@ application.load(Object(stimulus_webpack_helpers__WEBPACK_IMPORTED_MODULE_1__["d
 window.$ = jquery__WEBPACK_IMPORTED_MODULE_2___default.a;
 window.flatpickr = flatpickr__WEBPACK_IMPORTED_MODULE_5___default.a;
 jquery__WEBPACK_IMPORTED_MODULE_2___default()(document).foundation();
+initDateInputs();
 
 function initDateInputs() {
   var $dateInputs = jquery__WEBPACK_IMPORTED_MODULE_2___default()("input[type='date']");

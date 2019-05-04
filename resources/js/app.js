@@ -22,6 +22,8 @@ window.flatpickr = flatpickr
 
 $(document).foundation()
 
+initDateInputs()
+
 function initDateInputs() {
     let $dateInputs = $("input[type='date']")
     flatpickr($dateInputs, {
