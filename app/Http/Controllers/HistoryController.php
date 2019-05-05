@@ -25,7 +25,8 @@ class HistoryController extends Controller
      */
     public function create()
     {
-        //
+        $history = new History;
+        return view('history.create', compact('history'));
     }
 
     /**

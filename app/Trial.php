@@ -2,14 +2,20 @@
 
 namespace App;
 
-use App\Traits\IsJustice;
+use App\Traits\HasJustice;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\TrialHistoryEndCode as EndCodes;
 use App\Enums\TrialHistoryStartCode as StartCodes;
 
 class Trial extends Model
 {
-    use IsJustice;
+    use HasJustice;
+
+    protected $guarded = [
+        'id'
+    ];
+
+    protected $type = 'T';
 
     public function getStartCodesAttribute()
     {

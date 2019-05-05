@@ -17,30 +17,17 @@ class CreateHistoriesTable extends Migration
             $table->bigIncrements('id');
 
             $table->date('start');
-            $table->tinyInteger('start_code');
-            $table->tinyInteger('start_precision');
+            $table->tinyInteger('start_code')->nullable();
+            $table->tinyInteger('start_precision')->nullable();
 
             $table->date('end')->nullable();
             $table->tinyInteger('end_code')->nullable();
             $table->tinyInteger('end_precision')->nullable();
 
+            $table->unsignedBigInteger('historyable_id');
+            $table->string('historyable_type');
+
             $table->timestamps();
-        });
-
-        Schema::create('model_has_history', function (Blueprint $table) {
-            $table->unsignedBigInteger('history_id');
-
-            $table->string('model_type');
-            $table->unsignedBigInteger('model_id');
-            $table->index(['model_id', 'model_type', ]);
-
-            $table->foreign('history_id')
-                ->references('id')
-                ->on('histories')
-                ->onDelete('cascade');
-
-            $table->primary(['history_id', 'model_id', 'model_type'],
-                    'model_has_histories_history_model_type_primary');
         });
     }
 

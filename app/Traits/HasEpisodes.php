@@ -2,11 +2,11 @@
 
 namespace App\Traits;
 
-use App\History;
+use App\Episode;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-trait HasHistory
+trait HasEpisodes
 {
     public static function bootHasHistory()
     {
