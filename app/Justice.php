@@ -4,14 +4,16 @@ namespace App;
 
 use App\CustomCasts\Enum;
 use App\Enums\JusticeTarget;
+use App\Enums\JusticeSender;
+use App\Enums\JusticePrecision;
 use App\CustomCasts\EnglishBoolean;
 use Illuminate\Database\Eloquent\Model;
+use Collective\Html\Eloquent\FormAccessible;
 use Vkovic\LaravelCustomCasts\HasCustomCasts;
-
 
 class Justice extends Model
 {   
-    use HasCustomCasts;
+    use FormAccessible, HasCustomCasts;
 
     protected $guarded = [
         'id'
@@ -31,11 +33,11 @@ class Justice extends Model
 
         'peace_initiated' => EnglishBoolean::class,
 
-        /*'start_code' => Enum::class,
+        'start_code' => Enum::class,
         'start_precision' => Enum::class,
 
         'end_code' => Enum::class,
-        'end_precision' => Enum::class,*/
+        'end_precision' => Enum::class,
 
 
         'implemented' => EnglishBoolean::class,
@@ -54,6 +56,31 @@ class Justice extends Model
     public function justiceable()
     {
         return $this->morphTo();
+    }
+
+    public function getPrecisionCodesAttribute()
+    {
+        return JusticePrecision::toSelectArray();
+    }
+
+    public function getTargetCodesAttribute()
+    {
+        return JusticeTarget::toSelectArray();
+    }
+
+    public function getSenderCodesAttribute()
+    {
+        return JusticeSender::toSelectArray();
+    }
+
+    public function formStartPrecisionAttribute($value)
+    {
+        return $value;
+    }
+
+    public function formEndPrecisionAttribute($value)
+    {
+        return $value;
     }
 
     public function getDcjIdAttribute()

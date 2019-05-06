@@ -39,7 +39,8 @@ class TrialImport implements OnEachRow,
             'breach' => $row['trial_breach']
         ]);
 
-        $this->storeJustice($row, $trial);
+        $trial->save();
+        $this->storeJustice($row, $trial, 'trial');
     }
 
     public function chunkSize(): int

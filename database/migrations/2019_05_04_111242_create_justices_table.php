@@ -29,15 +29,17 @@ class CreateJusticesTable extends Migration
             $table->boolean('peace_initiated')->nullable();
 
             $table->date('start')->nullable();
-            $table->string('start_code')->nullable();
-            $table->string('start_precision')->nullable();
+            $table->unsignedTinyInteger('start_code')->nullable();
+            $table->unsignedTinyInteger('start_precision')->nullable();
 
             $table->date('end')->nullable();
-            $table->string('end_code')->nullable();
-            $table->string('end_precision')->nullable();
+            $table->unsignedTinyInteger('end_code')->nullable();
+            $table->unsignedTinyInteger('end_precision')->nullable();
 
-            $table->unsignedBigInteger('justiceable_id');
-            $table->string('justiceable_type');
+            $table->unsignedBigInteger('justiceable_id')
+                ->nullable();
+            $table->string('justiceable_type')
+                ->nullable();
 
             $table->text('coding_notes')
                 ->nullable();

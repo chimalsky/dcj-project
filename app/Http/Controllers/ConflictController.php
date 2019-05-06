@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Excel;
-use Storage;
 use App\Conflict;
 use Illuminate\Http\Request;
 use App\Imports\ConflictImport;
@@ -82,12 +80,6 @@ class ConflictController extends Controller
 
         $conflict->save();
 
-        $history = $conflict->history;
-        $history->start = $request->input('history.start');
-        $history->end = $request->input('history.end');
-        
-        $history->save();
-
         return redirect()->route('conflict.edit', $conflict);
     }
 
@@ -100,13 +92,5 @@ class ConflictController extends Controller
     public function destroy(Conflict $conflict)
     {
         //
-    }
-
-    public function import()
-    {
-        $dataFile = Storage::get('public/dcj.xlsx');
-        Excel::import(new ConflictImport, 'public/dcj.xlsx');
-        
-        return true;
     }
 }

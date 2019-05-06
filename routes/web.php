@@ -14,5 +14,8 @@
 Route::get('/conflict/import', 'ConflictController@import');
 Route::resource('/conflict', 'ConflictController');
 
-Route::resource('/justice/trial', 'TrialController');
+Route::resource('/justice', 'JusticeController');
+
+Route::resource('/justices/trial', 'TrialController');
 Route::resource('/history', 'HistoryController');
+

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Trial;
+use App\Justice;
 use Illuminate\Http\Request;
 
-class TrialController extends Controller
+class JusticeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class TrialController extends Controller
      */
     public function index()
     {
-        $trials = Trial::paginate(50);
-        
-        return view('justice.trial.index', compact('trials'));
+        //
     }
 
     /**
@@ -26,8 +24,7 @@ class TrialController extends Controller
      */
     public function create()
     {
-        $trial = new Trial;
-        return view('justice.trial.create', compact('trial'));
+        //
     }
 
     /**
@@ -44,33 +41,33 @@ class TrialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Trial  $trial
+     * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function show(Trial $trial)
+    public function show(Justice $justice)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Trial  $trial
+     * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Trial $trial)
+    public function edit(Justice $justice)
     {
-        return view('justice.trial.edit', compact('trial'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Trial  $trial
+     * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Trial $trial)
+    public function update(Request $request, Justice $justice)
     {
         //
     }
@@ -78,10 +75,10 @@ class TrialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Trial  $trial
+     * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Trial $trial)
+    public function destroy(Justice $justice)
     {
         //
     }

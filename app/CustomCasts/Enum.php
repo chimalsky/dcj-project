@@ -17,6 +17,20 @@ class Enum extends CustomCastBase
         $enumClassName = "\App\Enums\\" 
             . class_basename($model) 
             . ucfirst($attribute);
+
+        if (!class_exists($enumClassName)) {
+            $exploded = explode('_', $attribute);
+
+            $enumClassName = "\App\Enums\\"
+                . class_basename($model)
+                . ucfirst(end($exploded));
+        }
+
+        if (!class_exists($enumClassName)) {
+            $enumClassName = "\App\Enums\\"
+                . class_basename('Trial')
+                . Str::studly($attribute);
+        }
        
         $this->enum = $enumClassName;
     }
@@ -31,6 +45,6 @@ class Enum extends CustomCastBase
 
     public function castAttribute($value)
     {
-        return $this->enum::toSelectArray()[$value] ?? null;
+        return $this->enum::getKey((int)$value) ?? null;
     }
 }
