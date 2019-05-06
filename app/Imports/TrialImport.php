@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
+
 class TrialImport implements OnEachRow,
     WithHeadingRow,
     WithChunkReading
@@ -23,6 +24,11 @@ class TrialImport implements OnEachRow,
     public function onRow(Row $row)
     {
         $row = $row->toArray();
+        $type = 'trial';
+
+        if ($row[$type] == 'No') {
+            return null;
+        }
 
         $trial = Trial::create([
             'domestic' => $row['trial_domestic'],
@@ -33,7 +39,7 @@ class TrialImport implements OnEachRow,
             'breach' => $row['trial_breach']
         ]);
 
-        $this->storeJustice($row);
+        $this->storeJustice($row, $trial);
     }
 
     public function chunkSize(): int

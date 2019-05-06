@@ -14,6 +14,8 @@ class Trial extends Model
 {
     use HasJustice, HasCustomCasts;
 
+    public $type = 'trial';
+
     protected $guarded = [
         'id'
     ];

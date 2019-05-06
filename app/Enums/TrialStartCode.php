@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use BenSampo\Enum\Enum;
 
-final class TrialHistoryStartCode extends Enum
+final class TrialStartCode extends Enum
 {
     const Detainment = 0;
     const Arrest = 1;
