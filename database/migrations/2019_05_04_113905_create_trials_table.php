@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Imports\TrialImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -14,14 +17,19 @@ class CreateTrialsTable extends Migration
     public function up()
     {
         Schema::create('trials', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
 
-            $table->boolean('domestic');
+            $table->boolean('domestic')->nullable();
             $table->boolean('international')->nullable();
             $table->string('venue')->nullable();
+            $table->boolean('absentia')->nullable();
+            $table->boolean('executed')->nullable();
+            $table->boolean('breach')->nullable();
 
             $table->timestamps();
         });
+
+        Excel::import(new TrialImport, 'public/dcj.xlsx');
     }
 
     /**

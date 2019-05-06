@@ -4,26 +4,23 @@ namespace App\Imports;
 
 use App\Conflict;
 use Maatwebsite\Excel\Row;
-use Maatwebsite\Excel\Concerns\OnEachRow;
+use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
-
-class ConflictImport implements OnEachRow, 
+class ConflictImport implements ToModel, 
     WithHeadingRow,
     WithChunkReading
 {
+
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function onRow(Row $row)
+    public function model(array $row)
     {
-        $row = $row->toArray();
-        
-        $conflict = Conflict::create([
+        return new Conflict([
             'conflict_id' => $row['conflict_id'],
             'location' => $row['location'],
 
@@ -61,10 +58,5 @@ class ConflictImport implements OnEachRow,
     public function chunkSize(): int
     {
         return 400;
-    }
-
-    public function batchSize(): int
-    {
-        return 200;
     }
 }

@@ -3,19 +3,41 @@
 namespace App\Imports;
 
 use App\Trial;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Row;
+use App\Imports\Traits\JusticeImport;
+use Maatwebsite\Excel\Concerns\OnEachRow;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class TrialImport implements ToModel
+class TrialImport implements OnEachRow,
+    WithHeadingRow,
+    WithChunkReading
 {
+    use JusticeImport;
+
     /**
-    * @param array $row
+    * @param Row $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function onRow(Row $row)
     {
-        return new Trial([
-            //
+        $row = $row->toArray();
+
+        $trial = Trial::create([
+            'domestic' => $row['trial_domestic'],
+            'international' => $row['trial_intl'],
+            'venue' => $row['trial_venue'],
+            'absentia' => $row['trial_absentia'],
+            'executed' => $row['trial_execute'],
+            'breach' => $row['trial_breach']
         ]);
+
+        $this->storeJustice($row);
+    }
+
+    public function chunkSize(): int
+    {
+        return 400;
     }
 }
