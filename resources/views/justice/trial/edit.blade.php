@@ -22,7 +22,7 @@
         </main>
 
         <button class="button">
-            Save Changes to Dates
+            Save Changes to Justice
         </button>
     {{ Form::close() }}
 </section>

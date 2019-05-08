@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Trial;
+use App\Truth;
 use Maatwebsite\Excel\Row;
 use App\Imports\Traits\JusticeImport;
 use Maatwebsite\Excel\Concerns\OnEachRow;
@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 
-class TrialImport implements OnEachRow,
+class TruthImport implements OnEachRow,
     WithHeadingRow,
     WithChunkReading
 {
@@ -24,19 +24,16 @@ class TrialImport implements OnEachRow,
     public function onRow(Row $row)
     {
         $row = $row->toArray();
-        $type = 'trial';
+        $type = 'truth';
 
         if ($row[$type] == 'No') {
             return null;
         }
 
-        $dcj = Trial::create([
-            'domestic' => $row['trial_domestic'],
-            'international' => $row['trial_intl'],
-            'venue' => $row['trial_venue'],
-            'absentia' => $row['trial_absentia'],
-            'executed' => $row['trial_execute'],
-            'breach' => $row['trial_breach']
+        $dcj = Truth::create([
+            'report' => $row['truth_report'],
+            'international' => $row['truth_intl'],
+            'breach' => $row['truth_breach']
         ]);
 
         $dcj->save();

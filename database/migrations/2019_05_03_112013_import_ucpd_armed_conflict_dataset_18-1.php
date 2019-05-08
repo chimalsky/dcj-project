@@ -3,6 +3,7 @@
 use App\Imports\ConflictImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
+use App\Imports\TranslateConflictImport;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -20,10 +21,12 @@ class ImportUcpdArmedConflictDataset181 extends Migration
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('conflict_id');
+            $table->unsignedInteger('old_conflict_id')->nullable();
 
+            $table->unsignedTinyInteger('type')->nullable();
+            
             $table->string('location');
             $table->unsignedTinyInteger('incompatibility');
-            $table->unsignedTinyInteger('type');
 
             $table->string('side_a');
             $table->string('side_a_id')->nullable();
@@ -55,6 +58,12 @@ class ImportUcpdArmedConflictDataset181 extends Migration
             $table->timestamps();
         });
 
+        Schema::create('translate_conflicts', function(Blueprint $table) {
+            $table->integer('new_id');
+            $table->string('old_id');
+        });
+
+        Excel::import(new TranslateConflictImport, 'public/translate_conf.xlsx');
         Excel::import(new ConflictImport, 'public/ucdp-prio-acd-181.xlsx');
 
     }

@@ -22,6 +22,7 @@ class ConflictImport implements ToModel,
     {
         return new Conflict([
             'conflict_id' => $row['conflict_id'],
+            'old_conflict_id' => $row['conflict_id'],
             'location' => $row['location'],
 
             'side_a' => $row['side_a'],

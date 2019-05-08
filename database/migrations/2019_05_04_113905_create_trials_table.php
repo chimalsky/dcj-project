@@ -25,8 +25,6 @@ class CreateTrialsTable extends Migration
             $table->boolean('absentia')->nullable();
             $table->boolean('executed')->nullable();
             $table->boolean('breach')->nullable();
-
-            $table->timestamps();
         });
 
         Excel::import(new TrialImport, 'public/dcj.xlsx');

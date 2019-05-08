@@ -2,65 +2,13 @@
 
 @section('content')
 
-<table>
-<thead>
-    <tr>
-        <th>
-            Conflict ID
-        </th>
-        <th>
-            Location
-        </th>
-        <th>
-            Territory
-        </th>
-
-        <th>
-            Year
-        </th>
-        
-        <th>
-            Side A 
-        </th>
-        <th>
-            Side B 
-        </th>
-        <th>
-            Justice Count
-        </th>
-    </tr>
-</thead>
-
-<tbody>
+<section class="grid-x grid-margin-y grid-padding-y cell align-center">
     @foreach ($conflicts as $conflict)
-    <tr>
-        <td>
-            <a href="{{ route('conflict.show', $conflict) }}">
-                {{ $conflict->conflict_id }}
-            </a>
-        </td>
-        <td>
-            {{ $conflict->location }}
-        </td>
-        <td>
-            {{ $conflict->territory }}
-        </td>
-        <td>
-            {{ $conflict->year }}
-        </td>
-        
-        <td>
-            {{ $conflict->side_a }}
-        </td>
-        <td>
-            {{ $conflict->side_b }}
-        </td>
-        <td>
-            {{ $conflict->justices }}
-        </td>
-    </tr>
+        <article class="cell large-9">
+            @include('conflict.item', ['conflict' => $conflict])
+        </article>
     @endforeach
-</tbody>
+</section>
 
-    {{ $conflicts->links() }}
+{{ $conflicts->links() }}
 @endsection

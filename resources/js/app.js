@@ -5,6 +5,8 @@ import $ from 'jquery'
 import 'foundation-sites'
 import 'datatables.net-zf'
 
+import trix from 'trix'
+
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 

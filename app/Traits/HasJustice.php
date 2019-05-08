@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasJustice
 {
+    
     /**
      * A model has justice case.
      */

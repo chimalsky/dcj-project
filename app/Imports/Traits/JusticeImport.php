@@ -3,6 +3,7 @@
 namespace App\Imports\Traits;
 
 use App\Justice;
+use App\Conflict;
 use Carbon\Carbon;
 
 Trait JusticeImport
@@ -11,21 +12,32 @@ Trait JusticeImport
      * Store the justice and associate with
      * the relevant model
      */
-    public function storeJustice($params, $model)
+    public function storeJustice($params, $model, $type)
     {
-        $type = $model->type;
+        $type = lcfirst($type);
 
         $startDate = Carbon::create($params[$type . '_syear'],
             strlen(substr($params[$type . '_smonth'], 0, 2)) ? substr($params[$type . '_smonth'], 0, 2) : null,
             strlen(substr($params[$type . '_sday'], 0, 2)) ? substr($params[$type . '_sday'], 0, 2) : null
         );
 
-        $endDate = Carbon::create($params[$type . '_eyear'],
-            strlen(substr($params[$type . '_emonth'], 0, 2)) ? substr($params[$type . '_emonth'], 0, 2) : null,
-            strlen(substr($params[$type . '_eday'], 0, 2)) ? substr($params[$type . '_eday'], 0, 2) : null
-        ); 
+        if ($params[$type . '_eyear']) {
+            $endDate = Carbon::create($params[$type . '_eyear'],
+                strlen(substr($params[$type . '_emonth'], 0, 2)) ? substr($params[$type . '_emonth'], 0, 2) : null,
+                strlen(substr($params[$type . '_eday'], 0, 2)) ? substr($params[$type . '_eday'], 0, 2) : null
+            ); 
+        }
+
+        $conflict = Conflict::where([
+            ['old_conflict_id', $params['acdid']],
+            ['year', $params['year']]
+        ]);
 
         $justice = new Justice([
+            'conflict_id' => $conflict->first() ? $conflict->first()->id : null,
+            'type' => $model->type,
+            'dcjid' => $params['dcjid'] ?? null,
+
             'implemented' => $params[$type . '_implement'],
             'target' => $params[$type . '_target'],
             'civilian' => $params[$type . '_crank'],
@@ -37,11 +49,13 @@ Trait JusticeImport
             'peace_initiated' => $params[$type . '_peacearg'],
 
             'start' => $startDate,
-            'start_code' => $params[$type . '_start'],
+            'start_event' => $params[$type . '_start'],
+            //'start_code' => $params[$type . '_start'],
             'start_precision' => $params[$type . '_sprec'],
 
-            'end' => $endDate,
-            'end_code' => $params[$type . '_end'],
+            'end' => $endDate ?? null,
+            'end_event' => $params[$type . '_end'],
+            //'end_code' => $params[$type . '_end'],
             'end_precision' => $params[$type . '_eprec'],
 
             'coding_notes' => $params[$type .'_text']

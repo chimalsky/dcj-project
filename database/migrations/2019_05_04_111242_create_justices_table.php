@@ -16,25 +16,37 @@ class CreateJusticesTable extends Migration
         Schema::create('justices', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('dcjid')->nullable();
+
             $table->boolean('implemented')->nullable();
-            $table->tinyInteger('target')->nullable();
+            
+            $table->string('type');
+            
+            $table->string('target')->nullable();
             $table->boolean('civilian')->nullable();
             $table->boolean('rank_and_file')->nullable();
             $table->boolean('elite')->nullable();
 
-            $table->tinyInteger('sender')->nullable();
-            $table->tinyInteger('scope')->nullable();
+            $table->string('sender')->nullable();
+            $table->string('scope')->nullable();
             $table->unsignedInteger('scope_count')->nullable();
 
             $table->boolean('peace_initiated')->nullable();
 
             $table->date('start')->nullable();
-            $table->unsignedTinyInteger('start_code')->nullable();
-            $table->unsignedTinyInteger('start_precision')->nullable();
+            $table->string('start_event')->nullable();
+            //$table->unsignedTinyInteger('start_code')->nullable();
+            $table->string('start_precision')->nullable();
+
 
             $table->date('end')->nullable();
-            $table->unsignedTinyInteger('end_code')->nullable();
-            $table->unsignedTinyInteger('end_precision')->nullable();
+            $table->string('end_event')->nullable();
+            //$table->unsignedTinyInteger('end_code')->nullable();
+            $table->string('end_precision')->nullable();
+
+
+            $table->unsignedInteger('conflict_id')
+                ->nullable();
 
             $table->unsignedBigInteger('justiceable_id')
                 ->nullable();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Conflict;
 use App\Justice;
 use Illuminate\Http\Request;
 
@@ -22,9 +23,15 @@ class JusticeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $conflict = Conflict::findOrFail($request->input('conflict'));
+
+        $justiceType = $request->input('justice_type') ?? null;
+        $justice = new Justice;
+        $justice->type = $justiceType;
+
+        return view('justice.create', compact('justice', 'conflict', 'justiceType'));
     }
 
     /**
@@ -35,7 +42,8 @@ class JusticeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $justice = Justice::create($request->all());
+        return redirect()->route('conflict.show', $justice->conflict);
     }
 
     /**
@@ -55,9 +63,13 @@ class JusticeController extends Controller
      * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Justice $justice)
+    public function edit(Justice $justice, Request $request)
     {
-        //
+        $conflict = $justice->conflict;
+
+        $type = $request->input('type');
+        
+        return view('justice.edit', compact('justice', 'conflict', 'type'));
     }
 
     /**
@@ -69,7 +81,8 @@ class JusticeController extends Controller
      */
     public function update(Request $request, Justice $justice)
     {
-        //
+        $justice->update($request->all());
+        return redirect()->route('justice.edit', $justice);
     }
 
     /**

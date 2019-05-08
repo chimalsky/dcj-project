@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Trial;
+use App\Reparation;
 use Maatwebsite\Excel\Row;
 use App\Imports\Traits\JusticeImport;
 use Maatwebsite\Excel\Concerns\OnEachRow;
@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 
-class TrialImport implements OnEachRow,
+class ReparationImport implements OnEachRow,
     WithHeadingRow,
     WithChunkReading
 {
@@ -24,23 +24,25 @@ class TrialImport implements OnEachRow,
     public function onRow(Row $row)
     {
         $row = $row->toArray();
-        $type = 'trial';
+        $type = 'rep';
+
+        var_dump('rep');
 
         if ($row[$type] == 'No') {
             return null;
         }
 
-        $dcj = Trial::create([
-            'domestic' => $row['trial_domestic'],
-            'international' => $row['trial_intl'],
-            'venue' => $row['trial_venue'],
-            'absentia' => $row['trial_absentia'],
-            'executed' => $row['trial_execute'],
-            'breach' => $row['trial_breach']
+
+        $dcj = Reparation::create([
+            'property' => $row['rep_property'],
+            'money' => $row['rep_money'],
+            'training_education' => $row['rep_ed'],
+            'community' => $row['rep_comm'],
+            'funder' => $row['rep_fund']
         ]);
 
         $dcj->save();
-        $this->storeJustice($row, $dcj, $type);
+        $this->storeJustice($row, $dcj, $rep);
     }
 
     public function chunkSize(): int

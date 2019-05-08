@@ -16,7 +16,7 @@ class ConflictController extends Controller
      */
     public function index()
     {   
-        $conflicts = Conflict::paginate(50);
+        $conflicts = Conflict::withCount('justices')->paginate(50);
 
         return view('conflict.index', compact('conflicts'));
     }
@@ -48,9 +48,19 @@ class ConflictController extends Controller
      * @param  \App\Conflict  $conflict
      * @return \Illuminate\Http\Response
      */
-    public function show(Conflict $conflict)
+    public function show(Conflict $conflict, Request $request)
     {
-        return view('conflict.show', compact('conflict'));
+        $justiceType = $request->query('justice_type') ?? null;
+
+        if ($justiceType) {
+            $justices = $conflict->justices()->where('type', $justiceType)
+                ->latest('updated_at')
+                ->get();
+        } else {
+            $justices = $conflict->justices()->latest('updated_at')->get();
+        }
+
+        return view('conflict.show', compact('conflict', 'justices', 'justiceType'));
     }
 
     /**
