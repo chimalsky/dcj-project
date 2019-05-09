@@ -41,10 +41,6 @@
     {{ Form::number('scope_count') }} 
 </section>
 
-{{ $justice }}
-
-{{ $justice->justiceable }}
-
 <section class="grid-x grid-margin-x cell callout">
     {{ Form::label('sender') }}
     {{ Form::select('sender', $justice->senderCodes) }}

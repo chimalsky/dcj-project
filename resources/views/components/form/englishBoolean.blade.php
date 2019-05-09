@@ -15,7 +15,7 @@
         </div>
 
         <div class="cell auto">
-            {{ Form::radio($name, "", $model->$name, ['id' => "$name-null"]) }}
+            {{ Form::radio($name, "null", $model->$name, ['id' => "$name-null"]) }}
             {{ Form::label("$name-null", 'N/A') }}   
         </div>
     </div>

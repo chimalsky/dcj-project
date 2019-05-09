@@ -32,14 +32,14 @@ class EnglishBoolean extends CustomCastBase
 
     public function castAttribute($value)
     {   
-        if ($value == 1) {
+        if ($value === 1) {
             $value = 'yes';
         }
         else if ($value === 0) {
             $value = 'no';
         }
         else {
-            return "";
+            return "null";
         }
         
         return ucfirst($value);
