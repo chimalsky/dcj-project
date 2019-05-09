@@ -93,7 +93,7 @@ class JusticeController extends Controller
      */
     public function update(Request $request, Justice $justice)
     {
-        $justiceableParams = $request->input('justiceable');
+        $justiceableParams = $request->input('justiceable') ?? [];
         $justiceParams = $request->except('justiceable');
 
         $justice->update($justiceParams);
