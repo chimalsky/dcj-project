@@ -47,7 +47,8 @@ class JusticeController extends Controller
 
         $justice = Justice::create($justiceParams);
 
-        $justiceTypeClass = "App\\$justice->type";
+        $type = ucfirst($justice->type);
+        $justiceTypeClass = "App\\$type";
 
         $justiceable = new $justiceTypeClass();
         $justiceable->fill($justiceableParams);
