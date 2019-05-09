@@ -36,41 +36,6 @@
     </section>
 
     <section class="cell">
-        <main class="grid-x grid-padding-y">
-            <section class="grid-x grid-margin-x grid-padding-y cell medium-9">
-                <header class="cell">
-                    <strong>
-                        {{ ucfirst($justice->type) }} DCJ
-                    </strong>
-                </header>
-
-                <main class="cell callout success" style="height: 15rem">
-                    Input Forms related to {{ ucfirst($justice->type) }} DCJ here
-
-                    <br/><br/>
-                    <i>
-                        Why is this not here yet? Will this take long?
-                    </i>
-                    <p>
-                        No. This part will utilize all the components i've built
-                        for the shared DCJ data inputs. 
-                    </p>
-                    <p>
-                        One part that potentially might take longer is the related Dcj 
-                        information. That data can always be imported in the near future -- next week -- 
-                        though so I've put that part off for now until we ensure the basic 
-                        functionality of DCJ
-                    </p>
-                </main>
-
-                <footer class="cell">
-                    <input id="coding_notes" type="hidden" name="coding_notes"
-                        value="{!! $justice->coding_notes !!}" />
-                    <trix-editor input="coding_notes"></trix-editor>
-                </footer>
-            </section>
-        </main>
-
         <footer class="grid-x grid-margin-x align-justify">
             <button class="button cell shrink">
                 Save All Changes to {{ ucfirst($type) }} DCJ
@@ -80,8 +45,6 @@
                 Cancel Changes without Saving
             </a>
         </footer>
-
-        
     </section>
 {{ Form::close() }}
 

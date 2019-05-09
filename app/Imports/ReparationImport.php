@@ -26,8 +26,6 @@ class ReparationImport implements OnEachRow,
         $row = $row->toArray();
         $type = 'rep';
 
-        var_dump('rep');
-
         if ($row[$type] == 'No') {
             return null;
         }
@@ -42,7 +40,7 @@ class ReparationImport implements OnEachRow,
         ]);
 
         $dcj->save();
-        $this->storeJustice($row, $dcj, $rep);
+        $this->storeJustice($row, $dcj, $type);
     }
 
     public function chunkSize(): int

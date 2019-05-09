@@ -42,7 +42,18 @@ class JusticeController extends Controller
      */
     public function store(Request $request)
     {
-        $justice = Justice::create($request->all());
+        $justiceableParams = $request->input('justiceable');
+        $justiceParams = $request->except('justiceable');
+
+        $justice = Justice::create($justiceParams);
+
+        $justiceTypeClass = "App\\$justice->type";
+
+        $justiceable = new $justiceTypeClass();
+        $justiceable->fill($justiceableParams);
+        $justiceable->save();
+
+        $justiceable->justice()->save($justice);
         return redirect()->route('conflict.show', $justice->conflict);
     }
 
@@ -81,7 +92,14 @@ class JusticeController extends Controller
      */
     public function update(Request $request, Justice $justice)
     {
-        $justice->update($request->all());
+        $justiceableParams = $request->input('justiceable');
+        $justiceParams = $request->except('justiceable');
+
+        $justice->update($justiceParams);
+        $justice->justiceable()->update($justiceableParams);
+
+        $justice->save();
+
         return redirect()->route('justice.edit', $justice);
     }
 

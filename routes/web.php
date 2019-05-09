@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/', 'ConflictController@index')->name('home');
+
 Route::get('/conflict/import', 'ConflictController@import');
 Route::resource('/conflict', 'ConflictController');
 
@@ -21,3 +23,7 @@ Route::resource('/justices/trial', 'TrialController');
 
 Route::resource('/history', 'HistoryController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

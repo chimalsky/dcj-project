@@ -19,12 +19,12 @@ class CreateTrialsTable extends Migration
         Schema::create('trials', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->boolean('domestic')->nullable();
-            $table->boolean('international')->nullable();
+            $table->string('domestic')->nullable();
+            $table->string('international')->nullable();
             $table->string('venue')->nullable();
-            $table->boolean('absentia')->nullable();
-            $table->boolean('executed')->nullable();
-            $table->boolean('breach')->nullable();
+            $table->string('absentia')->nullable();
+            $table->string('executed')->nullable();
+            $table->string('breach')->nullable();
         });
 
         Excel::import(new TrialImport, 'public/dcj.xlsx');

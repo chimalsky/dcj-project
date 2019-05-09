@@ -1,5 +1,7 @@
 <?php
 
+use App\Imports\ReparationImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,6 +24,8 @@ class CreateReparationsTable extends Migration
             $table->string('community')->nullable();
             $table->string('funder')->nullable();
         });
+
+        Excel::import(new ReparationImport, 'public/dcj.xlsx');
     }
 
     /**

@@ -23,11 +23,7 @@ class Trial extends Model
     ];
 
     protected $casts = [
-        'domestic' => EnglishBoolean::class,
-        'international' => EnglishBoolean::class,
-        'absentia' => EnglishBoolean::class,
-        'executed' => EnglishBoolean::class,
-        'breach' => EnglishBoolean::class
+        
     ];
 
     public function getStartCodesAttribute()
