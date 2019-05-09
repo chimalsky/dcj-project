@@ -3,47 +3,44 @@
 @section('content')
 
 <header class="cell grid-x grid-padding-y">
-    <a href="{{ route('conflict.index') }}" class="cell shrink button hollow">
-        Return to List of Conflict Episodes
-    </a>
 
-    <a href="{{ route('conflict.show', $conflict) }}" class="cell">
-        @include('conflict.title')
-    </a>
-
-    <strong class="cell">
-        Editing {{ $justice->type }} DCJ
-    </strong>
-
-    @isset ($justice->dcjid)
-        <p class="cell">
-            <i>
-                Dcjid code in Excel: {{ $justice->dcjid }}
-            </i>
-        </p>
-    @endisset
 </header>
 
 {{ Form::model($justice, ['route' => ['justice.update', $justice->id], 'method' => 'put']) }}
-    @include('forms.errors')
 
-    <section class="cell">
-        <main class="grid-x grid-padding-y">
-            <section class="grid-x grid-margin-x grid-padding-y cell medium-9">
-                @include('justice.form')
-            </section>
+    <section class="grid-x grid-padding-y align-center">
+        <header class="grid-x grid-margin-x cell text-center">
+            <strong class="cell">
+                Editing {{ $justice->type }} DCJ
+            </strong>
+
+            @isset ($justice->dcjid)
+                <p class="cell">
+                    <i>
+                        Dcjid code in Excel: {{ $justice->dcjid }}
+                    </i>
+                </p>
+            @endisset
+
+            @include('forms.errors')
+        </header>
+
+        <main class="grid-x grid-margin-x grid-padding-y cell medium-10 large-8">
+            @include('justice.form')
         </main>
-    </section>
 
-    <section class="cell">
-        <footer class="grid-x grid-margin-x align-justify">
-            <button class="button cell shrink">
-                Save All Changes to {{ ucfirst($type) }} DCJ
-            </button>
+        <footer class="grid-x grid-margin-x grid-margin-y grid-padding-y">
+            <div class="cell grid-x align-center">
+                <button class="button cell shrink">
+                    Save All Changes to {{ ucfirst($type) }} DCJ
+                </button>
+            </div>
 
-            <a href="{{ route('conflict.show', $conflict) }}" class="button hollow cell shrink">
-                Cancel Changes without Saving
-            </a>
+            <div class="cell grid-x grid-padding-y grid-margin-y align-center">
+                <a href="{{ route('conflict.show', $conflict) }}" class="button hollow cell shrink">
+                    Cancel Changes without Saving
+                </a>
+            </div>
         </footer>
     </section>
 {{ Form::close() }}

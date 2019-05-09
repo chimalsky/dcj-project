@@ -1,11 +1,6 @@
 @extends ('layouts.web')
 
 @section('content')
-<header class="cell grid-x grid-padding-y">
-    <a href="{{ route('conflict.index') }}" class="cell shrink button hollow">
-        Return to List of Conflict Episodes
-    </a>
-</header>
 
 <main class="grid-x grid-margin-x">
 <section class="cell medium-9 large-7">
@@ -42,8 +37,8 @@
     @include('justice.nav', ['active' => $justiceType])
 
     @if ($justices->count())
-        @foreach ($justices as $justice)
-            @include('justice.item', ['justice' => $justice])
+        @foreach ($justices as $j)
+            @include('justice.card', ['justice' => $j, 'cssClass' => 'cell medium-6 large-4'])
         @endforeach
     @else 
         <p class="cell text-center">

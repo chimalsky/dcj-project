@@ -1,14 +1,14 @@
 <header class="grid-x">
     <section class="cell grid-x align-justify">
         <p class="cell auto">
-            Conflict ID: 
+            UCDP Conflict ID: 
             
             {{ $conflict->conflict_id }}
         </p>
 
         <p class="cell shrink">
             <i>
-                Old Conflict ID: {{ $conflict->old_conflict_id }}
+                DCJ Project Old Conflict ID: {{ $conflict->old_conflict_id }}
             </i>
         </p>
     </section>

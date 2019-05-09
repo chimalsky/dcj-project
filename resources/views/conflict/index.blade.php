@@ -4,11 +4,9 @@
 <section class="grid-x grid-margin-y grid-padding-y align-center"
     data-sticky-container>
     
-    <main class="cell grid-margin-y grid-padding-y">
-        @foreach ($conflicts as $conflict)
-            <article class="cell large-9">
-                @include('conflict.item', ['conflict' => $conflict])
-            </article>
+    <main class="cell grid-x grid-margin-x grid-margin-y grid-padding-y">
+        @foreach ($conflicts as $c)
+            @include('conflict.card', ['conflict' => $c, 'cssClass' => 'cell medium-6 large-4'])
         @endforeach
     </main>
 

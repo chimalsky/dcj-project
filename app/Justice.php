@@ -74,6 +74,27 @@ class Justice extends Model
             class_basename($this->justiceable_type);
     }
 
+    public function getCountAttribute()
+    {
+        $justice = $this;
+
+        $justiceOfTypes = $this->conflict
+            ->justices()
+            ->where('type', $this->type)
+            ->get();
+        
+        $index = $justiceOfTypes
+                ->search(function($item, $key) use ($justice) {
+                    return $item->id === $justice->id;
+                });
+        
+        if (is_int($index)) {
+            return $index + 1;
+        }
+
+        return null;
+    }
+
     public function getTargetAttribute($value) 
     {
         $attrKey = Str::snake($value);
@@ -161,6 +182,20 @@ class Justice extends Model
                 $item => $item
             ];
         });
+    }
+
+    public function getCreatedAtHumanAttribute()
+    {
+        $value = $this->created_at;
+
+        return $value->diffForHumans();
+    }
+
+    public function getUpdatedAtHumanAttribute()
+    {
+        $value = $this->updated_at;
+
+        return $value->diffForHumans();
     }
 
     public function formStartPrecisionAttribute($value)

@@ -16,6 +16,40 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+article.card a {
+  color: $body-color;
+}
+article.card a:hover {
+  opacity: .7;
+}
+article.card h1 {
+  font-size: $font-size-base;
+}
+article.card .year {
+  font-weight: 700;
+}
+article.card {
+  main {
+    font-size: $font-size-base;
+  }
+  aside {
+    font-size: $font-size-base * .8;
+  }
+  footer {
+    font-size: $font-size-base * .9;
+  }
+}
+
+.breadcrumbs {
+  *:last-child {
+    font-weight: 700;
+    cursor: default;
+  }
+  *:last-child:hover {
+    text-decoration: none;
+  }
+}
+
 .web {
   h1 {
     font-size: 1.2rem;

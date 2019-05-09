@@ -374,6 +374,43 @@ trix-editor .attachment__metadata {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+article.card a {
+  color: #333;
+}
+
+article.card a:hover {
+  opacity: 0.7;
+}
+
+article.card h1 {
+  font-size: 0.9rem;
+}
+
+article.card .year {
+  font-weight: 700;
+}
+
+article.card main {
+  font-size: 0.9rem;
+}
+
+article.card aside {
+  font-size: 0.72rem;
+}
+
+article.card footer {
+  font-size: 0.81rem;
+}
+
+.breadcrumbs *:last-child {
+  font-weight: 700;
+  cursor: default;
+}
+
+.breadcrumbs *:last-child:hover {
+  text-decoration: none;
+}
+
 .web h1 {
   font-size: 1.2rem;
 }
