@@ -1,34 +1,60 @@
-<nav class="cell grid-x grid-margin-x grid-padding-y breadcrumbs">
-    <a href="{{ route('conflict.index') }}" class="cell shrink">
-        Conflict Episodes
-    </a>
-
-    @isset ($conflict)
-        <span class="cell shrink"> 
-            >
-        </span>
-
-        <a href="{{ route('conflict.show', $conflict) }}"
-            class="cell shrink">
-            {{ $conflict->year }} -- {{ $conflict->location }}
+<section class="grid-x grid-margin-x align-middle grid-padding-y">
+    <nav class="cell auto grid-x grid-margin-x align-middle breadcrumbs">
+        <a href="{{ route('conflict.index') }}" class="cell shrink">
+            Conflict Episodes
         </a>
-    @endisset
 
-    @isset ($justice)
-        <span class="cell shrink"> 
-            >
-        </span>
+        @isset ($conflict)
+            <span class="cell shrink"> 
+                >
+            </span>
 
-        @isset ($justice->id)
-            <a href="{{ route('justice.edit', $justice) }}"
+            <a href="{{ route('conflict.show', $conflict) }}"
                 class="cell shrink">
-                {{ ucfirst($justice->type) }} # {{ $justice->count }}
+                {{ $conflict->year }} -- {{ $conflict->location }}
             </a>
-        @else
-            <p
-                class="cell shrink">
-                Create DCJ
-            </p>
         @endisset
-    @endisset
-</nav>
+
+        @isset ($justice)
+            <span class="cell shrink"> 
+                >
+            </span>
+
+            @isset ($justice->id)
+                <a href="{{ route('justice.edit', $justice) }}"
+                    class="cell shrink">
+                    {{ ucfirst($justice->type) }} # {{ $justice->count }}
+                </a>
+            @else
+                <a class="cell shrink">
+                    Create DCJ
+                </a>
+            @endisset
+        @endisset
+    </nav>
+
+    <aside class="cell shrink">
+        @guest
+            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            @if (Route::has('register'))
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            @endif
+        @else
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+            </a>
+
+            <div class="hide dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+        @endguest
+    </aside>
+</section>

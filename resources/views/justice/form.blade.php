@@ -35,26 +35,44 @@
     </div>
 
     {{ Form::label('scope') }}
-    {{ Form::select('scope', $justice->scopeCodes) }}
+    {{ Form::select('scope', $justice->scopeCodes, $justice->scope, ['placeholder' => '---']) }}
 
     {{ Form::label('scope count') }}
     {{ Form::number('scope_count') }} 
 </section>
 
-<section class="grid-x cell callout">
+{{ $justice }}
+
+{{ $justice->justiceable }}
+
+<section class="grid-x grid-margin-x cell callout">
     {{ Form::label('sender') }}
     {{ Form::select('sender', $justice->senderCodes) }}
 </section>
 
-<section class="grid-x cell">
+<section class="grid-x grid-margin-x cell">
     @include('components.form.englishBoolean', [
         'name' => 'peace_initiated',
-        'label' => 'Peace Initiated?',
+        'label' => 'Initiated by Peace Agreement?',
         'model' => $justice
     ])
 </section>
 
-<section class="grid-x grid-margin-y cell">
+<section class="grid-x grid-margin-x grid-margin-y cell">
+    <div class="cell medium-6 large-4">
+        {{ Form::label('wrong doing') }}
+        {{ Form::select('wrong', $justice->wrongCodes, $justice->wrong, ['placeholder' => '---']) }}
+    </div>
+
+    <div class="cell medium-6 large-4">
+        {{ Form::label('targeted gender') }}
+        {{ Form::select('gender', $justice->genderCodes, $justice->gender, ['placeholder' => '---']) }}
+    </div>
+
+    <div class="cell medium-6 large-4">
+        {{ Form::label('sexual violence') }}
+        {{ Form::select('sexviolence', $justice->sexviolenceCodes, $justice->sexviolence, ['placeholder' => '---']) }}
+    </div>
 
     @if ($justice->type == 'trial')
         @include('components.form.englishBoolean', [

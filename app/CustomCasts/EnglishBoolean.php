@@ -39,7 +39,7 @@ class EnglishBoolean extends CustomCastBase
             $value = 'no';
         }
         else {
-            return null;
+            return "";
         }
         
         return ucfirst($value);

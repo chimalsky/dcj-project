@@ -20,7 +20,8 @@
             {{ Form::label('start event') }}
             {{ Form::select('start_event', 
                     $justice->startEventCodes,
-                    $justice->start_event
+                    $justice->start_event,
+                    ['placeholder' => '---']
                 ) 
             }}
         </div>
@@ -45,7 +46,8 @@
             {{ Form::label('end event') }}
             {{ Form::select('end_event', 
                     $justice->endEventCodes,
-                    $justice->end_event
+                    $justice->end_event,
+                    ['placeholder' => '---']
                 ) 
             }}
         </div>

@@ -18,12 +18,8 @@ Route::resource('/conflict', 'ConflictController');
 
 Route::resource('/justice', 'JusticeController');
 
-Route::resource('/justices/Amnesty', 'AmnestyController');
-Route::resource('/justices/trial', 'TrialController');
-
-Route::resource('/history', 'HistoryController');
+Route::resource('/user', 'UserController');
 
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');

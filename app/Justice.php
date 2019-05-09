@@ -184,6 +184,33 @@ class Justice extends Model
         });
     }
 
+    public function getWrongCodesAttribute()
+    {
+        return [
+            'Affiliation' => 'Affiliation',
+            'Specific event' => 'Specific event',
+            'The conflict' => 'The conflict',
+            'Other' => 'Other'
+        ];
+    }
+
+    public function getGenderCodesAttribute()
+    {
+        return [
+            'Men' => 'Men',
+            'Women' => 'Women',
+            'Missing' => 'Missing'
+        ];
+    }
+
+    public function getSexviolenceCodesAttribute()
+    {
+        return [
+            'No sexual violence' => 'No sexual violence',
+            'Sexual violence' => 'Sexual violence'
+        ];
+    }
+
     public function getCreatedAtHumanAttribute()
     {
         $value = $this->created_at;

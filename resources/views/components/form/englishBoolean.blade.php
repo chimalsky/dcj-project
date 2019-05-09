@@ -5,28 +5,18 @@
 
     <div class="cell grid-x">
         <div class="cell auto">
-            @isset ($values[0])
-                {{ Form::radio($name, $values[0], $model->$name) }}
-                {{ Form::label($values[0]) }}
-            @else
-                {{ Form::radio($name, 'Yes', $model->$name) }}
-                {{ Form::label('Yes') }}
-            @endisset
+            {{ Form::radio($name, $values[0] ?? 'Yes', $model->$name, ['id' => "$name-0"]) }}
+            {{ Form::label("$name-0", 'Yes') }}
         </div>
 
         <div class="cell auto">
-            @isset ($values[1])
-                {{ Form::radio($name, $values[1], $model->$name) }}
-                {{ Form::label($values[1]) }}
-            @else
-                {{ Form::radio($name, "No", $model->$name) }}
-                {{ Form::label('No') }}
-            @endisset
+            {{ Form::radio($name, $values[1] ?? 'No', $model->$name, ['id' => "$name-1"]) }}
+            {{ Form::label("$name-1", 'No') }}
         </div>
 
         <div class="cell auto">
-            {{ Form::radio($name, "Null", $model->$name) }}
-            {{ Form::label('null') }}   
+            {{ Form::radio($name, "", $model->$name, ['id' => "$name-null"]) }}
+            {{ Form::label("$name-null", 'N/A') }}   
         </div>
     </div>
 </section>
