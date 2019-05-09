@@ -42,7 +42,7 @@ class JusticeController extends Controller
      */
     public function store(Request $request)
     {
-        $justiceableParams = $request->input('justiceable');
+        $justiceableParams = $request->input('justiceable') ?? [];
         $justiceParams = $request->except('justiceable');
 
         $justice = Justice::create($justiceParams);
