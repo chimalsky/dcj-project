@@ -5,7 +5,7 @@
         <div class="cell">
             @include('components.form.englishBoolean', [
                 'name' => 'implemented',
-                'label' => ucfirst($justice->type) . ' was Implemented?',
+                'label' => 'DCJ was Implemented?',
                 'model' => $justice
             ])
         </div>

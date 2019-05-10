@@ -256,6 +256,11 @@ class Justice extends Model
 
     public function getNameAttribute()
     {
-        return ucfirst($this->type) . " #$this->count ";
+        if ($this->type == 'truth') {
+            $value = 'Truth Commission';
+        } else {
+            $value = $this->type;
+        }
+        return ucfirst($value) . " #$this->count ";
     }
 }

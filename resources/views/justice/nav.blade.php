@@ -37,7 +37,7 @@
                 ] )
             }}"
             class="cell shrink">
-            Truth
+            Truth Commission
         </a>
     </li>
 

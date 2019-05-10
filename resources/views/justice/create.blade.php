@@ -27,14 +27,14 @@
                 <input type="hidden" name="conflict_id" value="{{ $conflict->id }}"/>
             </header>
 
-            <main class="grid-x grid-margin-x grid-padding-y cell medium-10 large-8">
+            <main class="grid-x grid-margin-x grid-padding-y cell medium-10">
                 @include('justice.form')
             </main>
 
             <footer class="cell grid-x grid-margin-x grid-margin-y grid-padding-y">
                 <div class="cell grid-x align-center">
                     <button class="button">
-                        Create this {{ ucfirst($justiceType) }} DCJ
+                        Create this DCJ
                     </button>
                 </div>
             </footer>

@@ -3,7 +3,7 @@
     <header class="card-divider grid-x align-justify">
         @unless ( isset($justiceType) )
             <p class="cell auto">
-                {{ ucfirst($justice->type) }} # {{ $justice->count }}
+                {{ $justice->name }}
             </p>
         @endunless
         

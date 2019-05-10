@@ -25,7 +25,7 @@
             @include('forms.errors')
         </header>
 
-        <main class="grid-x grid-margin-x grid-padding-y cell medium-10 large-8">
+        <main class="grid-x grid-margin-x grid-padding-y cell medium-10">
             @include('justice.form')
         </main>
 

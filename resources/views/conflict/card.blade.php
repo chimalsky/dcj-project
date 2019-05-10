@@ -42,10 +42,12 @@
             Total During Justice Conflicts: {{ $conflict->justices_count }}
         </p>
 
-        <a href="{{ route('justice.create', [
-                'conflict'=> $conflict->id
-            ] ) }}" class="button small hollow">
-            Add a new DCJ
-        </a>
+        @can ('create', 'App\Justice')
+            <a href="{{ route('justice.create', [
+                    'conflict'=> $conflict->id
+                ] ) }}" class="button small hollow">
+                Add a new DCJ
+            </a>
+        @endcan
     </footer>
 </article>

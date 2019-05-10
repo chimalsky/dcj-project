@@ -29,10 +29,12 @@
 </main>
 
 <aside class="grid-x grid-margin-x grid-margin-y">
-    <a href="{{ route('justice.create', ['conflict' => $conflict->id]) }}"
-        class="cell shrink button secondary">
-        Create a new DCJ
-    </a>
+    @can ('create', 'App\Justice')
+        <a href="{{ route('justice.create', ['conflict' => $conflict->id]) }}"
+            class="cell shrink button secondary">
+            Create a new DCJ
+        </a>
+    @endcan
     
     @include('justice.nav', ['active' => $justiceType])
 
