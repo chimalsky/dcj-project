@@ -22,7 +22,7 @@ class ImportCoding extends Migration
                     1 => 'Detainment',
                     2 => 'Arrest',
                     3 => 'Indictment',
-                    4 => 'Trial/ Hearing',
+                    4 => 'Trial/Hearing',
                     5 => 'Sentencing',
                     6 => 'Punishment/Release'
                 ]
@@ -31,9 +31,9 @@ class ImportCoding extends Migration
                 'group' => 'trial',
                 'name' => 'end_event',
                 'codes' => [
-                    1 => 'Trial/Hearing',
-                    2 => 'Sentencing',
-                    3 => 'Punishment/Release'
+                    1 => 'Trial',
+                    2 => 'Sentenced',
+                    3 => 'Punished/Released'
                 ]
             ],
 
@@ -61,19 +61,16 @@ class ImportCoding extends Migration
                 'group' => 'reparation',
                 'name' => 'start_event',
                 'codes' => [
-                    1 => 'Initiate',
+                    1 => 'Initiated',
                     2 => 'Establishment',
-                    3 => 'Functioning',
-                    4 => 'Ending',
-                    5 => 'Effectuate'
+                    3 => 'Functioning'
                 ]
             ],
             [
                 'group' => 'reparation',
                 'name' => 'end_event',
                 'codes' => [
-                    1 => 'Ending',
-                    2 => 'Effectuate'
+                    1 => 'Functioning',
                 ]
             ],
 
@@ -84,8 +81,7 @@ class ImportCoding extends Migration
                     1 => 'Promised',
                     2 => 'Initiated',
                     3 => 'Establishment',
-                    4 => 'Functioning',
-                    5 => 'Effectuate'
+                    4 => 'Functioning'
                 ]
             ],
             [
@@ -135,8 +131,12 @@ class ImportCoding extends Migration
             $coding = new Coding;
             $coding->group = $dcj['group'];
             $coding->name = $dcj['name'];
+            
+            
             $coding->codes = json_encode($dcj['codes']);
+            
             $coding->save();
+          
         });
     }
 

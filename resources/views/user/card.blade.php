@@ -1,4 +1,4 @@
-<article class="@isset($cssClass) {{ $cssClass }} @endisset">
+<article class="user card @isset($cssClass) {{ $cssClass }} @endisset">
     <h1>
         {{ $user->name }}
     </h1>

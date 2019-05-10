@@ -253,4 +253,9 @@ class Justice extends Model
 
         $this->attributes['conflict_id'] = $translation->new_id ?? null;
     }
+
+    public function getNameAttribute()
+    {
+        return ucfirst($this->type) . " #$this->count ";
+    }
 }

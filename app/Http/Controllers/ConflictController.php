@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Conflict;
 use Illuminate\Http\Request;
 use App\Imports\ConflictImport;
@@ -16,9 +17,13 @@ class ConflictController extends Controller
      */
     public function index()
     {   
+        $me = Auth::user();
+
+        $tasks = $me->tasks ?? null;
+
         $conflicts = Conflict::withCount('justices')->paginate(50);
 
-        return view('conflict.index', compact('conflicts'));
+        return view('conflict.index', compact('conflicts', 'tasks'));
     }
 
     /**

@@ -3,10 +3,7 @@
 @section('content')
 
 <header class="cell grid-x grid-padding-y">
-    @isset ($justice->type)
-        <strong class="cell">
-            Creating new {{ $justice->type }} DCJ
-        </strong>
+    @isset ($justice->type) 
     @else 
         <strong class="cell">
             Select type of DCJ
@@ -21,7 +18,7 @@
 </section>
 
 @isset ($justiceType)
-    {{ Form::open(['route' => 'justice.store']) }}
+    {{ Form::open(['route' => ['justice.store', $conflict] ]) }}
         <section class="grid-x grid-padding-y align-center">
             <header class="grid-x grid-margin-x cell text-center">
                 @include('forms.errors')

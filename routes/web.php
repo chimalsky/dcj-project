@@ -14,11 +14,16 @@
 Route::get('/', 'ConflictController@index')->name('home');
 
 Route::get('/conflict/import', 'ConflictController@import');
+
+Route::resource('/conflict-series', 'ConflictSeriesController');
+
 Route::resource('/conflict', 'ConflictController');
 
-Route::resource('/justice', 'JusticeController');
+Route::resource('/conflict/{conflict}/justice', 'JusticeController');
 
 Route::resource('/user', 'UserController');
+Route::resource('/task', 'TaskController');
+
 
 
 Auth::routes(['register' => false]);

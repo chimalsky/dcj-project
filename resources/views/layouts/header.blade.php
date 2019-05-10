@@ -1,37 +1,7 @@
-<section class="grid-x grid-margin-x align-middle grid-padding-y">
-    <nav class="cell auto grid-x grid-margin-x align-middle breadcrumbs">
-        <a href="{{ route('conflict.index') }}" class="cell shrink">
-            Conflict Episodes
-        </a>
-
-        @isset ($conflict)
-            <span class="cell shrink"> 
-                >
-            </span>
-
-            <a href="{{ route('conflict.show', $conflict) }}"
-                class="cell shrink">
-                {{ $conflict->year }} -- {{ $conflict->location }}
-            </a>
-        @endisset
-
-        @isset ($justice)
-            <span class="cell shrink"> 
-                >
-            </span>
-
-            @isset ($justice->id)
-                <a href="{{ route('justice.edit', $justice) }}"
-                    class="cell shrink">
-                    {{ ucfirst($justice->type) }} # {{ $justice->count }}
-                </a>
-            @else
-                <a class="cell shrink">
-                    Create DCJ
-                </a>
-            @endisset
-        @endisset
-    </nav>
+<section class="grid-x grid-margin-x align-middle grid-padding-y align-justify">
+    <a href="{{ route('home') }}" class="cell shrink">
+        The During Conflict Justice Project
+    </a>
 
     <aside class="cell shrink grid-x grid-margin-x">
         @guest
@@ -40,8 +10,12 @@
                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
             @endif
         @else
-            <a id="navbarDropdown" class="cell shrink nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            <p id="navbarDropdown" class="cell shrink nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 Hello, {{ Auth::user()->name }}
+            </p>
+
+            <a href="{{ route('task.index') }}" class="cell shrink">
+                My Tasks
             </a>
 
             @if (Auth::user()->role == 'admin')

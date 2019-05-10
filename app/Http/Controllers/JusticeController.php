@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class JusticeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Justice::class);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,10 +28,8 @@ class JusticeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Conflict $conflict, Request $request)
     {
-        $conflict = Conflict::findOrFail($request->input('conflict'));
-
         $justiceType = $request->input('justice_type') ?? null;
         $justice = new Justice;
         $justice->type = $justiceType;
@@ -40,7 +43,7 @@ class JusticeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Conflict $conflict, Request $request)
     {
         $justiceableParams = $request->input('justiceable') ?? [];
         $justiceParams = $request->except('justiceable');
@@ -75,10 +78,8 @@ class JusticeController extends Controller
      * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Justice $justice, Request $request)
+    public function edit(Conflict $conflict, Justice $justice, Request $request)
     {
-        $conflict = $justice->conflict;
-
         $type = $request->input('type');
         
         return view('justice.edit', compact('justice', 'conflict', 'type'));
@@ -91,7 +92,7 @@ class JusticeController extends Controller
      * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Justice $justice)
+    public function update(Conflict $conflict, Request $request, Justice $justice)
     {
         $justiceableParams = $request->input('justiceable') ?? [];
         $justiceParams = $request->except('justiceable');
@@ -101,7 +102,7 @@ class JusticeController extends Controller
 
         $justice->save();
 
-        return redirect()->route('justice.edit', $justice);
+        return redirect()->route('conflict.show', compact('conflict', 'justice'));
     }
 
     /**

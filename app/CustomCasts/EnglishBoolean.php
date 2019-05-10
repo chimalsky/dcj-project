@@ -21,6 +21,9 @@ class EnglishBoolean extends CustomCastBase
             case 'no':
                 return 0;
                 break;
+            case 'n/a':
+                return 2;
+                break;
             case '':
                 return null;
                 break;
@@ -37,6 +40,9 @@ class EnglishBoolean extends CustomCastBase
         }
         else if ($value === 0) {
             $value = 'no';
+        }
+        else if ($value === 2) {
+            $value = 'N/A';
         }
         else {
             return "null";

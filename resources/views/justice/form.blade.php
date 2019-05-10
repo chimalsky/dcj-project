@@ -83,21 +83,21 @@
             'name' => 'justiceable[domestic]',
             'label' => 'Location domestic?',
             'model' => $justice,
-            'values' => ['Non-domestic', 'Domestic']
+            'labels' => ['Non-domestic', 'Domestic']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[international]',
             'label' => 'International Involvement?',
             'model' => $justice,
-            'values' => ['Non-international', 'International']
+            'labels' => ['Non-international', 'International']
         ])
 
         {{ Form::select('justiceable[venue]', [
-                'Domestic law court',
-                'Military court',
-                'International court',
-                'Ad hoc conflict-specific court'
+                'Domestic law court' => 'Domestic law court',
+                'Military court' => 'Military court',
+                'International court' => 'International court',
+                'Ad hoc conflict-specific court' => 'Ad hoc conflict-specific court'
             ],
             null,
             ['placeholder' => 'Select a Trial venue']
@@ -108,21 +108,21 @@
             'name' => 'justiceable[absentia]',
             'label' => 'Absentia?',
             'model' => $justice,
-            'values' => ['Non-absentia', 'Is absentia']
+            'labels' => ['Non-absentia', 'Is absentia']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[executed]',
-            'label' => 'Absentia?',
+            'label' => 'Executed?',
             'model' => $justice,
-            'values' => ['No execution', 'Execution']
+            'labels' => ['No execution', 'Execution']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[breach]',
             'label' => 'Breached?',
             'model' => $justice,
-            'values' => ['Non-breach', 'Breach']
+            'labels' => ['Non-breach', 'Breach']
         ])
     @endif
 
@@ -131,21 +131,21 @@
             'name' => 'justiceable[report]',
             'label' => 'Report Released?',
             'model' => $justice,
-            'values' => ['No release', 'Release']
+            'labels' => ['No release', 'Release']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[breach]',
             'label' => 'Breach of Justice?',
             'model' => $justice,
-            'values' => ['Non-breach', 'Breach']
+            'labels' => ['Non-breach', 'Breach']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[international]',
             'label' => 'International Involvement?',
             'model' => $justice,
-            'values' => ['Non-international', 'International']
+            'labels' => ['Non-international', 'International']
         ])
     @endif
 
@@ -154,28 +154,28 @@
             'name' => 'justiceable[property]',
             'label' => 'Property?',
             'model' => $justice,
-            'values' => ['Non-property', 'Property']
+            'labels' => ['Non-property', 'Property']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[money]',
             'label' => 'Money?',
             'model' => $justice,
-            'values' => ['Non-monetary', 'Monetary']
+            'labels' => ['Non-monetary', 'Monetary']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[training_education]',
             'label' => 'Training/Education',
             'model' => $justice,
-            'values' => ['No skills/education', 'Skills/education']
+            'labels' => ['No skills/education', 'Skills/education']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[community]',
             'label' => 'Community',
             'model' => $justice,
-            'values' => ['Non-community', 'Community']
+            'labels' => ['Non-community', 'Community']
         ])
     @endif
 
@@ -184,14 +184,14 @@
             'name' => 'justiceable[limited]',
             'label' => 'Limited?',
             'model' => $justice,
-            'values' => ['Not limited', 'Limited']
+            'labels' => ['Not limited', 'Limited']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[unconditional]',
             'label' => 'Amnesty conditions were:',
             'model' => $justice,
-            'values' => ['Not unconditional', 'Unconditional']
+            'labels' => ['Not unconditional', 'Unconditional']
         ])
     @endif
 
@@ -200,28 +200,28 @@
             'name' => 'justiceable[permanent]',
             'label' => 'Permanent?',
             'model' => $justice,
-            'values' => ['Non-permanent', 'Permanent']
+            'labels' => ['Non-permanent', 'Permanent']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[military]',
             'label' => 'Military?',
             'model' => $justice,
-            'values' => ['Non-military', 'Military']
+            'labels' => ['Non-military', 'Military']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[judiciary]',
             'label' => 'Judiciary?',
             'model' => $justice,
-            'values' => ['Non-judiciary', 'Judiciary']
+            'labels' => ['Non-judiciary', 'Judiciary']
         ])
 
         @include('components.form.englishBoolean', [
             'name' => 'justiceable[civil_service]',
             'label' => 'Civil Service?',
             'model' => $justice,
-            'values' => ['Not civil service', 'Civil service']
+            'labels' => ['Not civil service', 'Civil service']
         ])
     @endif
     
@@ -230,7 +230,7 @@
             'name' => 'justiceable[permanent]',
             'label' => 'Permanent?',
             'model' => $justice,
-            'values' => ['Non-permanent', 'permanent']
+            'labels' => ['Non-permanent', 'permanent']
         ])
     @endif
 

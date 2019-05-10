@@ -29,6 +29,16 @@ article.card .year {
   font-weight: 700;
 }
 article.card {
+  h1 {
+    font-size: $font-size-base;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: $font-size-base * .8;
+    font-weight: 700;
+    font-color: $secondary-color;
+  }
+
   main {
     font-size: $font-size-base;
   }
@@ -38,6 +48,10 @@ article.card {
   footer {
     font-size: $font-size-base * .9;
   }
+}
+
+article.user.card {
+  border: none;
 }
 
 .breadcrumbs {
@@ -51,12 +65,16 @@ article.card {
   }
 }
 
+header.web {
+  font-size: $font-size-base;
+}
+
 .web {
   h1 {
     font-size: 1.2rem;
   }
   h2 {
-    font-size: 1rem;
+    font-size: $font-size-base;
     font-weight: 700;
   }
 }

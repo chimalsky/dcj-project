@@ -390,6 +390,17 @@ article.card .year {
   font-weight: 700;
 }
 
+article.card h1 {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+article.card h2 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-color: #888;
+}
+
 article.card main {
   font-size: 0.9rem;
 }
@@ -402,6 +413,10 @@ article.card footer {
   font-size: 0.81rem;
 }
 
+article.user.card {
+  border: none;
+}
+
 .breadcrumbs *:last-child {
   font-weight: 700;
   cursor: default;
@@ -412,12 +427,16 @@ article.card footer {
   text-decoration: none;
 }
 
+header.web {
+  font-size: 0.9rem;
+}
+
 .web h1 {
   font-size: 1.2rem;
 }
 
 .web h2 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 

@@ -19,6 +19,12 @@
             <section class="web-layouts grid-container">
                 @include('layouts.header')
             </section>
+
+            <section class="grid-container grid-x">
+                <nav class="cell grid-x grid-margin-x align-center align-middle breadcrumbs">
+                    {{ Breadcrumbs::render() }}
+                </nav>
+            </section>
             
             @yield('header')
         </header>
@@ -30,7 +36,7 @@
                 </aside>
             @endisset
 
-            <section class="cell" id="content">
+            <section class="cell callout" id="content">
                 @yield('content')
             </main>
         </main>

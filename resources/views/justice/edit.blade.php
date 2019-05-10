@@ -6,7 +6,7 @@
 
 </header>
 
-{{ Form::model($justice, ['route' => ['justice.update', $justice->id], 'method' => 'put']) }}
+{{ Form::model($justice, ['route' => ['justice.update', $conflict->id, $justice->id], 'method' => 'put']) }}
 
     <section class="grid-x grid-padding-y align-center">
         <header class="grid-x grid-margin-x cell text-center">

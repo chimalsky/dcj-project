@@ -3,6 +3,7 @@
 namespace App;
 
 use Hash;
+use App\Task;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,6 +38,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function conflicts()
+    {
+        return $this->hasManyThrough(Conflict::class, Task::class, 'user_id', 'conflict_ucdp_id');
+    }
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);

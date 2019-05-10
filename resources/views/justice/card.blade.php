@@ -1,5 +1,5 @@
 <article class="card @isset($cssClass) {{ $cssClass }} @endisset">
-  <a href="{{ route('justice.edit', $justice->id) }}">
+  <a href="{{ route('justice.edit', ['conflict' => $justice->conflict, 'justice' => $justice]) }}">
     <header class="card-divider grid-x align-justify">
         @unless ( isset($justiceType) )
             <p class="cell auto">

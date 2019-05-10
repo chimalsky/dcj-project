@@ -1,5 +1,7 @@
 <?php
 
+use App\Conflict;
+use App\ConflictSeries;
 use App\Imports\ConflictImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
@@ -16,11 +18,19 @@ class ImportUcpdArmedConflictDataset181 extends Migration
      */
     public function up()
     {
+        Schema::create('conflict_series', function (Blueprint $table) {
+            $table->unsignedInteger('id');
+        });
+
         $tableName = config('ucdp.table_names.conflicts');
         
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('conflict_id');
+            $table->unsignedInteger('conflict_id')
+                ->references('id')
+                ->on('conflict_series')
+                ->onDelete('cascade');
+
             $table->unsignedInteger('old_conflict_id')->nullable();
 
             $table->unsignedTinyInteger('type')->nullable();
@@ -66,6 +76,12 @@ class ImportUcpdArmedConflictDataset181 extends Migration
         Excel::import(new TranslateConflictImport, 'public/translate_conf.xlsx');
         Excel::import(new ConflictImport, 'public/ucdp-prio-acd-181.xlsx');
 
+        $conflicts = Conflict::all();
+        $conflicts->each(function($episode) {
+            ConflictSeries::firstOrCreate([
+                'id' => $episode->conflict_id
+            ]);
+        });
     }
 
     /**

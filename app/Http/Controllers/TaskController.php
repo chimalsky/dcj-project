@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Amnesty;
+use Auth;
+use App\Task;
 use Illuminate\Http\Request;
 
-class AmnestyController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,10 @@ class AmnestyController extends Controller
      */
     public function index()
     {
-        //
+        $me = Auth::user();
+        $tasks = $me->tasks;
+
+        return view('task.index', compact('tasks'));
     }
 
     /**
@@ -24,7 +28,7 @@ class AmnestyController extends Controller
      */
     public function create()
     {
-        return view('justice.create');
+        return view('task.create');
     }
 
     /**
@@ -41,10 +45,10 @@ class AmnestyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Amnesty  $amnesty
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Amnesty $amnesty)
+    public function show(Task $task)
     {
         //
     }
@@ -52,10 +56,10 @@ class AmnestyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Amnesty  $amnesty
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Amnesty $amnesty)
+    public function edit(Task $task)
     {
         //
     }
@@ -64,10 +68,10 @@ class AmnestyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Amnesty  $amnesty
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Amnesty $amnesty)
+    public function update(Request $request, Task $task)
     {
         //
     }
@@ -75,10 +79,10 @@ class AmnestyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Amnesty  $amnesty
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Amnesty $amnesty)
+    public function destroy(Task $task)
     {
         //
     }
