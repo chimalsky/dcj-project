@@ -5,13 +5,14 @@
 
     <div class="cell grid-x">
         <div class="cell auto">
+            
             {{ Form::radio($name, $values[0] ?? 'Yes', $model->$name, ['id' => "$name-0"]) }}
-            {{ Form::label("$name-0", 'Yes') }}
+            {{ Form::label("$name-0", $values[0] ?? 'Yes') }}
         </div>
 
         <div class="cell auto">
             {{ Form::radio($name, $values[1] ?? 'No', $model->$name, ['id' => "$name-1"]) }}
-            {{ Form::label("$name-1", 'No') }}
+            {{ Form::label("$name-1", $values[1] ?? 'No') }}
         </div>
 
         <div class="cell auto">

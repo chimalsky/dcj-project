@@ -1,18 +1,40 @@
 <section class="grid-x cell align-top">
     @include('justice.episode.form')
 
-    <section class="grid-x cell large-6">
-        @include('components.form.englishBoolean', [
-            'name' => 'implemented',
-            'label' => $justice->type . ' was Implemented?',
-            'model' => $justice
-        ])
+    <section class="grid-x grid-margin-y cell large-6">
+        <div class="cell">
+            @include('components.form.englishBoolean', [
+                'name' => 'implemented',
+                'label' => ucfirst($justice->type) . ' was Implemented?',
+                'model' => $justice
+            ])
+        </div>
+
+        <div class="cell">
+            @include('components.form.englishBoolean', [
+                'name' => 'peace_initiated',
+                'label' => 'Initiated by Peace Agreement?',
+                'model' => $justice
+            ])
+        </div>
     </section>
 </section>
 
-<section class="grid-x grid-margin-x cell callout">
-    {{ Form::label('target') }}
-    {{ Form::select('target', $justice->targetCodes) }}
+<section class="grid-x grid-margin-x grid-margin-y cell callout">
+    <div class="cell">
+        {{ Form::label('target') }}
+        {{ Form::select('target', $justice->targetCodes) }}
+    </div>
+    <div class="cell auto">
+        {{ Form::label('scope') }}
+        {{ Form::select('scope', $justice->scopeCodes, $justice->scope, ['placeholder' => '---']) }}
+    </div> 
+
+    <div class="cell auto">
+        {{ Form::label('scope count') }}
+        {{ Form::number('scope_count') }} 
+    </div>
+    
 
     <div class="cell grid-x grid-margin-y">
         @include('components.form.englishBoolean', [
@@ -32,26 +54,12 @@
             'label' => 'Was Elite?',
             'model' => $justice
         ])  
-    </div>
-
-    {{ Form::label('scope') }}
-    {{ Form::select('scope', $justice->scopeCodes, $justice->scope, ['placeholder' => '---']) }}
-
-    {{ Form::label('scope count') }}
-    {{ Form::number('scope_count') }} 
+    </div> 
 </section>
 
 <section class="grid-x grid-margin-x cell callout">
     {{ Form::label('sender') }}
     {{ Form::select('sender', $justice->senderCodes) }}
-</section>
-
-<section class="grid-x grid-margin-x cell">
-    @include('components.form.englishBoolean', [
-        'name' => 'peace_initiated',
-        'label' => 'Initiated by Peace Agreement?',
-        'model' => $justice
-    ])
 </section>
 
 <section class="grid-x grid-margin-x grid-margin-y cell">
