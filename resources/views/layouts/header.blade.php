@@ -33,16 +33,22 @@
         @endisset
     </nav>
 
-    <aside class="cell shrink">
+    <aside class="cell shrink grid-x grid-margin-x">
         @guest
             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
             @if (Route::has('register'))
                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
             @endif
         @else
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }}
+            <a id="navbarDropdown" class="cell shrink nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                Hello, {{ Auth::user()->name }}
             </a>
+
+            @if (Auth::user()->role == 'admin')
+                <a href="{{ route('user.index') }}" class="cell shrink">
+                    Manage Users
+                </a>
+            @endif
 
             <div class="hide dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('logout') }}"

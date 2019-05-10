@@ -416,6 +416,11 @@ article.card footer {
   font-size: 1.2rem;
 }
 
+.web h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 /*
   Hide radio button (the round disc)
   we will use just the label to create pushbutton effect

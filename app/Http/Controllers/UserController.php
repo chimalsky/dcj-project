@@ -14,9 +14,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $admins = User::where('role', 'admin')->get();
+        $coders = User::where('role', 'coder')->get();
 
-        return view('user.index', compact('users'));
+        return view('user.index', compact('admins', 'coders'));
     }
 
     /**
@@ -71,7 +72,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if (!$request->input('role')) {
+            return redirect()->route('user.index');
+        }
+
+        $user->update($request->all());
+        return redirect()->route('user.index');
     }
 
     /**
