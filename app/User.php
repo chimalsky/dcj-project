@@ -49,8 +49,4 @@ class User extends Authenticatable
         return $this->hasManyThrough(Conflict::class, Task::class, 'user_id', 'conflict_ucdp_id');
     }
 
-    public function setPasswordAttribute($value) 
-    {   
-        $this->attributes['password'] = Hash::make(str_random(16));
-    }
 }
