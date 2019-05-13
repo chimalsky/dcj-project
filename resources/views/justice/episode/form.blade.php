@@ -11,7 +11,8 @@
             }}
         </div>
 
-        <div class="cell medium-shrink">
+        <div data-action="click->form#dateClick"
+            class="cell medium-shrink">
             {{ Form::label('start date') }}
             {{ Form::date('start') }}
         </div>
@@ -37,7 +38,8 @@
             }}
         </div>
 
-        <div class="cell medium-shrink">
+        <div data-action="click->form#dateClick"
+            class="cell medium-shrink">
             {{ Form::label('end date') }}
             {{ Form::date('end') }}
         </div>

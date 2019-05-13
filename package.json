@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.3.4",
+        "@github/auto-complete-element": "^1.0.1",
         "axios": "^0.18",
         "cross-env": "^5.1",
         "css-loader": "^2.1.1",

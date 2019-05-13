@@ -14,7 +14,9 @@ class ConflictSeriesController extends Controller
      */
     public function index()
     {
-        
+        $conflictSeries = ConflictSeries::paginate(75);
+
+        return view('conflict-series.index', compact('conflictSeries'));
     }
 
     /**
@@ -44,9 +46,13 @@ class ConflictSeriesController extends Controller
      * @param  \App\ConflictSeries  $conflictSeries
      * @return \Illuminate\Http\Response
      */
-    public function show(ConflictSeries $conflictSeries)
+    public function show(ConflictSeries $conflictSeries, Request $request)
     {
-        return view('conflict-series.show', compact('conflictSeries'));
+        $conflictSeries->withCount(['justices']);
+
+        $taskWorkflow = $request->query('task') ?? false;
+
+        return view('conflict-series.show', compact('conflictSeries', 'taskWorkflow'));
     }
 
     /**

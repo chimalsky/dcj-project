@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use URL;
 use Auth;
+use Route;
 use App\Conflict;
 use Illuminate\Http\Request;
 use App\Imports\ConflictImport;
@@ -15,15 +17,22 @@ class ConflictController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
         $me = Auth::user();
-
         $tasks = $me->tasks ?? null;
 
-        $conflicts = Conflict::withCount('justices')->paginate(50);
+        if ($query = $request->query('query')) {
+            $conflicts = Conflict::where('side_a', 'like', "%$query%")
+            ->orWhere('side_b', 'like', "%$query%")
+            ->orWhere('territory', 'like', "%$query%")
+            ->orWhere('location', 'like', "%$query%")
+            ->paginate(50);
+        } else {
+            $conflicts = Conflict::withCount('justices')->paginate(50);
+        }
 
-        return view('conflict.index', compact('conflicts', 'tasks'));
+        return view('conflict.index', compact('conflicts', 'tasks', 'query'));
     }
 
     /**

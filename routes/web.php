@@ -15,14 +15,15 @@ Route::get('/', 'ConflictController@index')->name('home');
 
 Route::get('/conflict/import', 'ConflictController@import');
 
+Route::get('/conflict-series/search', 'ConflictSeriesSearchController@index')->name('conflict-series.search');
 Route::resource('/conflict-series', 'ConflictSeriesController');
 
 Route::resource('/conflict', 'ConflictController');
 
 Route::resource('/conflict/{conflict}/justice', 'JusticeController');
 
-Route::resource('/user', 'UserController');
-Route::resource('/task', 'TaskController');
+Route::resource('/user', 'UserController')->middleware('auth');
+Route::resource('/task', 'TaskController')->middleware('auth');
 
 
 

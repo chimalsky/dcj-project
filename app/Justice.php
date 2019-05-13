@@ -33,21 +33,9 @@ class Justice extends Model
         'rank_and_file' => EnglishBoolean::class,
         'elite' => EnglishBoolean::class,
 
-        //'sender' => Enum::class,
-        //'scope' => Enum::class,
-
         'peace_initiated' => EnglishBoolean::class,
 
-        //'start_code' => Enum::class,
-        //'start_precision' => Enum::class,
-
-        //'end_code' => Enum::class,
-        //'end_precision' => Enum::class,
-
-
-        'implemented' => EnglishBoolean::class,
-        //'target' => Enum::class
-        
+        'implemented' => EnglishBoolean::class        
     ];
 
     /**

@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class)->latest();
     }
 
     public function conflicts()
@@ -49,7 +49,8 @@ class User extends Authenticatable
         return $this->hasManyThrough(Conflict::class, Task::class, 'user_id', 'conflict_ucdp_id');
     }
 
-    public function setPasswordAttribute($value) {
+    public function setPasswordAttribute($value) 
+    {   
         $this->attributes['password'] = Hash::make($value);
     }
 }

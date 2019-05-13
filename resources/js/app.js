@@ -10,6 +10,8 @@ import trix from 'trix'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 
+import '@github/auto-complete-element'
+
 /**
  * On initial page load
  */

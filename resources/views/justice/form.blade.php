@@ -1,4 +1,6 @@
-<section class="grid-x cell align-top">
+<section data-controller="form"
+    data-form-conflict-year="{{ $conflict->year }}"
+    class="grid-x cell align-top">
     @include('justice.episode.form')
 
     <section class="grid-x grid-margin-y cell large-6">

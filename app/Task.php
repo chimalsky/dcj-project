@@ -31,16 +31,4 @@ class Task extends Model
     {
         return $this->belongsTo(ConflictSeries::class, 'conflict_ucdp_id');
     }
-
-    public function justices()
-    {
-        return $this->hasManyThrough(
-            Justice::class,
-            Conflict::class,
-            'conflict_id',
-            'conflict_id',  
-            'conflict_ucdp_id',
-            'conflict_id'
-        );
-    }
 }

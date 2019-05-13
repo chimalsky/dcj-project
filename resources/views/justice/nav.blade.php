@@ -1,12 +1,12 @@
-<ul class="cell menu text-center 
-    align-center grid-x grid-margin-x callout">
+<ul class="cell menu grid-x grid-margin-x align-center text-center">
 
     @unless ( isset($hideAllOption) )
         <li class="@unless ($justiceType) is-active @endunless">
             <a href="{{ route(
                 route::currentRouteName(), 
                 [
-                    'conflict' => $conflict->id
+                    'conflict' => $conflict->id,
+                    'task' => isTaskWorkflow() ?? false
                 ] )
             }}"
                 class="cell is-active shrink">
@@ -20,7 +20,8 @@
                 route::currentRouteName(), 
                 [
                     'conflict' => $conflict->id,
-                    'justice_type' => 'trial'
+                    'justice_type' => 'trial',
+                    'task' => isTaskWorkflow() ?? false
                 ] )
             }}"
             class="cell shrink">
@@ -33,7 +34,8 @@
                 route::currentRouteName(), 
                 [
                     'conflict' => $conflict->id,
-                    'justice_type' => 'truth'
+                    'justice_type' => 'truth',
+                    'task' => isTaskWorkflow() ?? false
                 ] )
             }}"
             class="cell shrink">
@@ -46,7 +48,8 @@
                 route::currentRouteName(), 
                 [
                     'conflict' => $conflict->id,
-                    'justice_type' => 'reparation'
+                    'justice_type' => 'reparation',
+                    'task' => isTaskWorkflow() ?? false
                 ] )
             }}"class="cell shrink">
             Reparation
@@ -58,7 +61,8 @@
                 route::currentRouteName(), 
                 [
                     'conflict' => $conflict->id,
-                    'justice_type' => 'amnesty'
+                    'justice_type' => 'amnesty',
+                    'task' => isTaskWorkflow() ?? false
                 ] )
             }}"
             class="cell shrink">
@@ -71,7 +75,8 @@
                 route::currentRouteName(), 
                 [
                     'conflict' => $conflict->id,
-                    'justice_type' => 'purge'
+                    'justice_type' => 'purge',
+                    'task' => isTaskWorkflow() ?? false
                 ] )
             }}"class="cell shrink">
             Purge
@@ -83,7 +88,8 @@
                 route::currentRouteName(), 
                 [
                     'conflict' => $conflict->id,
-                    'justice_type' => 'exile'
+                    'justice_type' => 'exile',
+                    'task' => isTaskWorkflow() ?? false
                 ] )
             }}"
             class="cell shrink">

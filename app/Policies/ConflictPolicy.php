@@ -80,4 +80,22 @@ class ConflictPolicy
     {
         //
     }
+
+    /**
+     * Determine whether user can attach a justice to conflict
+     */
+
+    public function attachJustice(User $user, Conflict $conflict)
+    {
+        if ($user->role == 'admin') {
+            return true;
+        }
+
+        $conflictSeries = $conflict->series;
+        
+        $ucdpIds = $user->tasks->pluck('conflict_ucdp_id');
+        $tasked = $ucdpIds->contains($conflictSeries->id);
+
+        return $tasked;
+    }
 }

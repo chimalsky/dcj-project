@@ -2,12 +2,21 @@
 
 namespace App;
 
+use DB;
+use App\User;
 use App\Justice;
 use App\Conflict;
 use Illuminate\Database\Eloquent\Model;
 
 class ConflictSeries extends Model
 {
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['episodes'];
+
     protected $fillable = [
         'id'
     ];
@@ -21,8 +30,15 @@ class ConflictSeries extends Model
     
     public function justices()
     {
-        return $this->hasManyThrough(Justice::class, Conflict::class);
-    }
+        return $this->hasManyThrough(
+            Justice::class, 
+            Conflict::class,    
+            'conflict_id',
+            'conflict_id',
+            'id',
+            'id'
+        );
+    }   
 
     public function getNameAttribute()
     {

@@ -23,7 +23,7 @@ class Conflict extends Model
 
     public function series()
     {
-        return $this->belongsTo(ConflictSeries::class);
+        return $this->belongsTo(ConflictSeries::class, 'conflict_id');
     }
 
     public function justices()

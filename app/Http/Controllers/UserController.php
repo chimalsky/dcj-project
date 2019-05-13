@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(User::class);
     }
 
     /**
@@ -32,7 +34,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -43,7 +45,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->all();
+        $params['password'] = 'password'; //Hash::make(str_random(14));
+
+        $user = User::create($params);
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -91,8 +98,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user, Request $request)
     {
-        //
+        return "HI";
+        dd($request);
+        $user->delete();    
     }
 }

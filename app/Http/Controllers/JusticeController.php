@@ -46,8 +46,8 @@ class JusticeController extends Controller
     public function store(Conflict $conflict, Request $request)
     {
         $justiceableParams = $request->input('justiceable') ?? [];
-        $justiceParams = $request->except('justiceable');
-
+        $justiceParams = $request->except(['justiceable', 'task']);
+        $task = $request->input('task');
         $justice = Justice::create($justiceParams);
 
         $type = ucfirst($justice->type);
@@ -58,7 +58,8 @@ class JusticeController extends Controller
         $justiceable->save();
 
         $justiceable->justice()->save($justice);
-        return redirect()->route('conflict.show', $justice->conflict);
+
+        return redirect()->route('conflict.show', ['conflict' => $justice->conflict, 'task' => $task]);
     }
 
     /**
@@ -95,14 +96,16 @@ class JusticeController extends Controller
     public function update(Conflict $conflict, Request $request, Justice $justice)
     {
         $justiceableParams = $request->input('justiceable') ?? [];
-        $justiceParams = $request->except('justiceable');
+        $justiceParams = $request->except(['justiceable', 'task']);
+
+        $task = $request->input('task');
 
         $justice->update($justiceParams);
         $justice->justiceable()->update($justiceableParams);
 
         $justice->save();
 
-        return redirect()->route('conflict.show', compact('conflict', 'justice'));
+        return redirect()->route('conflict.show', compact('conflict', 'justice', 'task'));
     }
 
     /**

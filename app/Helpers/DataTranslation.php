@@ -10,3 +10,8 @@ function translate_englishBoolean($value)
 
     return $value == 'yes' ? true : false;
 }
+
+function isTaskWorkflow()
+{
+    return request()->query('task') ?? false;
+}

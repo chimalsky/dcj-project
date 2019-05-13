@@ -1,5 +1,8 @@
 <article class="card @isset($cssClass) {{ $cssClass }} @endisset">
-  <a href="{{ route('conflict.show', $conflict) }}">
+  <a href="{{ route('conflict.show', [
+        'conflict' => $conflict->id,
+        'task' => isTaskWorkflow() ?? false
+    ]) }}">
     <header class="card-divider grid-x align-justify">
         <h1 class="cell">
             <span class="year"> 
@@ -39,12 +42,13 @@
 
     <footer class="card-divider grid-x">
         <p class="cell">
-            Total During Justice Conflicts: {{ $conflict->justices_count }}
+            Total During Justice Conflicts: {{ $conflict->justices_count ?? count($conflict->justices) }}
         </p>
 
-        @can ('create', 'App\Justice')
+        @can ('attachJustice', $conflict)
             <a href="{{ route('justice.create', [
-                    'conflict'=> $conflict->id
+                    'conflict'=> $conflict->id,
+                    'task' => isTaskWorkflow() ?? false
                 ] ) }}" class="button small hollow">
                 Add a new DCJ
             </a>

@@ -5,18 +5,25 @@
 
     <aside class="cell shrink grid-x grid-margin-x">
         @guest
-            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            <a data-turbolinks="false" class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
             @if (Route::has('register'))
                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
             @endif
         @else
-            <p id="navbarDropdown" class="cell shrink nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
+            <p class="cell shrink">
                 Hello, {{ Auth::user()->name }}
             </p>
 
+            @can('create', 'App\Task')
+            <a href="{{ route('task.index') }}" class="cell shrink">
+                Tasks
+            </a>
+            @else 
             <a href="{{ route('task.index') }}" class="cell shrink">
                 My Tasks
             </a>
+            @endcan
 
             @if (Auth::user()->role == 'admin')
                 <a href="{{ route('user.index') }}" class="cell shrink">
@@ -24,17 +31,16 @@
                 </a>
             @endif
 
-            <div class="hide dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
+            <a data-turbolinks="false"
+                class="cell shrink" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                {{ __('Logout') }} 
+            </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         @endguest
     </aside>
 </section>

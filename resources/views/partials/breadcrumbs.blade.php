@@ -1,5 +1,5 @@
 @if (count($breadcrumbs))
-<nav class="breadcrumb grid-x grid-margin-x grid-padding-y align-middle">
+<nav class="breadcrumb grid-x grid-margin-x grid-padding-y align-middle align-center">
     @foreach ($breadcrumbs as $breadcrumb)
 
         @if ($breadcrumb->url && !$loop->last)
@@ -7,17 +7,17 @@
                 {{ $breadcrumb->title }}
             </a>
         @else
-            @unless($loop->first)
+            @unless($loop->first || $loop->last)
                 <span class="cell shrink">
                     >
                 </span>
             @endunless
+        @endif
 
-            <span class="breadcrumb-item active cell shrink">
-                <strong>
-                    {{ $breadcrumb->title }}
-                </strong>
-            </span>
+        @if ($loop->last)
+            <h1 class="breadcrumb-item active cell text-center">
+                {{ $breadcrumb->title }}
+            </h1>
         @endif
 
     @endforeach

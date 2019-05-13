@@ -23,6 +23,7 @@
             <header class="grid-x grid-margin-x cell text-center">
                 @include('forms.errors')
 
+                <input type="hidden" name="task" value ="{{ isTaskWorkflow() }}" />
                 <input type="hidden" name="type" value="{{ $justiceType }}" />
                 <input type="hidden" name="conflict_id" value="{{ $conflict->id }}"/>
             </header>

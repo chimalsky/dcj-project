@@ -2,7 +2,17 @@
 
 @section('content')
 
-<main class="grid-x grid-margin-x">
+<main class="grid-x grid-margin-x grid-margin-y">
+    
+@can ('attachJustice', $conflict)
+<section class="cell grid-x align-right">
+    <a href="{{ route('justice.create', ['conflict' => $conflict->id, 'task' => isTaskWorkflow() ?? false ]) }}"
+        class="cell shrink button hollow align-right">
+        Create a new DCJ
+    </a>
+</section>
+@endcan
+
 <section class="cell medium-9 large-7">
     @include('conflict.title')
 
@@ -29,14 +39,11 @@
 </main>
 
 <aside class="grid-x grid-margin-x grid-margin-y">
-    @can ('create', 'App\Justice')
-        <a href="{{ route('justice.create', ['conflict' => $conflict->id]) }}"
-            class="cell shrink button secondary">
-            Create a new DCJ
-        </a>
-    @endcan
-    
-    @include('justice.nav', ['active' => $justiceType])
+    <section class="cell grid-x grid-margin-y align-center">
+        <div class="cell grid-x medium-10 large-8 text-center">
+            @include('justice.nav', ['active' => $justiceType])
+        </div>
+    </section>
 
     @if ($justices->count())
         @foreach ($justices as $j)

@@ -2,7 +2,29 @@
 
 // Home
 Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Home', route('home'));
+    $trail->push('Conflict Episodes', route('home'));
+});
+
+
+Breadcrumbs::for('conflict-series.index', function ($trail) {
+    
+    if (isTaskWorkflow()) {
+        $trail->parent('task.index');
+    } else {
+    }
+
+    $trail->push("Conflict Series", route('conflict-series.index'));
+});
+
+Breadcrumbs::for('conflict-series.show', function ($trail, $conflictSeries) {
+    
+    if (isTaskWorkflow()) {
+        $trail->parent('task.index');
+    } else {
+        $trail->parent('home');
+    }
+
+    $trail->push($conflictSeries->name, route('conflict-series.show', $conflictSeries));
 });
 
 Breadcrumbs::for('conflict.index', function ($trail) {
@@ -10,9 +32,15 @@ Breadcrumbs::for('conflict.index', function ($trail) {
 });
 
 Breadcrumbs::for('conflict.show', function ($trail, $conflict) {
-    $trail->parent('conflict.index');
+    if  (isTaskWorkflow()) {
+        //d($conflict, $conflict->series);
+        $trail->parent('task.index');
 
-    $trail->push("$conflict->name", route('conflict.show', $conflict));
+        $trail->push($conflict->name, route('conflict.show', ['conflict' => $conflict, 'task' => isTaskWorkflow()]));
+    } else {
+        $trail->parent('conflict.index');
+        $trail->push($conflict->name, route('conflict.show', $conflict));
+    }
 });
 
 Breadcrumbs::for('justice.create', function ($trail, $conflict) {
@@ -28,12 +56,23 @@ Breadcrumbs::for('justice.edit', function ($trail, $conflict, $justice) {
 });
 
 Breadcrumbs::for('user.index', function ($trail) {
-    $trail->push('People', route('user.index'));
+    $trail->push('The DCJ Team', route('user.index'));
+});
+
+Breadcrumbs::for('user.create', function ($trail) {
+    $trail->parent('user.index');
+    $trail->push('Add Team Member', route('user.create'));
 });
 
 
 Breadcrumbs::for('task.index', function ($trail) {
-    $trail->push('Assignments', route("task.index"));
+    if (Auth::user()->can('create', 'App\Task')) {
+        $title = 'Tasks';
+    } else {
+        $title = 'My Tasks';
+    }
+
+    $trail->push($title, route("task.index"));
 });
 Breadcrumbs::for('task.create', function ($trail) {
     $trail->push('Assign Tasks', route('task.create'));

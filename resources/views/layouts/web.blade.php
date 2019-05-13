@@ -29,10 +29,22 @@
             @yield('header')
         </header>
 
-        <main class="web grid-container grid-x">
+        <main class="web grid-container grid-x grid-margin-y">
             @isset ($query)
-                <aside class="cell callout">
-                    Results for <strong>{{ $query }}</strong>
+                <aside class="cell grid-x">
+                    <p class="cell medium-auto">
+                        Results for <strong>{{ $query }}</strong>
+                    </p>
+
+                    <form action="{{ route('conflict.index') }}"
+                        class="cell medium-shrink grid-x grid-margin-x align-middle">
+                        
+                        <input type="text" name="query" placeholder="UCDP Conflict Episodes" 
+                            class="cell auto" />
+                        <button class="button hollow cell shrink">
+                            Search 
+                        </button>
+                    </form>
                 </aside>
             @endisset
 

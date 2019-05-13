@@ -86,6 +86,459 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@github/auto-complete-element/dist/index.esm.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@github/auto-complete-element/dist/index.esm.js ***!
+  \**********************************************************************/
+/*! exports provided: default, AutocompleteEvent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutocompleteEvent", function() { return AutocompleteEvent; });
+class AutocompleteEvent extends CustomEvent {
+  constructor(type, init) {
+    super(type, init);
+    this.relatedTarget = init.relatedTarget;
+  }
+
+}
+
+function debounce(callback, wait) {
+  let timeout;
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      clearTimeout(timeout);
+      callback(...args);
+    }, wait);
+  };
+}
+
+const requests = new WeakMap();
+function fragment(el, url) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.setRequestHeader('Accept', 'text/html; fragment');
+  return request(el, xhr);
+}
+
+function request(el, xhr) {
+  const pending = requests.get(el);
+  if (pending) pending.abort();
+  requests.set(el, xhr);
+
+  const clear = () => requests.delete(el);
+
+  const result = send(xhr);
+  result.then(clear, clear);
+  return result;
+}
+
+function send(xhr) {
+  return new Promise((resolve, reject) => {
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(xhr.responseText);
+      } else {
+        reject(new Error(xhr.responseText));
+      }
+    };
+
+    xhr.onerror = reject;
+    xhr.send();
+  });
+}
+
+function scrollTo(container, target) {
+  if (!inViewport(container, target)) {
+    container.scrollTop = target.offsetTop;
+  }
+}
+
+function inViewport(container, element) {
+  const scrollTop = container.scrollTop;
+  const containerBottom = scrollTop + container.clientHeight;
+  const top = element.offsetTop;
+  const bottom = top + element.clientHeight;
+  return top >= scrollTop && bottom <= containerBottom;
+}
+
+function install(input, list) {
+  input.addEventListener('compositionstart', trackComposition);
+  input.addEventListener('compositionend', trackComposition);
+  input.addEventListener('keydown', keyboardBindings);
+  list.addEventListener('click', commitWithElement);
+}
+function uninstall(input, list) {
+  input.removeAttribute('aria-activedescendant');
+  input.removeEventListener('compositionstart', trackComposition);
+  input.removeEventListener('compositionend', trackComposition);
+  input.removeEventListener('keydown', keyboardBindings);
+  list.removeEventListener('click', commitWithElement);
+}
+var isComposing = false;
+var ctrlBindings = !!navigator.userAgent.match(/Macintosh/);
+
+function keyboardBindings(event) {
+  if (event.shiftKey || event.metaKey || event.altKey) return;
+  var input = event.currentTarget;
+  if (!(input instanceof HTMLTextAreaElement || input instanceof HTMLInputElement)) return;
+  if (isComposing) return;
+  var list = document.getElementById(input.getAttribute('aria-owns') || '');
+  if (!list) return;
+
+  switch (event.key) {
+    case 'Enter':
+    case 'Tab':
+      if (commit(input, list)) {
+        event.preventDefault();
+      }
+
+      break;
+
+    case 'Escape':
+      clearSelection(list);
+      break;
+
+    case 'ArrowDown':
+      navigate(input, list, 1);
+      event.preventDefault();
+      break;
+
+    case 'ArrowUp':
+      navigate(input, list, -1);
+      event.preventDefault();
+      break;
+
+    case 'n':
+      if (ctrlBindings && event.ctrlKey) {
+        navigate(input, list, 1);
+        event.preventDefault();
+      }
+
+      break;
+
+    case 'p':
+      if (ctrlBindings && event.ctrlKey) {
+        navigate(input, list, -1);
+        event.preventDefault();
+      }
+
+      break;
+  }
+}
+
+function commitWithElement(event) {
+  if (!(event.target instanceof Element)) return;
+  var target = event.target.closest('[role="option"]');
+  if (!target) return;
+  if (target.getAttribute('aria-disabled') === 'true') return;
+  fireCommitEvent(target);
+}
+
+function commit(input, list) {
+  var target = list.querySelector('[aria-selected="true"]');
+  if (!target) return false;
+  if (target.getAttribute('aria-disabled') === 'true') return true;
+  target.click();
+  return true;
+}
+
+function fireCommitEvent(target) {
+  target.dispatchEvent(new CustomEvent('combobox-commit', {
+    bubbles: true
+  }));
+}
+
+function navigate(input, list) {
+  var indexDiff = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  var focusEl = list.querySelector('[aria-selected="true"]');
+  var els = Array.from(list.querySelectorAll('[role="option"]'));
+  var focusIndex = els.indexOf(focusEl);
+  var indexOfItem = indexDiff === 1 ? 0 : els.length - 1;
+
+  if (focusEl && focusIndex >= 0) {
+    var newIndex = focusIndex + indexDiff;
+    if (newIndex >= 0 && newIndex < els.length) indexOfItem = newIndex;
+  }
+
+  var target = els[indexOfItem];
+  if (!target) return;
+
+  for (var _i = 0; _i < els.length; _i++) {
+    var el = els[_i];
+
+    if (target === el) {
+      input.setAttribute('aria-activedescendant', target.id);
+      target.setAttribute('aria-selected', 'true');
+    } else {
+      el.setAttribute('aria-selected', 'false');
+    }
+  }
+}
+
+function clearSelection(list) {
+  var target = list.querySelector('[aria-selected="true"]');
+  if (!target) return;
+  target.setAttribute('aria-selected', 'false');
+}
+
+function trackComposition(event) {
+  var input = event.currentTarget;
+  if (!(input instanceof HTMLTextAreaElement || input instanceof HTMLInputElement)) return;
+  isComposing = event.type === 'compositionstart';
+  var list = document.getElementById(input.getAttribute('aria-owns') || '');
+  if (!list) return;
+  clearSelection(list);
+}
+
+class Autocomplete {
+  constructor(container, input, results) {
+    this.container = container;
+    this.input = input;
+    this.results = results;
+    this.results.hidden = true;
+    this.input.setAttribute('autocomplete', 'off');
+    this.input.setAttribute('spellcheck', 'false');
+    this.mouseDown = false;
+    this.onInputChange = debounce(this.onInputChange.bind(this), 300);
+    this.onResultsMouseDown = this.onResultsMouseDown.bind(this);
+    this.onInputBlur = this.onInputBlur.bind(this);
+    this.onInputFocus = this.onInputFocus.bind(this);
+    this.onKeydown = this.onKeydown.bind(this);
+    this.onCommit = this.onCommit.bind(this);
+    this.input.addEventListener('keydown', this.onKeydown);
+    this.input.addEventListener('focus', this.onInputFocus);
+    this.input.addEventListener('blur', this.onInputBlur);
+    this.input.addEventListener('input', this.onInputChange);
+    this.results.addEventListener('mousedown', this.onResultsMouseDown);
+    this.results.addEventListener('combobox-commit', this.onCommit);
+  }
+
+  destroy() {
+    this.input.removeEventListener('keydown', this.onKeydown);
+    this.input.removeEventListener('focus', this.onInputFocus);
+    this.input.removeEventListener('blur', this.onInputBlur);
+    this.input.removeEventListener('input', this.onInputChange);
+    this.results.removeEventListener('mousedown', this.onResultsMouseDown);
+    this.results.removeEventListener('combobox-commit', this.onCommit);
+  }
+
+  sibling(next) {
+    const options = Array.from(this.results.querySelectorAll('[role="option"]'));
+    const selected = this.results.querySelector('[aria-selected="true"]');
+    const index = options.indexOf(selected);
+    const sibling = next ? options[index + 1] : options[index - 1];
+    const def = next ? options[0] : options[options.length - 1];
+    return sibling || def;
+  }
+
+  select(target) {
+    for (const el of this.results.querySelectorAll('[aria-selected="true"]')) {
+      el.removeAttribute('aria-selected');
+    }
+
+    target.setAttribute('aria-selected', 'true');
+    this.input.setAttribute('aria-activedescendant', target.id);
+    scrollTo(this.results, target);
+  }
+
+  onKeydown(event) {
+    if (event.key === 'Escape' && this.container.open) {
+      this.container.open = false;
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+
+  onInputFocus() {
+    this.fetchResults();
+  }
+
+  onInputBlur() {
+    if (this.mouseDown) return;
+    this.container.open = false;
+  }
+
+  onCommit(_ref) {
+    let target = _ref.target;
+    const selected = target;
+    if (!(selected instanceof HTMLElement)) return;
+    this.container.open = false;
+    if (selected instanceof HTMLAnchorElement) return;
+    const value = selected.getAttribute('data-autocomplete-value') || selected.textContent;
+    this.container.value = value;
+  }
+
+  onResultsMouseDown() {
+    this.mouseDown = true;
+    this.results.addEventListener('mouseup', () => this.mouseDown = false, {
+      once: true
+    });
+  }
+
+  onInputChange() {
+    this.container.removeAttribute('value');
+    this.fetchResults();
+  }
+
+  identifyOptions() {
+    let id = 0;
+
+    for (const el of this.results.querySelectorAll('[role="option"]:not([id])')) {
+      el.id = "".concat(this.results.id, "-option-").concat(id++);
+    }
+  }
+
+  fetchResults() {
+    const query = this.input.value.trim();
+
+    if (!query) {
+      this.container.open = false;
+      return;
+    }
+
+    const src = this.container.src;
+    if (!src) return;
+    const url = new URL(src, window.location.href);
+    const params = new URLSearchParams(url.search.slice(1));
+    params.append('q', query);
+    url.search = params.toString();
+    this.container.dispatchEvent(new CustomEvent('loadstart'));
+    fragment(this.input, url.toString()).then(html => {
+      this.results.innerHTML = html;
+      this.identifyOptions();
+      const hasResults = !!this.results.querySelector('[role="option"]');
+      this.container.open = hasResults;
+      this.container.dispatchEvent(new CustomEvent('load'));
+      this.container.dispatchEvent(new CustomEvent('loadend'));
+    }).catch(() => {
+      this.container.dispatchEvent(new CustomEvent('error'));
+      this.container.dispatchEvent(new CustomEvent('loadend'));
+    });
+  }
+
+  open() {
+    if (!this.results.hidden) return;
+    install(this.input, this.results);
+    this.results.hidden = false;
+    this.container.setAttribute('aria-expanded', 'true');
+  }
+
+  close() {
+    if (this.results.hidden) return;
+    uninstall(this.input, this.results);
+    this.results.hidden = true;
+    this.input.removeAttribute('aria-activedescendant');
+    this.container.setAttribute('aria-expanded', 'false');
+  }
+
+}
+
+const state = new WeakMap();
+class AutocompleteElement extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    const owns = this.getAttribute('aria-owns');
+    if (!owns) return;
+    const input = this.querySelector('input');
+    const results = document.getElementById(owns);
+    if (!(input instanceof HTMLInputElement) || !results) return;
+    input.setAttribute('aria-owns', owns);
+    state.set(this, new Autocomplete(this, input, results));
+    this.setAttribute('role', 'combobox');
+    this.setAttribute('aria-haspopup', 'listbox');
+    this.setAttribute('aria-expanded', 'false');
+    input.setAttribute('aria-autocomplete', 'list');
+    input.setAttribute('aria-controls', owns);
+    results.setAttribute('role', 'listbox');
+  }
+
+  disconnectedCallback() {
+    const autocomplete = state.get(this);
+
+    if (autocomplete) {
+      autocomplete.destroy();
+      state.delete(this);
+    }
+  }
+
+  get src() {
+    return this.getAttribute('src') || '';
+  }
+
+  set src(url) {
+    this.setAttribute('src', url);
+  }
+
+  get value() {
+    return this.getAttribute('value') || '';
+  }
+
+  set value(value) {
+    this.setAttribute('value', value);
+  }
+
+  get open() {
+    return this.hasAttribute('open');
+  }
+
+  set open(value) {
+    if (value) {
+      this.setAttribute('open', '');
+    } else {
+      this.removeAttribute('open');
+    }
+  }
+
+  static get observedAttributes() {
+    return ['open', 'value'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue === newValue) return;
+    const autocomplete = state.get(this);
+    if (!autocomplete) return;
+
+    switch (name) {
+      case 'open':
+        newValue === null ? autocomplete.close() : autocomplete.open();
+        break;
+
+      case 'value':
+        if (newValue !== null) {
+          autocomplete.input.value = newValue;
+        }
+
+        this.dispatchEvent(new AutocompleteEvent('auto-complete-change', {
+          bubbles: true,
+          relatedTarget: autocomplete.input
+        }));
+        break;
+    }
+  }
+
+}
+
+if (!window.customElements.get('auto-complete')) {
+  window.AutocompleteElement = AutocompleteElement;
+  window.customElements.define('auto-complete', AutocompleteElement);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (AutocompleteElement);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@stimulus/core/dist/index.js":
 /*!***************************************************!*\
   !*** ./node_modules/@stimulus/core/dist/index.js ***!
@@ -43892,6 +44345,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flatpickr__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(flatpickr__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! flatpickr/dist/flatpickr.min.css */ "./node_modules/flatpickr/dist/flatpickr.min.css");
 /* harmony import */ var flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_flatpickr_min_css__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _github_auto_complete_element__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @github/auto-complete-element */ "./node_modules/@github/auto-complete-element/dist/index.esm.js");
+
 
 
 
@@ -43932,7 +44387,8 @@ function initDateInputs() {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./application_controller.js": "./resources/js/controllers/application_controller.js"
+	"./application_controller.js": "./resources/js/controllers/application_controller.js",
+	"./form_controller.js": "./resources/js/controllers/form_controller.js"
 };
 
 
@@ -44003,6 +44459,84 @@ function (_Controller) {
     key: "connect",
     value: function connect() {
       console.log("Hello, Stimulus!", this.element);
+    }
+  }]);
+
+  return _default;
+}(stimulus__WEBPACK_IMPORTED_MODULE_0__["Controller"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/controllers/form_controller.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/controllers/form_controller.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var stimulus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! stimulus */ "./node_modules/stimulus/index.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var _default =
+/*#__PURE__*/
+function (_Controller) {
+  _inherits(_default, _Controller);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "connect",
+    value: function connect() {
+      console.log("Hello, Stimulus!", this.element);
+    }
+  }, {
+    key: "dateClick",
+    value: function dateClick(event) {
+      var conflictYear = +this.data.get('conflict-year');
+      var input = jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.currentTarget).find('.flatpickr-input[type="hidden"]')[0];
+      var date = input._flatpickr;
+      if (input.value) return;
+      date.setDate(conflictYear + "-1-1");
+    }
+  }, {
+    key: "dateClear",
+    value: function dateClear(event) {
+      event.preventDefault();
+    }
+  }, {
+    key: "submit",
+    value: function submit(event) {
+      this.element.submit();
     }
   }]);
 

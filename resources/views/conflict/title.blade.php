@@ -18,6 +18,10 @@
     </p>
 
     <p class="cell">
+        Territory: {{ $conflict->territory ?? 'No Territory' }} 
+    </p>
+
+    <p class="cell">
         Location: {{ $conflict->location }}
     </p>
 </header>

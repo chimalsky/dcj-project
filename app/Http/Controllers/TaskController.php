@@ -4,21 +4,43 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {        
         $me = Auth::user();
-        $tasks = $me->tasks;
+        $meOnly = false;
 
-        return view('task.index', compact('tasks'));
+        if ($me->role !== 'admin') {
+            $tasks = $me->tasks()->paginate(25);
+        } else {
+            if ($user = $request->query('user')) {
+                $tasks = $me->tasks()->paginate(25);
+                $meOnly = true;
+            } else {
+                $tasks = Task::latest()
+                    ->paginate(25);
+            }
+        }
+
+
+        $tasks->load('conflictSeries', 'conflictSeries.justices');
+
+        return view('task.index', compact('tasks', 'meOnly'));
     }
 
     /**
@@ -28,7 +50,10 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('task.create');
+        $users = User::select('id', 'name')->get()->mapWithKeys(function($user) {
+            return [$user['id'] => $user['name']];
+        });
+        return view('task.create', compact('users'));
     }
 
     /**
@@ -39,7 +64,26 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $request->all();
+        
+        $redundantTask = Task::where([
+            ['conflict_ucdp_id', $request->input('conflict_series')],
+            ['user_id', $request->input('user')]
+        ])->exists();
+
+        if ($redundantTask) {
+
+        } else {
+            $task = new Task;
+
+            $task->user_id = $request->input('user');
+            $task->conflict_ucdp_id = $request->input('conflict_series');
+            $task->created_by = Auth::id();
+            $task->save();
+        }
+        
+
+        return redirect()->route('task.index');
     }
 
     /**

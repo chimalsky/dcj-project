@@ -22,6 +22,8 @@
                 </p>
             @endisset
 
+            <input type="hidden" name="task" value ="{{ isTaskWorkflow() }}" />
+
             @include('forms.errors')
         </header>
 
@@ -37,7 +39,7 @@
             </div>
 
             <div class="cell grid-x grid-padding-y grid-margin-y align-center">
-                <a href="{{ route('conflict.show', $conflict) }}" class="button hollow cell shrink">
+                <a href="{{ route('conflict.show', ['conflict' => $conflict->id, 'task' => isTaskWorkflow()]) }}" class="button hollow cell shrink">
                     Cancel Changes without Saving
                 </a>
             </div>
