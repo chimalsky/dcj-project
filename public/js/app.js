@@ -44381,12 +44381,11 @@ function initDateInputs() {
 jquery__WEBPACK_IMPORTED_MODULE_2___default()('.english-boolean label').click(function (ev) {
   var target = ev.delegateTarget,
       container = target.parentElement,
-      input = jquery__WEBPACK_IMPORTED_MODULE_2___default()(container).children('input')[0];
+      input = container.querySelector('input');
 
   if (input.checked == true) {
-    console.log(input, input.checked);
-    jquery__WEBPACK_IMPORTED_MODULE_2___default()(input).prop('checked', false);
-    console.log(jquery__WEBPACK_IMPORTED_MODULE_2___default()(input).prop('checked'));
+    input.checked = false;
+    console.log(input);
   }
 });
 

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ConflictController@index')->name('home');
+Route::get('/', 'ConflictSeriesController@index')->name('home');
 
 Route::get('/conflict/import', 'ConflictController@import');
 

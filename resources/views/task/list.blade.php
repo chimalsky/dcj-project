@@ -6,6 +6,7 @@
         <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
         class="cell">
             <h2 class="cell">
+                UCDP {{ $task->conflictSeries->id }} |
                 {{ $task->conflictSeries->name }}
             </h2>
         </a>

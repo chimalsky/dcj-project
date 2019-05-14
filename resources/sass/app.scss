@@ -179,6 +179,14 @@ auto-complete {
   }
 }
 
+.item:first-child {
+  border-top: 0;
+}
+
+.item {
+  padding: .5rem 0;
+  border-top: 1px solid $shadow-color;
+}
 .item p {
   font-size: $font-size-base;
 }

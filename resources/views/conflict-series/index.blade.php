@@ -7,7 +7,7 @@
     </a>
 </header>
 
-<section class="grid-x align-center"
+<section class="grid-x align-center grid-margin-y"
     data-sticky-container>
 
     <main class="cell grid-x grid-margin-x">

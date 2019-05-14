@@ -34,6 +34,10 @@
             </p>
 
             <p class="cell">
+                Dyad ID: {{ $conflict->dyad_id }}
+            </p>
+
+            <p class="cell">
                 Old Conflict ID: {{ $conflict->old_conflict_id }}
             </p>
         </section>

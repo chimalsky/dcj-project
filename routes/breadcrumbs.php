@@ -24,7 +24,7 @@ Breadcrumbs::for('conflict-series.show', function ($trail, $conflictSeries) {
         $trail->parent('home');
     }
 
-    $trail->push($conflictSeries->name, route('conflict-series.show', $conflictSeries));
+    $trail->push("UCDP " . $conflictSeries->id, route('conflict-series.show', $conflictSeries));
 });
 
 Breadcrumbs::for('conflict.index', function ($trail) {
@@ -36,17 +36,22 @@ Breadcrumbs::for('conflict.show', function ($trail, $conflict) {
         //d($conflict, $conflict->series);
         $trail->parent('task.index');
 
-        $trail->push($conflict->name, route('conflict.show', ['conflict' => $conflict, 'task' => isTaskWorkflow()]));
+        $trail->push("UCDP " . $conflict->series->id, route('conflict-series.show', $conflict->series));
+
+
+        //$trail->push($conflict->name, route('conflict.show', ['conflict' => $conflict, 'task' => isTaskWorkflow()]));
     } else {
-        $trail->parent('conflict.index');
-        $trail->push($conflict->name, route('conflict.show', $conflict));
+        $trail->parent('conflict-series.show', $conflict->series);
+
     }
+        $trail->push($conflict->name, route('conflict.show', $conflict));
+    
 });
 
 Breadcrumbs::for('justice.create', function ($trail, $conflict) {
     $trail->parent('conflict.show', $conflict);
 
-    $trail->push('Create DCJ', route('justice.create', $conflict));
+    $trail->push('New DCJ', route('justice.create', $conflict));
 });
 
 Breadcrumbs::for('justice.edit', function ($trail, $conflict, $justice) {

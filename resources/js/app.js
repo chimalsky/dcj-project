@@ -41,12 +41,11 @@ function initDateInputs() {
 $('.english-boolean label').click(function(ev) {
     let target = ev.delegateTarget,
         container = target.parentElement,
-        input = $(container).children('input')[0];
+        input = container.querySelector('input')
     
     if (input.checked == true) {
-        console.log(input, input.checked)
-        $(input).prop('checked', false)
-        console.log($(input).prop('checked'))
+        input.checked = false
+        console.log(input)
     }
 })
 

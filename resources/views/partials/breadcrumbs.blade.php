@@ -6,13 +6,13 @@
             <a href="{{ $breadcrumb->url }}" class="cell shrink">
                 {{ $breadcrumb->title }}
             </a>
-        @else
-            @unless($loop->first || $loop->last)
+
+            @if($loop->remaining > 1)
                 <span class="cell shrink">
                     >
                 </span>
-            @endunless
-        @endif
+            @endif
+       @endif
 
         @if ($loop->last)
             <h1 class="breadcrumb-item active cell text-center">

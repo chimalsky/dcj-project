@@ -2,7 +2,7 @@
 <section class="grid-x cell item">
     <header class="cell grid-x">
         <a href="{{ route('conflict-series.show', ['conflict-series' => $conflictSeries->id ]) }}"
-        class="cell item">
+        class="cell">
             <h2 class="cell">
                 {{ $conflictSeries->name }}
             </h2>
