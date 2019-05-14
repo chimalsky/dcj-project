@@ -10,6 +10,10 @@
     </header>
 
     <aside class="cell grid-x grid-margin-x">
+        <p class="cell large-shrink">
+            UCDP #{{ $conflictSeries->id }}
+        </p>    
+
         <p class="cell medium-shrink">
             Conflict Episodes: {{ $conflictSeries->episodes->count() }}
         </p>
