@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyJusticesTable extends Migration
+class ModifyTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class ModifyJusticesTable extends Migration
      */
     public function up()
     {
-        Schema::table('justices', function(Blueprint $table) {
-            $table->string('wrong')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('sexviolence')->nullable();
+        Schema::table('tasks', function(Blueprint $table) {
+            $table->unsignedTinyInteger('status')->default(0);
         });
     }
 

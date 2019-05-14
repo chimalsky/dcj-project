@@ -44,6 +44,10 @@ class CreateJusticesTable extends Migration
             //$table->unsignedTinyInteger('end_code')->nullable();
             $table->string('end_precision')->nullable();
 
+            $table->string('wrong')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('sexviolence')->nullable();
+
 
             $table->unsignedInteger('conflict_id')
                 ->nullable();
@@ -55,6 +59,8 @@ class CreateJusticesTable extends Migration
 
             $table->text('coding_notes')
                 ->nullable();
+            
+            $table->string('related')->nullable()->default(null);
 
             $table->timestamps();
         });

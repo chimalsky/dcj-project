@@ -59,7 +59,14 @@ class JusticeController extends Controller
 
         $justiceable->justice()->save($justice);
 
-        return redirect()->route('conflict.show', ['conflict' => $justice->conflict, 'task' => $task]);
+        if ($relatedDcj = $justice->related) {
+            $related = Justice::where('dcjid', $relatedDcj)->first();
+            $related->related = $justice->dcjid;
+            $related->save();
+        }
+
+        return redirect()->route('conflict.show', ['conflict' => $justice->conflict, 'task' => $task])
+            ->with('status', "$type Process $justice->dcjid created");
     }
 
     /**
@@ -105,7 +112,14 @@ class JusticeController extends Controller
 
         $justice->save();
 
-        return redirect()->route('conflict.show', compact('conflict', 'justice', 'task'));
+        if ($relatedDcj = $justice->related) {
+            $related = Justice::where('dcjid', $relatedDcj)->first();
+            $related->related = $justice->dcjid;
+            $related->save();
+        }
+
+        return redirect()->route('conflict.show', compact('conflict', 'justice', 'task'))
+            ->with('status', ucfirst($justice->type) . " Process $justice->dcjid created");
     }
 
     /**

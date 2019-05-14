@@ -58,7 +58,9 @@ Trait JusticeImport
             //'end_code' => $params[$type . '_end'],
             'end_precision' => $params[$type . '_eprec'],
 
-            'coding_notes' => $params[$type .'_text']
+            'coding_notes' => $params[$type .'_text'],
+
+            'related' => $params[$type .'_rdcj']
         ]);
 
         $model->justice()->save($justice);

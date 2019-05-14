@@ -117,7 +117,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $status = $request->input('status') ?? false;
+        $task->status = $status;
+        $task->save();
+
+        $flash = "Task -- " . $task->conflictSeries->name . " -- ";
+
+        if ($status) {
+            $flash .= "marked as completed.";
+        } else {
+            $flash .= "changed back to 'in progress.'";
+        }
+
+        return redirect()->route('task.index')->with('status', $flash);
     }
 
     /**

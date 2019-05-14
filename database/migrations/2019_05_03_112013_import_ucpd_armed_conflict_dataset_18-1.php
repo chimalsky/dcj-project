@@ -2,7 +2,9 @@
 
 use App\Conflict;
 use App\ConflictSeries;
+use App\Imports\DyadImport;
 use App\Imports\ConflictImport;
+use App\Imports\DyadicIntegration;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
 use App\Imports\TranslateConflictImport;
@@ -26,6 +28,10 @@ class ImportUcpdArmedConflictDataset181 extends Migration
         
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
+
+            $table->unsignedInteger('dyad_id')
+                ->nullable();
+
             $table->unsignedInteger('conflict_id')
                 ->references('id')
                 ->on('conflict_series')
@@ -68,6 +74,12 @@ class ImportUcpdArmedConflictDataset181 extends Migration
             $table->timestamps();
         });
 
+        Schema::create('ucdp_dyads', function(Blueprint $table) {
+            $table->integer('id');
+            $table->integer('old_id');
+            $table->string('name');
+        });
+
         Schema::create('translate_conflicts', function(Blueprint $table) {
             $table->integer('new_id');
             $table->string('old_id');
@@ -75,6 +87,8 @@ class ImportUcpdArmedConflictDataset181 extends Migration
 
         Excel::import(new TranslateConflictImport, 'public/translate_conf.xlsx');
         Excel::import(new ConflictImport, 'public/ucdp-prio-acd-181.xlsx');
+        Excel::import(new DyadImport, 'public/translate_dyad.xlsx');
+        Excel::import(new DyadicIntegration, 'public/ucdp-dyadic-181.xlsx');
 
         $conflicts = Conflict::all();
         $conflicts->each(function($episode) {

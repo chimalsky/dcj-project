@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\ConflictSeries;
 use Illuminate\Http\Request;
 
@@ -48,9 +49,13 @@ class ConflictSeriesController extends Controller
      */
     public function show(ConflictSeries $conflictSeries, Request $request)
     {
-        $conflictSeries->withCount(['justices']);
-
         $taskWorkflow = $request->query('task') ?? false;
+
+        if ($taskWorkflow && !Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $conflictSeries->withCount(['justices']);
 
         return view('conflict-series.show', compact('conflictSeries', 'taskWorkflow'));
     }

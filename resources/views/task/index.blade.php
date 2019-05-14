@@ -2,7 +2,7 @@
 
 @section('content')
 
-<main class="cell grid-x grid-margin-x grid-margin-y">
+<section class="cell grid-x grid-margin-x grid-margin-y align-center">
     @can('create', 'App\Task')
     <header class="cell grid-x align-justify">
         <form data-controller="form"
@@ -24,11 +24,13 @@
     </header>
     @endcan
 
-    @include('task.list', $tasks)
+    <main class="cell medium-10 grid-x grid-margin-y">
+        @include('task.list', $tasks)
+    </main>
 
     @if ($tasks instanceof \Illuminate\Pagination\AbstractPaginator)
         {{ $tasks->links() }}
     @endif
-</main>
+</section>
 
 @endsection

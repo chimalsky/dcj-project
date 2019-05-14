@@ -10,7 +10,7 @@
                 ] )
             }}"
                 class="cell is-active shrink">
-                All DCJ Types
+                All Process Types
             </a>
         </li>
     @endunless

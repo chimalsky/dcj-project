@@ -3,6 +3,7 @@
 namespace App;
 
 use DB;
+use App\Dyad;
 use App\Task;
 use App\Justice;
 use App\ConflictSeries;
@@ -29,6 +30,16 @@ class Conflict extends Model
     public function justices()
     {
         return $this->hasMany(Justice::class);
+    }
+
+    public function dyad()
+    {
+        return $this->belongsTo(Dyad::class);
+    }
+
+    public function getJusticesSelectAttribute()
+    {
+        return $this->justices->pluck('dcjid', 'dcjid');
     }
 
     public function setOldConflictIdAttribute($value)

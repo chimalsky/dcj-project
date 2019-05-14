@@ -1,50 +1,61 @@
 
 @foreach($tasks as $task)
 
-<section class="grid-x cell item">
+<article class="grid-x cell align-justify item">
     <header class="cell grid-x">
         <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
-        class="cell item">
+        class="cell">
             <h2 class="cell">
                 {{ $task->conflictSeries->name }}
             </h2>
         </a>
     </header>
 
-    <aside class="cell grid-x grid-margin-x">
-        <p class="cell medium-shrink">
-            Conflict Episodes: {{ $task->conflictEpisodes->count() }}
-        </p>
+    <main class="cell grid-x align-top">
+        <section class="cell medium-auto grid-x grid-margin-x">
+            <p class="cell medium-shrink">
+                Conflict Years: {{ $task->conflictEpisodes->count() }}
+            </p>
 
-        <p class="cell medium-shrink">
-            DCJs: {{ $task->conflictSeries->justices->count() }}
-        </p>
+            <p class="cell medium-shrink">
+                DCJs: {{ $task->conflictSeries->justices->count() }}
+            </p>
 
-        @if (Auth::user()->role == 'admin')
-            <h1 class="cell">
-                <span style="font-weight:400">Assigned to </span>
-                @if (Auth::id() == $task->user_id)
-                    you
-                @else
+            <form action="{{ route('task.update', $task) }}" method="post" 
+                data-controller="form"
+                class="cell medium-shrink">
+                @csrf
+                @method('put')
+
+                <input type="checkbox" name="status" data-action="change->form#submit"
+                    value="1"
+                    @if ($task->status)
+                        checked
+                    @endif
+                    @cannot ('update', $task)
+                        disabled
+                    @endcannot
+                    />
+                    Task Completed
+            </form>
+        </section>
+
+        <aside class="cell medium-shrink grid-x">
+            <p class="cell">
+                @if (Auth::user()->role == 'admin')
+                    <span style="font-weight:400">@</span>
                     {{ $task->user->name }}
                 @endif
-            </h1>
-        @endif
-    </aside>
 
-    <footer class="cell grid-x">
-        <p>
-            By 
-            <span>
-            @if (Auth::id() == $task->created_by)
-                You
-            @else   
-                {{ $task->assigner->name }}
-            @endif
-            </span>
-            
-            -- {{ $task->created_at->format('F j Y') }}
-        </p>
-    </footer>
-</section>
+                -- {{ $task->created_at->format('M d') }}
+
+                @unless (Auth::id() == $task->created_by)
+                    <span>
+                        by {{ $task->assigner->name }}
+                    </span>
+                @endunless
+            </p>
+        </aside>
+    </main>
+</article>
 @endforeach

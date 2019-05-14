@@ -448,6 +448,19 @@ header.web {
   font-weight: 700;
 }
 
+input[type=checkbox] {
+  width: 1rem;
+  height: 1rem;
+}
+
+input[type=checkbox]:disabled:hover {
+  cursor: not-allowed;
+}
+
+input[type=checkbox]:hover {
+  cursor: pointer;
+}
+
 /*
   Hide radio button (the round disc)
   we will use just the label to create pushbutton effect

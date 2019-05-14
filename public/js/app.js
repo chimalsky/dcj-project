@@ -44375,7 +44375,19 @@ function initDateInputs() {
     altInput: true,
     altFormat: "F j, Y"
   });
-}
+} // English Boolean. Later convert to StimulusJS
+
+
+jquery__WEBPACK_IMPORTED_MODULE_2___default()('.english-boolean label').click(function (ev) {
+  var target = ev.delegateTarget,
+      container = target.parentElement,
+      input = jquery__WEBPACK_IMPORTED_MODULE_2___default()(container).children('input')[0];
+
+  if (input.checked == true) {
+    console.log(input, input.checked);
+    input.checked = false;
+  }
+});
 
 /***/ }),
 
@@ -44532,6 +44544,11 @@ function (_Controller) {
     key: "dateClear",
     value: function dateClear(event) {
       event.preventDefault();
+    }
+  }, {
+    key: "radio",
+    value: function radio(event) {
+      console.log(event);
     }
   }, {
     key: "submit",

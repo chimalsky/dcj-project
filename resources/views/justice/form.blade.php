@@ -236,6 +236,11 @@
         ])
     @endif
 
+    <div class="cell medium-6">
+        {{ Form::label('related justice') }}
+        {{ Form::select('related', $justice->possibleRelated ?? $conflict->justicesSelect, $justice->related, ['placeholder' => '---']) }}
+    </div>
+
     <footer class="cell">
         <input id="coding_notes" type="hidden" name="coding_notes"
             @if (isset($justice->coding_notes))

@@ -6,7 +6,7 @@
 
 @unless ($query)
     <a href="{{ route('conflict-series.index') }}" >
-        View as Conflict Series
+        View as UCDP Conflicts
     </a>
 @else 
     <a href="{{ route('conflict.index') }}">
@@ -23,7 +23,7 @@
         <form action="{{ route('conflict.index') }}"
             class="cell shrink grid-x grid-margin-x align-middle">
             
-            <input type="text" name="query" placeholder="UCDP Conflict Episodes" 
+            <input type="text" name="query" placeholder="UCDP Conflict Years" 
                 value="{{ $query }}"
                 class="cell auto" />
             <button class="button hollow cell shrink">

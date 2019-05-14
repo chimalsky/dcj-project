@@ -39,7 +39,7 @@
                     <form action="{{ route('conflict.index') }}"
                         class="cell medium-shrink grid-x grid-margin-x align-middle">
                         
-                        <input type="text" name="query" placeholder="UCDP Conflict Episodes" 
+                        <input type="text" name="query" placeholder="UCDP Conflict Years" 
                             class="cell auto" />
                         <button class="button hollow cell shrink">
                             Search 
@@ -47,6 +47,12 @@
                     </form>
                 </aside>
             @endisset
+
+            @if (session('status'))
+                <div class="callout success cell">
+                    {{ session('status') }}
+                </div>
+            @endif
 
             <section class="cell callout" id="content">
                 @yield('content')

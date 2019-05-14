@@ -38,6 +38,35 @@ class Justice extends Model
         'implemented' => EnglishBoolean::class        
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // todo: put this stuff in a db later.
+        // deprecate using process as trait models
+        $processDictionary = [
+            'trial' => 'T',
+            'truth' => 'C',
+            'reparation' => 'R',
+            'amnesty' => 'A',
+            'purge' => 'P',
+            'exile' => 'E'
+        ];
+
+        static::created(function ($justice) use ($processDictionary) {
+            if ($justice->dcjid || !$justice->conflict) {
+                return;
+            }
+
+            $conflict = $justice->conflict;
+            $convertedType = $processDictionary[$justice->type];            
+
+            $justice->dcjid = $conflict->old_conflict_id . "_" . $conflict->year 
+                . "_" . $convertedType . "_" . $justice->count;
+            $justice->save();
+        });
+    }
+
     /**
      * A justice model can be associated with other justice models
      */
@@ -60,6 +89,20 @@ class Justice extends Model
     {
         return $this->attributes['type'] ??
             class_basename($this->justiceable_type);
+    }
+
+    public function getPossibleRelatedAttribute()
+    {
+        if (! $this->conflict) {
+            return; 
+        }
+
+        $justice = $this;
+
+        return $this->conflict->justices->pluck('dcjid', 'dcjid')
+            ->filter(function($value) use ($justice) {
+                return $value !== $justice->dcjid;
+            });
     }
 
     public function getCountAttribute()
@@ -249,6 +292,6 @@ class Justice extends Model
         } else {
             $value = $this->type;
         }
-        return ucfirst($value) . " #$this->count ";
+        return ucfirst($value); //. " #$this->count ";
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <header class="grid-x align-right">
     <a href="{{ route('conflict.index') }}" >
-        View as UCDP Conflict Episodes
+        View as UCDP Conflict Years
     </a>
 </header>
 

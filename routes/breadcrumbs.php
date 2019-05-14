@@ -2,7 +2,7 @@
 
 // Home
 Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Conflict Episodes', route('home'));
+    $trail->push('Conflicts', route('home'));
 });
 
 
@@ -13,7 +13,7 @@ Breadcrumbs::for('conflict-series.index', function ($trail) {
     } else {
     }
 
-    $trail->push("Conflict Series", route('conflict-series.index'));
+    $trail->push("Conflicts", route('conflict-series.index'));
 });
 
 Breadcrumbs::for('conflict-series.show', function ($trail, $conflictSeries) {
@@ -28,7 +28,7 @@ Breadcrumbs::for('conflict-series.show', function ($trail, $conflictSeries) {
 });
 
 Breadcrumbs::for('conflict.index', function ($trail) {
-    $trail->push('Conflict Episodes', route('conflict.index'));
+    $trail->push('Conflict Years', route('conflict.index'));
 });
 
 Breadcrumbs::for('conflict.show', function ($trail, $conflict) {
@@ -66,7 +66,7 @@ Breadcrumbs::for('user.create', function ($trail) {
 
 
 Breadcrumbs::for('task.index', function ($trail) {
-    if (Auth::user()->can('create', 'App\Task')) {
+    if (Auth::check() && Auth::user()->can('create', 'App\Task')) {
         $title = 'Tasks';
     } else {
         $title = 'My Tasks';

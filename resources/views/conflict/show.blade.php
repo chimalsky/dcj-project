@@ -28,11 +28,11 @@
 
     <section class="cell grid-x grid-margin-x">
         <p class="cell medium-auto">
-            Government Side: {{ $conflict->side_a }}
+            Side A: {{ $conflict->side_a }}
         </p>
 
         <p class="cell medium-auto">
-            Opposition Side: {{ $conflict->side_b }}
+            Side B: {{ $conflict->side_b }}
         </p>
     </section>
 </section>
@@ -47,11 +47,11 @@
 
     @if ($justices->count())
         @foreach ($justices as $j)
-            @include('justice.card', ['justice' => $j, 'cssClass' => 'cell medium-6 large-4'])
+            @include('justice.card-simple', ['justice' => $j, 'cssClass' => 'cell medium-6 large-4'])
         @endforeach
     @else 
         <p class="cell text-center">
-            No {{ ucfirst($justiceType) }} DCJ Yet
+            No DCJ Yet
         </p>
     @endif   
 </aside>

@@ -1,4 +1,4 @@
-<section class="cell grid-x">
+<section class="cell grid-x english-boolean">
     <header class="cell">
         {{ $label }}
     </header>

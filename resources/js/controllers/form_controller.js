@@ -21,6 +21,10 @@ export default class extends Controller {
       event.preventDefault()
   }
 
+  radio(event) {
+    console.log(event)
+  }
+
   submit(event) {
     this.element.submit()
   }
