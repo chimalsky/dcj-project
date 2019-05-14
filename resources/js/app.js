@@ -45,7 +45,8 @@ $('.english-boolean label').click(function(ev) {
     
     if (input.checked == true) {
         console.log(input, input.checked)
-        input.checked = false
+        $(input).prop('checked', false)
+        console.log($(input).prop('checked'))
     }
 })
 

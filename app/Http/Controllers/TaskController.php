@@ -24,23 +24,30 @@ class TaskController extends Controller
     {        
         $me = Auth::user();
         $meOnly = false;
+        $status = $request->query('status');
 
         if ($me->role !== 'admin') {
-            $tasks = $me->tasks()->paginate(25);
+            $tasks = $me->tasks();
         } else {
             if ($user = $request->query('user')) {
-                $tasks = $me->tasks()->paginate(25);
+                $tasks = $me->tasks();
                 $meOnly = true;
             } else {
-                $tasks = Task::latest()
-                    ->paginate(25);
+                $tasks = Task::latest();
             }
         }
 
+        if ( $status == 'outstanding' ) {
+            $status = $request->query('status');
+            $tasks = $tasks->where('status', 0);
+        }
+
+
+        $tasks = $tasks->paginate('20');
 
         $tasks->load('conflictSeries', 'conflictSeries.justices');
 
-        return view('task.index', compact('tasks', 'meOnly'));
+        return view('task.index', compact('tasks', 'meOnly', 'status'));
     }
 
     /**

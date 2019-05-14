@@ -44385,7 +44385,8 @@ jquery__WEBPACK_IMPORTED_MODULE_2___default()('.english-boolean label').click(fu
 
   if (input.checked == true) {
     console.log(input, input.checked);
-    input.checked = false;
+    jquery__WEBPACK_IMPORTED_MODULE_2___default()(input).prop('checked', false);
+    console.log(jquery__WEBPACK_IMPORTED_MODULE_2___default()(input).prop('checked'));
   }
 });
 
