@@ -31,9 +31,11 @@
             </div>
         </form>
 
-        <a href="{{ route('task.create') }}" class="button hollow cell shrink">
-            Assign Tasks
-        </a>
+        @can('create', 'App\Task')
+            <a href="{{ route('task.create') }}" class="button hollow cell shrink">
+                Assign Tasks
+            </a>
+        @endcan
     </header>
 
     <main class="cell medium-10 grid-x grid-margin-y">
