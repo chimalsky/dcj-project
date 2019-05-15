@@ -18,11 +18,12 @@
 
     <section class="cell grid-x grid-margin-x">
         <p class="cell medium-auto">
-            Start Date: {{ $conflict->start_date }}
+            Start Date: {{ $conflict->start_date }} <br/>
+            Start 2 Date: {{ $conflict->start_2_date }}
         </p>
 
         <p class="cell medium-auto">
-            End Date: {{ $conflict->end_date ?? 'Not Ended' }}
+            End Date: {{ $conflict->episode_end_date ?? 'Not Ended' }}
         </p>
     </section>
 

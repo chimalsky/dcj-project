@@ -6,6 +6,7 @@ import 'foundation-sites'
 import 'datatables.net-zf'
 
 import trix from 'trix'
+import turbolinks from 'turbolinks'
 
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
@@ -26,7 +27,11 @@ window.flatpickr = flatpickr
 
 $(document).foundation()
 
-initDateInputs()
+turbolinks.start()  
+
+document.addEventListener('turbolinks:load', function() {
+    initDateInputs()
+})
 
 function initDateInputs() {
     let $dateInputs = $("input[type='date']")

@@ -28,4 +28,13 @@ export default class extends Controller {
   submit(event) {
     this.element.submit()
   }
+
+  delete(event) {
+    var confirm = prompt("Really delete this DCJ?", "Yes do it!");
+    if (confirm == null || confirm == "") {
+      event.preventDefault()
+    } else {
+      return true;
+    }
+  }
 }

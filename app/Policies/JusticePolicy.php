@@ -73,7 +73,15 @@ class JusticePolicy
      */
     public function delete(User $user, Justice $justice)
     {
-        //
+        if ($user->role == 'admin') {
+            return true;
+        }
+
+        $conflict = $justice->conflict;
+        
+        $ucdpIds = $user->tasks->pluck('conflict_ucdp_id');
+        $tasked = $ucdpIds->contains($conflict->conflict_id);
+        return $tasked;
     }
 
     /**

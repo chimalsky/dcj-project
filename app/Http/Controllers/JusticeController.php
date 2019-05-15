@@ -47,7 +47,7 @@ class JusticeController extends Controller
     {
         $justiceableParams = $request->input('justiceable') ?? [];
         $justiceParams = $request->except(['justiceable', 'task']);
-        $task = $request->input('task');
+        $task = $request->input('task') ?? null;
         $justice = Justice::create($justiceParams);
 
         $type = ucfirst($justice->type);
@@ -66,7 +66,7 @@ class JusticeController extends Controller
         }
 
         return redirect()->route('conflict.show', ['conflict' => $justice->conflict, 'task' => $task])
-            ->with('status', "$type Process $justice->dcjid created");
+            ->with('status', "$type $justice->dcjid created");
     }
 
     /**
@@ -105,7 +105,7 @@ class JusticeController extends Controller
         $justiceableParams = $request->input('justiceable') ?? [];
         $justiceParams = $request->except(['justiceable', 'task']);
 
-        $task = $request->input('task');
+        $task = $request->input('task') ?? null;
 
         $justice->update($justiceParams);
         $justice->justiceable()->update($justiceableParams);
@@ -119,7 +119,7 @@ class JusticeController extends Controller
         }
 
         return redirect()->route('conflict.show', compact('conflict', 'justice', 'task'))
-            ->with('status', ucfirst($justice->type) . " Process $justice->dcjid created");
+            ->with('status', ucfirst($justice->type) . " $justice->dcjid updated");
     }
 
     /**
@@ -128,8 +128,13 @@ class JusticeController extends Controller
      * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Justice $justice)
+    public function destroy(Conflict $conflict, Justice $justice, Request $request)
     {
-        //
+        Justice::destroy($justice->id);
+        $task = $request->input('task') ?? null;
+
+        return redirect()->route('conflict.show', compact('conflict', 'justice', 'task'))
+            ->with('status', ucfirst($justice->type) . " $justice->dcjid was deleted");
+
     }
 }

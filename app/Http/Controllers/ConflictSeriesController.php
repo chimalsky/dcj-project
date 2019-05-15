@@ -15,7 +15,7 @@ class ConflictSeriesController extends Controller
      */
     public function index()
     {
-        $conflictSeries = ConflictSeries::paginate(75);
+        $conflictSeries = ConflictSeries::withCount('episodes')->paginate(75);
 
         return view('conflict-series.index', compact('conflictSeries'));
     }

@@ -47,4 +47,16 @@
     </section>
 {{ Form::close() }}
 
+<form action="{{ route('justice.destroy', ['conflict' => $conflict->id, 'justice' => $justice->id, 'task' => isTaskWorkflow()]) }}"
+    method="post"
+    data-controller="form"
+    class="cell grid-x grid-padding-y grid-margin-y align-center">
+    @csrf 
+    @method('delete')
+
+    <button class="button alert cell shrink" data-action="form#delete">
+        Delete this DCJ
+    </button>
+</form>
+
 @endsection
