@@ -15,6 +15,7 @@ class ConflictSeriesSearchController extends Controller
             ->orWhere('side_b', 'like', "%$query%")
             ->orWhere('territory', 'like', "%$query%")
             ->orWhere('location', 'like', "%$query%")
+            ->orWhere('conflict_id', $query)
             ->get();
 
         $conflictIds = $conflictEpisodes->unique('conflict_id')->pluck('conflict_id');

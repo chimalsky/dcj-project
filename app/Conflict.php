@@ -37,6 +37,21 @@ class Conflict extends Model
         return $this->belongsTo(Dyad::class);
     }
 
+    public function getRegionAttribute($value)
+    {
+        $dictionary = [
+            "1" => "Europe",
+            "2" => "Middle East",
+            "3" => "Asia",
+            "4" => "Africa",
+            "5" => "Americas"
+        ];
+
+        $value = collect(explode(',', $value))->mode()[0];
+
+        return $dictionary[$value];
+    }
+
     public function getJusticesSelectAttribute()
     {
         return $this->justices->pluck('dcjid', 'dcjid');

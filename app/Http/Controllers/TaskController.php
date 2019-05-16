@@ -23,31 +23,39 @@ class TaskController extends Controller
     public function index(Request $request)
     {        
         $me = Auth::user();
-        $meOnly = false;
-        $status = $request->query('status');
+        $status = $request->query('status') ?? 'all';
+        $taskee = null;
+        $user = $request->query('user') ?? null;
+        $meOnly = ($user == $me->id);
+        $viewType = $request->query('view_type') ?? 'user';
 
         if ($me->role !== 'admin') {
             $tasks = $me->tasks();
         } else {
-            if ($user = $request->query('user')) {
-                $tasks = $me->tasks();
-                $meOnly = true;
+            if ($user) {
+                $tasks = Task::where('user_id', $user);
+                $users = null;
             } else {
                 $tasks = Task::latest();
+
+                if ($viewType == 'user') {
+                    $users = $tasks->pluck('user_id')->unique();
+                    $users = User::find($users);
+                } else {
+                    $users = null;
+                }
+                //$taskee = $tasks->groupBy('user_id');
             }
         }
 
-        if ( $status == 'outstanding' ) {
-            $status = $request->query('status');
-            $tasks = $tasks->where('status', 0);
+        if ($status != 'all') {
+            $tasks = $tasks->where('status', $status);
         }
 
+        $tasks->with('conflictSeries', 'conflictSeries.justices');
+        $tasks = $tasks->get();
 
-        $tasks = $tasks->paginate('20');
-
-        $tasks->load('conflictSeries', 'conflictSeries.justices');
-
-        return view('task.index', compact('tasks', 'meOnly', 'status'));
+        return view('task.index', compact('tasks', 'users', 'meOnly', 'status'));
     }
 
     /**
@@ -78,19 +86,24 @@ class TaskController extends Controller
             ['user_id', $request->input('user')]
         ])->exists();
 
-        if ($redundantTask) {
+        $user = User::findOrFail($request->input('user'));
 
+        if ($redundantTask) {
+            $status = $user->name . " is already assigned to UCDP #" . $request->input('conflict_series');
         } else {
             $task = new Task;
 
-            $task->user_id = $request->input('user');
+            $task->user_id = $user->id;
             $task->conflict_ucdp_id = $request->input('conflict_series');
             $task->created_by = Auth::id();
             $task->save();
+
+            $status = "UCPD #" . $task->conflict_ucdp_id . " assigned to " . $task->user->name;
         }
         
 
-        return redirect()->route('task.index');
+        return redirect()->route('task.index')
+            ->with('status', $status);
     }
 
     /**

@@ -2,7 +2,7 @@
 @if (count($conflictSeries))
     @foreach ($conflictSeries as $series)
         <li role="option" data-autocomplete-value="{{ $series->id }}"> 
-            {{ $series->name }} 
+            UCDP #{{ $series->id }} -- {{ $series->name }} 
         </li>
     @endforeach
 @else

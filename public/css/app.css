@@ -448,6 +448,38 @@ header.web {
   font-weight: 700;
 }
 
+.web .list {
+  margin-top: 4rem;
+}
+
+.web .list:first-child {
+  margin-top: 0;
+}
+
+.web .list > h1 {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.web .item:first-child {
+  border-top: 0;
+  margin-top: 2rem;
+}
+
+.web .item {
+  padding: 0.5rem 0;
+  border-top: 1px solid #aaa;
+}
+
+.web .item p {
+  font-size: 0.9rem;
+}
+
+.web .item aside h1 {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
 input[type=checkbox] {
   width: 1rem;
   height: 1rem;
@@ -537,22 +569,8 @@ auto-complete li:hover {
   text-decoration: underline;
 }
 
-.item:first-child {
-  border-top: 0;
-  margin-top: 2rem;
-}
-
-.item {
-  padding: 0.5rem 0;
-  border-top: 1px solid #aaa;
-}
-
-.item p {
-  font-size: 0.9rem;
-}
-
-.item aside h1 {
-  font-size: 0.9rem;
-  font-weight: 700;
+[data-task-list-status="0"] [data-task-status="1"],
+[data-task-list-status="1"] [data-task-status="0"] {
+  display: none;
 }
 

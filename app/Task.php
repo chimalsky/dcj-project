@@ -31,4 +31,17 @@ class Task extends Model
     {
         return $this->belongsTo(ConflictSeries::class, 'conflict_ucdp_id');
     }
+
+    public function getRegionAttribute()
+    {
+        return $this->conflictEpisodes()->pluck('region')
+            ->unique()
+            ->mode();
+    }
+
+    public function scopeRegion($query, $region)
+    {
+        return $query;
+    }
+
 }
