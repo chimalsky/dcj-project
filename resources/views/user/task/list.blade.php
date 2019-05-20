@@ -5,7 +5,7 @@
         </h1>
         <main class="cell">
             @foreach ($user->tasks as $task)
-                @include('task.item', ['task' => $task, 'user' => true])
+                @include('task.item', $task)
             @endforeach
         </main>
     </section>

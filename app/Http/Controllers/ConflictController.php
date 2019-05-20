@@ -22,14 +22,16 @@ class ConflictController extends Controller
         $me = Auth::user();
         $tasks = $me->tasks ?? null;
 
+        $conflicts = Conflict::withCount('justices');
+
         if ($query = $request->query('query')) {
-            $conflicts = Conflict::where('side_a', 'like', "%$query%")
+            $conflicts = $conflicts->where('side_a', 'like', "%$query%")
             ->orWhere('side_b', 'like', "%$query%")
             ->orWhere('territory', 'like', "%$query%")
             ->orWhere('location', 'like', "%$query%")
-            ->paginate(50);
+            ->get();
         } else {
-            $conflicts = Conflict::withCount('justices')->paginate(50);
+            $conflicts = $conflicts->withCount('justices')->paginate(50);
         }
 
         return view('conflict.index', compact('conflicts', 'tasks', 'query'));

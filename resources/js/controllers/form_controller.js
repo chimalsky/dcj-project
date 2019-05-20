@@ -29,6 +29,10 @@ export default class extends Controller {
     this.element.submit()
   }
 
+  foobar(event) {
+    console.log('hihihi')
+  }
+
   delete(event) {
     var confirm = prompt("Really delete this DCJ?", "Yes do it!");
     if (confirm == null || confirm == "") {

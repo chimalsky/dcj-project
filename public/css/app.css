@@ -569,8 +569,12 @@ auto-complete li:hover {
   text-decoration: underline;
 }
 
-[data-task-list-status="0"] [data-task-status="1"],
-[data-task-list-status="1"] [data-task-status="0"] {
-  display: none;
+li.page-item.active {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+[data-task-status="1"] {
+  background-color: #d4ebb763;
 }
 

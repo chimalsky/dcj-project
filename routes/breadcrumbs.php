@@ -79,6 +79,14 @@ Breadcrumbs::for('task.index', function ($trail) {
 
     $trail->push($title, route("task.index"));
 });
+
+Breadcrumbs::for('user.task.index', function ($trail, $user) {
+    $title = $user->name . "'s Tasks";
+
+    $trail->push($title, route("user.task.index", $user));
+});
+
+
 Breadcrumbs::for('task.create', function ($trail) {
     $trail->push('Assign Tasks', route('task.create'));
 });

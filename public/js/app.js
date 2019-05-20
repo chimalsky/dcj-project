@@ -44582,6 +44582,11 @@ function (_Controller) {
       this.element.submit();
     }
   }, {
+    key: "foobar",
+    value: function foobar(event) {
+      console.log('hihihi');
+    }
+  }, {
     key: "delete",
     value: function _delete(event) {
       var confirm = prompt("Really delete this DCJ?", "Yes do it!");

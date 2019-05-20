@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Conflict;
 use App\ConflictSeries;
 use Illuminate\Http\Request;
 
@@ -13,11 +14,24 @@ class ConflictSeriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $conflictSeries = ConflictSeries::withCount('episodes')->paginate(75);
+        $conflictSeries = ConflictSeries::with('episodes', 'justices');
 
-        return view('conflict-series.index', compact('conflictSeries'));
+        $query = $request->query('query');
+
+        $conflictEpisodes = Conflict::where('side_a', 'like', "%$query%")
+            ->orWhere('side_b', 'like', "%$query%")
+            ->orWhere('territory', 'like', "%$query%")
+            ->orWhere('location', 'like', "%$query%")
+            ->orWhere('conflict_id', $query)
+            ->get();
+
+        $conflictIds = $conflictEpisodes->unique('conflict_id')->pluck('conflict_id');
+
+        $conflictSeries = $conflictSeries->whereIn('id', $conflictIds)->paginate(20); 
+
+        return view('conflict-series.index', compact('conflictSeries', 'query'));
     }
 
     /**

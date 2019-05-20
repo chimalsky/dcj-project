@@ -4,7 +4,8 @@
         <a href="{{ route('conflict-series.show', ['conflict-series' => $conflictSeries->id ]) }}"
         class="cell">
             <h2 class="cell">
-                {{ $conflictSeries->name }}
+                {{ $conflictSeries->years }} <br/>
+                {{ $conflictSeries->sideA }} vs. {{ $conflictSeries->sideB }}
             </h2>
         </a>
     </header>

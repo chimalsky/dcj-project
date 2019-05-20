@@ -23,7 +23,10 @@ Route::resource('/conflict', 'ConflictController');
 Route::resource('/conflict/{conflict}/justice', 'JusticeController');
 
 Route::resource('/user', 'UserController')->middleware('auth');
+Route::resource('/user/{user}/task', 'UserTaskController', ['as' => 'user'])->middleware('auth');
+
 Route::resource('/task/geo', 'TaskGeoController', ['as' => 'task'])->middleware('auth');
+
 Route::resource('/task', 'TaskController')->middleware('auth');
 
 

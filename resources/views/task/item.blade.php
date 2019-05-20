@@ -1,45 +1,27 @@
 
-<article class="grid-x cell align-justify item" data-task-status="{{ $task->status }}">
+<article class="grid-x grid-padding-x cell item" data-task-status="{{ $task->status }}">
     <header class="cell grid-x">
         <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
         class="cell">
-            <h2 class="cell">
+            <h2>
                 UCDP {{ $task->conflictSeries->id }} |
                 {{ $task->conflictSeries->name }}
             </h2>
         </a>
     </header>
 
-    <main class="cell grid-x align-top">
-        <section class="cell medium-auto grid-x grid-margin-x">
+    <main class="cell grid-x align-justify">
+        <section class="cell medium-shrink grid-x grid-margin-x">
             <p class="cell medium-shrink">
-                Conflict Years: {{ $task->conflictEpisodes->count() }}
+                Conflict Years: {{ $task->conflict_episodes_count }}
             </p>
 
             <p class="cell medium-shrink">
-                DCJs: {{ $task->conflictSeries->justices->count() }}
+                DCJs: {{ $task->conflictSeries->justices_count }}
             </p>
-
-            <form action="{{ route('task.update', $task) }}" method="post" 
-                data-controller="form"
-                class="cell medium-shrink">
-                @csrf
-                @method('put')
-
-                <input type="checkbox" name="status" data-action="change->form#submit"
-                    value="1"
-                    @if ($task->status)
-                        checked
-                    @endif
-                    @cannot ('update', $task)
-                        disabled
-                    @endcannot
-                    />
-                    Task Completed
-            </form>
         </section>
 
-        <aside class="cell medium-shrink grid-x">
+        <aside class="cell medium-shrink grid-x text-right">
             <p class="cell">
                     @if (Auth::user()->role == 'admin')
                         <span style="font-weight:400">@</span>
@@ -54,6 +36,24 @@
                     </span>
                 @endunless
             </p>
+
+            <form action="{{ route('task.update', $task) }}" method="post" 
+                data-controller="form"
+                class="cell">
+                @csrf
+                @method('put')
+
+                <input type="checkbox" name="status" data-action="change->form#submit"
+                    value="1"
+                    @if ($task->status)
+                        checked
+                    @endif
+                    @cannot ('update', $task)
+                        disabled
+                    @endcannot
+                    />
+                    Task Completed
+            </form>
         </aside>
     </main>
 </article>

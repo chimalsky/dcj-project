@@ -1,7 +1,8 @@
 
 @if (count($conflictSeries))
     @foreach ($conflictSeries as $series)
-        <li role="option" data-autocomplete-value="{{ $series->id }}"> 
+        <li data-controller="click->form#foobar"
+            role="option" data-autocomplete-value="{{ $series->id }}" class="cell"> 
             UCDP #{{ $series->id }} -- {{ $series->name }} 
         </li>
     @endforeach

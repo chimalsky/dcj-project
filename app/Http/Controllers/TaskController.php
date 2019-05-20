@@ -24,38 +24,39 @@ class TaskController extends Controller
     {        
         $me = Auth::user();
         $status = $request->query('status') ?? 'all';
-        $taskee = null;
         $user = $request->query('user') ?? null;
         $meOnly = ($user == $me->id);
-        $viewType = $request->query('view_type') ?? 'user';
+        $viewType = $request->query('view_type') ?? null;
+
+        $tasks = Task::with('user', 'assigner', 'conflictSeries')
+            ->withCount('conflictEpisodes');
 
         if ($me->role !== 'admin') {
-            $tasks = $me->tasks();
+            $tasks = $tasks->where('user_id', $me->id);
         } else {
             if ($user) {
-                $tasks = Task::where('user_id', $user);
-                $users = null;
+                $tasks = $tasks->where('user_id', $user);
+                $user = User::find($user);
             } else {
-                $tasks = Task::latest();
-
                 if ($viewType == 'user') {
                     $users = $tasks->pluck('user_id')->unique();
                     $users = User::find($users);
+
+                    $users = $users->map(function($user) use ($tasks) {
+                        return $user;
+                    });
                 } else {
                     $users = null;
                 }
-                //$taskee = $tasks->groupBy('user_id');
             }
         }
 
         if ($status != 'all') {
             $tasks = $tasks->where('status', $status);
         }
-
-        $tasks->with('conflictSeries', 'conflictSeries.justices');
-        $tasks = $tasks->get();
-
-        return view('task.index', compact('tasks', 'users', 'meOnly', 'status'));
+        
+        $tasks = $tasks->latest()->get();
+        return view('task.index', compact('tasks', 'users', 'viewType', 'meOnly', 'status'));
     }
 
     /**
@@ -65,8 +66,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $users = User::select('id', 'name')->get()->mapWithKeys(function($user) {
-            return [$user['id'] => $user['name']];
+        $users = User::select('id', 'name', 'email')->get()->mapWithKeys(function($user) {
+            return [$user['id'] => $user['name'] . " -- " . $user['email']];
         });
         return view('task.create', compact('users'));
     }
@@ -79,17 +80,20 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $params = $request->all();
+        $request->validate([
+            'conflict_series' => 'exists:conflict_series,id',
+            'user' => 'exists:users,id'
+        ]);
         
         $redundantTask = Task::where([
             ['conflict_ucdp_id', $request->input('conflict_series')],
             ['user_id', $request->input('user')]
         ])->exists();
 
-        $user = User::findOrFail($request->input('user'));
+        $user = User::find($request->input('user'));
 
         if ($redundantTask) {
-            $status = $user->name . " is already assigned to UCDP #" . $request->input('conflict_series');
+            $status = $user->name . " was already assigned to UCDP #" . $request->input('conflict_series');
         } else {
             $task = new Task;
 

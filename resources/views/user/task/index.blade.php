@@ -7,14 +7,14 @@
     <header class="cell grid-x align-justify">
         @can('create', 'App\Task')
             <div class="cell medium-shrink">
-                <a href="{{ route('user.task.index', Auth::user()) }}" class="button">
-                    Show only my Tasks
+                <a href="{{ route('task.index') }}" class="button">
+                    Show all tasks
                 </a>
             </div>
         @endcan
 
         <form data-controller="form"
-            action="{{ route('task.index') }}"
+            action="{{ route('user.task.index', $user) }}"
             class="cell shrink grid-x grid-margin-x align-middle">
 
             @include('task.query')

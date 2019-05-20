@@ -2,35 +2,27 @@
 
 @section('content')
 
-<header class="grid-x align-right">
+<header class="grid-x">
 
-@unless ($query)
-    <a href="{{ route('conflict-series.index') }}" >
+    <a href="{{ route('conflict-series.index') }}" class="cell button shrink">
         View as UCDP Conflicts
     </a>
-@else 
-    <a href="{{ route('conflict.index') }}">
-        Clear Search
-    </a>
-@endunless
 </header>
 
 
 <section class="grid-x grid-margin-y grid-padding-y align-center"
     data-sticky-container>
 
-    @unless ($query)
-        <form action="{{ route('conflict.index') }}"
-            class="cell shrink grid-x grid-margin-x align-middle">
-            
-            <input type="text" name="query" placeholder="UCDP Conflict Years" 
-                value="{{ $query }}"
-                class="cell auto" />
-            <button class="button hollow cell shrink">
-                Search 
-            </button>
-        </form>
-    @endunless
+    <form action="{{ route('conflict.index') }}"
+        class="cell shrink grid-x grid-margin-x align-middle">
+        
+        <input type="text" name="query" placeholder="UCDP Conflict Years" 
+            value="{{ $query }}"
+            class="cell auto" />
+        <button class="button hollow cell shrink">
+            Search 
+        </button>
+    </form>
 
     <main class="cell grid-x grid-margin-x grid-margin-y grid-padding-y">
         @foreach ($conflicts as $c)

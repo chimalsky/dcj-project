@@ -1,6 +1,6 @@
-<header class="grid-x">
-    <section class="cell grid-x grid-margin-x">
-        <h2 class="cell small-12 grid-x">
+<header class="grid-x cell">
+    <section class="cell grid-x grid-margin-x align-top">
+        <h2 class="cell medium-shrink">
             UCDP
         </h2>
 

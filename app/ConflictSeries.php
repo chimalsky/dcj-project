@@ -10,12 +10,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConflictSeries extends Model
 {
-
     protected $fillable = [
         'id'
     ];
 
     public $timestamps = false;
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['episodes'];
 
     public function episodes()
     {
@@ -34,15 +40,49 @@ class ConflictSeries extends Model
         );
     }   
 
+    public function getSideAAttribute()
+    {
+        $sideAs = $this->episodes->pluck('side_a')->unique();
+
+        return $sideAs->reduce(function($carry, $item) {
+            if (strlen($carry)) {
+                $carry .= " / ";
+            }
+
+            return $carry .= $item;
+        }, '');
+    }
+
+    public function getSideBAttribute()
+    {
+        $sideBs = $this->episodes->pluck('side_b')->unique();
+
+        return $sideBs->reduce(function($carry, $item) {
+            if (strlen($carry)) {
+                $carry .= " / ";
+            }
+            
+            return $carry .= $item;
+        }, '');
+    }
+
+    public function getYearsAttribute()
+    {
+        $yearMin = $this->episodes->min('year');
+        $yearMax = $this->episodes->max('year');
+
+        return $yearMin . " -- " . $yearMax;
+    }
+
     public function getNameAttribute()
     {
-        $episodes = $this->episodes()->select('side_a', 'side_b', 'year')->get();
+        $episodes = $this->episodes;
 
-        $sideA = $episodes->mode('side_a')[0];
-        $sideB = $episodes->mode('side_b')[0];
-        $yearMin = $episodes->min('year');
-        $yearMax = $episodes->max('year');
+        $sideA = $this->sideA;
+        $sideB = $this->sideB;
         
-        return "$sideA vs $sideB | $yearMin -- $yearMax";
+        return "$sideA vs $sideB | " . $this->years;
     }
+
+    
 }

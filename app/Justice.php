@@ -38,6 +38,13 @@ class Justice extends Model
         'implemented' => EnglishBoolean::class        
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['conflict'];
+
     protected static function boot()
     {
         parent::boot();

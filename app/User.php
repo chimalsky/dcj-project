@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function tasks()
     {
-        return $this->hasMany(Task::class)->latest();
+        return $this->hasMany(Task::class)->withCount('conflictEpisodes')->latest();
     }
 
     public function conflicts()

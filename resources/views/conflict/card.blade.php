@@ -46,7 +46,7 @@
 
     <footer class="card-divider grid-x">
         <p class="cell">
-            Total DCJ Processes: {{ $conflict->justices_count ?? count($conflict->justices) }}
+            Total DCJ Processes: {{ $conflict->justices_count }}
         </p>
 
         @can ('attachJustice', $conflict)

@@ -31,20 +31,14 @@
 
         <main class="web grid-container grid-x grid-margin-y">
             @isset ($query)
-                <aside class="cell grid-x">
-                    <p class="cell medium-auto">
+                <aside class="cell grid-x grid-margin-x align-top">
+                    <p class="cell medium-shrink">
                         Results for <strong>{{ $query }}</strong>
                     </p>
 
-                    <form action="{{ route('conflict.index') }}"
-                        class="cell medium-shrink grid-x grid-margin-x align-middle">
-                        
-                        <input type="text" name="query" placeholder="UCDP Conflict Years" 
-                            class="cell auto" />
-                        <button class="button hollow cell shrink">
-                            Search 
-                        </button>
-                    </form>
+                    <a href="{{ route('conflict.index') }}" class="cell medium-shrink">
+                        Clear Search
+                    </a>
                 </aside>
             @endisset
 
