@@ -20,13 +20,13 @@ class UserTaskController extends Controller
         $me = Auth::user();
         $status = $request->query('status') ?? 'all';
 
-        $tasks = $user->tasks()->with('user', 'assigner', 'conflictSeries')
-            ->withCount('conflictEpisodes');
+        $tasks = $user->tasks()->with('assigner', 'conflictSeries')
+            ->withCount('conflictEpisodes', 'conflictJustices');
         if ($status != 'all') {
             $tasks = $tasks->where('status', $status);
         }
         
-        $tasks = $tasks->latest()->get();
+        $tasks = $tasks->latest('updated_at')->get();
 
         $meOnly = false;
         $viewType = null;

@@ -27,6 +27,18 @@ class Task extends Model
         return $this->hasMany(Conflict::class, 'conflict_id', 'conflict_ucdp_id');
     }
 
+    public function conflictJustices()
+    {
+        return $this->hasManyThrough(
+            Justice::class,
+            Conflict::class,
+            'conflict_id',
+            'conflict_id',
+            'conflict_ucdp_id',
+            'id'
+        );
+    }
+
     public function conflictSeries()
     {
         return $this->belongsTo(ConflictSeries::class, 'conflict_ucdp_id');

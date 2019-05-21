@@ -25,7 +25,7 @@ class ConflictSeries extends Model
 
     public function episodes()
     {
-        return $this->hasMany(Conflict::class, 'conflict_id');
+        return $this->hasMany(Conflict::class, 'conflict_id')->withCount('justices');
     }
     
     public function justices()

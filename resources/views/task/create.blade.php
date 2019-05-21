@@ -23,12 +23,16 @@
                     </ul>
                 </auto-complete>
 
-                {{ Form::label('team member') }}
-                {{ Form::select('user', $users) }}
-
-                @foreach ($users as $user)
-                    <input type="checkbox" name="user" value="{{ $user }}" />
-                @endforeach
+                <section class="grid-x cell">
+                    @foreach ($users as $id => $user)
+                        <div class="cell medium-6 large-4">
+                            <input type="checkbox" name="user[{{ $loop->index }}]" value="{{ $id }}" />
+                            <label>
+                                {{ $user }}
+                            </label>
+                        </div>
+                    @endforeach
+                </section>
             </main>
 
             <aside class="cell grid-x shrink">

@@ -31,21 +31,24 @@
 
         <main class="web grid-container grid-x grid-margin-y">
             @isset ($query)
-                <aside class="cell grid-x grid-margin-x align-top">
+                <aside class="grid-x grid-margin-x align-top">
                     <p class="cell medium-shrink">
                         Results for <strong>{{ $query }}</strong>
                     </p>
-
-                    <a href="{{ route('conflict.index') }}" class="cell medium-shrink">
+                    <a href="{{ route(route::currentRouteName()) }}" class="cell medium-shrink">
                         Clear Search
                     </a>
                 </aside>
             @endisset
 
             @if (session('status'))
-                <div class="callout success cell">
-                    {{ session('status') }}
-                </div>
+                @if ( count(session('status')) )
+                    @foreach (session('status') as $status)
+                        @include('session.status')
+                    @endforeach
+                @else
+                    @include('session.status', session('status'))
+                @endif
             @endif
 
             <section class="cell callout" id="content">

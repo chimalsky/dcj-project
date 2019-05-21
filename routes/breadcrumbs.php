@@ -73,11 +73,17 @@ Breadcrumbs::for('user.create', function ($trail) {
 Breadcrumbs::for('task.index', function ($trail) {
     if (Auth::check() && Auth::user()->can('create', 'App\Task')) {
         $title = 'Tasks';
+        $route = route("task.index");
+
     } else {
         $title = 'My Tasks';
+        $route = route("user.task.index", [
+            'user' => Auth::id(),
+            'task' => request()->query('task') ?? null
+        ]);
     }
 
-    $trail->push($title, route("task.index"));
+    $trail->push($title, $route);
 });
 
 Breadcrumbs::for('user.task.index', function ($trail, $user) {

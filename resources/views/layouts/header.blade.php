@@ -16,13 +16,13 @@
             </p>
 
             @can('create', 'App\Task')
-            <a href="{{ route('task.index') }}" class="cell shrink">
-                Tasks
-            </a>
+                <a href="{{ route('task.index') }}" class="cell shrink">
+                    Tasks
+                </a>
             @else 
-            <a href="{{ route('task.index') }}" class="cell shrink">
-                My Tasks
-            </a>
+                <a href="{{ route('user.task.index', Auth::id()) }}" class="cell shrink">
+                    My Tasks
+                </a>
             @endcan
 
             @if (Auth::user()->role == 'admin')

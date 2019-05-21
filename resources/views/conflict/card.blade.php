@@ -9,21 +9,23 @@
                 {{ $conflict->year }}
             </span>
 
-            {{ $conflict->location }}
+            <div class="cell">
+                {{ $conflict->side_a }}
+                    vs.
+                {{ $conflict->side_b }}    
+            </div>  
         </h1>
     </header>
 
     <main class="card-section cell grid-x grid-margin-y">
-        <div class="cell">
-            {{ $conflict->side_a }}
-                vs.
-            {{ $conflict->side_b }}    
-        </div>   
+        <p class="cell">
+            In {{ $conflict->location }}
+        </p>
 
         @isset ( $conflict->territory )
-            <div class="cell">
-                Territory: {{ $conflict->territory }}
-            </div>
+            <p class="cell">
+                Over {{ $conflict->territory }}
+            </p>
         @endisset
     </main>
 

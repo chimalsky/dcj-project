@@ -17,7 +17,7 @@
             </p>
 
             <p class="cell medium-shrink">
-                DCJs: {{ $task->conflictSeries->justices_count }}
+                DCJs: {{ $task->conflict_justices_count }}
             </p>
         </section>
 
@@ -25,7 +25,9 @@
             <p class="cell">
                     @if (Auth::user()->role == 'admin')
                         <span style="font-weight:400">@</span>
-                        {{ $task->user->name }}
+                        <a href="{{ route('user.task.index', $task->user) }}">
+                            {{ $task->user->name }}
+                        </a>
                     @endif
 
                 -- {{ $task->created_at->format('M d') }}
