@@ -23,12 +23,10 @@
 
         <aside class="cell medium-shrink grid-x text-right">
             <p class="cell">
-                    @if (Auth::user()->role == 'admin')
-                        <span style="font-weight:400">@</span>
-                        <a href="{{ route('user.task.index', $task->user) }}">
-                            {{ $task->user->name }}
-                        </a>
-                    @endif
+                <span style="font-weight:400">@</span>
+                <a href="{{ route('user.task.index', $task->user) }}">
+                    {{ $task->user->name }}
+                </a>
 
                 -- {{ $task->created_at->format('M d') }}
 
@@ -44,6 +42,8 @@
                 class="cell">
                 @csrf
                 @method('put')
+
+                <input name="user" value="{{ $task->user_id }}" type="hidden" />
 
                 <input type="checkbox" name="status" data-action="change->form#submit"
                     value="1"

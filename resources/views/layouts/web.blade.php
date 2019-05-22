@@ -31,7 +31,7 @@
 
         <main class="web grid-container grid-x grid-margin-y">
             @isset ($query)
-                <aside class="grid-x grid-margin-x align-top">
+                <aside class="cell grid-x grid-margin-x align-top">
                     <p class="cell medium-shrink">
                         Results for <strong>{{ $query }}</strong>
                     </p>
@@ -42,12 +42,12 @@
             @endisset
 
             @if (session('status'))
-                @if ( count(session('status')) )
+                @if ( is_array(session('status')) )
                     @foreach (session('status') as $status)
                         @include('session.status')
                     @endforeach
                 @else
-                    @include('session.status', session('status'))
+                    @include('session.status', ['status' => session('status')])
                 @endif
             @endif
 

@@ -135,7 +135,7 @@ class TaskController extends Controller
             $flash .= "changed back to 'in progress.'";
         }
 
-        return redirect()->route('task.index')->with('status', $flash);
+        return redirect( url()->previous() )->with('status', $flash);
     }
 
     /**
