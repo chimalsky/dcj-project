@@ -75,9 +75,11 @@ class JusticeController extends Controller
      * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function show(Justice $justice)
+    public function show(Conflict $conflict, Justice $justice, Request $request)
     {
-        //
+        $type = $request->input('type');
+        
+        return view('justice.show', compact('justice', 'conflict', 'type'));
     }
 
     /**

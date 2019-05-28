@@ -44555,7 +44555,13 @@ function (_Controller) {
   _createClass(_default, [{
     key: "connect",
     value: function connect() {
-      console.log("Hello, Stimulus!", this.element);
+      console.log(this.state);
+
+      if (this.state == 'disabled') {
+        this.element.querySelectorAll('input').forEach(function (input) {
+          input.setAttribute('disabled', 'true');
+        });
+      }
     }
   }, {
     key: "dateClick",
@@ -44582,11 +44588,6 @@ function (_Controller) {
       this.element.submit();
     }
   }, {
-    key: "foobar",
-    value: function foobar(event) {
-      console.log('hihihi');
-    }
-  }, {
     key: "delete",
     value: function _delete(event) {
       var confirm = prompt("Really delete this DCJ?", "Yes do it!");
@@ -44596,6 +44597,11 @@ function (_Controller) {
       } else {
         return true;
       }
+    }
+  }, {
+    key: "state",
+    get: function get() {
+      return this.data.get('state');
     }
   }]);
 

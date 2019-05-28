@@ -3,7 +3,7 @@
 @section('content')
 <header class="grid-x">
     <a href="{{ route('conflict.index') }}" class="cell button shrink">
-        View as UCDP Conflict Years
+        View as International UCDP Conflict Years
     </a>
 </header>
 

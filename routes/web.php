@@ -13,6 +13,9 @@
 
 Route::get('/', 'ConflictSeriesController@index')->name('home');
 
+Route::get('/justice/export', 'JusticeExportController@export')->name('justice.export');
+
+
 Route::get('/conflict/import', 'ConflictController@import');
 
 Route::get('/conflict-series/search', 'ConflictSeriesSearchController@index')->name('conflict-series.search');

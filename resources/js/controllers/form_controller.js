@@ -3,7 +3,13 @@ import $ from 'jquery'
 
 export default class extends Controller {
   connect() {
-    console.log("Hello, Stimulus!", this.element)
+    console.log(this.state)
+
+    if (this.state == 'disabled') {
+      this.element.querySelectorAll('input').forEach(function(input) {
+        input.setAttribute('disabled', 'true')
+      })
+    }
   }
 
   dateClick(event) {
@@ -29,8 +35,8 @@ export default class extends Controller {
     this.element.submit()
   }
 
-  foobar(event) {
-    console.log('hihihi')
+  get state() {
+    return this.data.get('state')
   }
 
   delete(event) {

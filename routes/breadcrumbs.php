@@ -60,6 +60,13 @@ Breadcrumbs::for('justice.edit', function ($trail, $conflict, $justice) {
     $trail->push("$justice->name", route('justice.edit', ['conflict' => $conflict, 'justice' => $justice]));
 });
 
+
+Breadcrumbs::for('justice.show', function ($trail, $conflict, $justice) {
+    $trail->parent('conflict.show', $conflict);
+
+    $trail->push("$justice->name", route('justice.show', ['conflict' => $conflict, 'justice' => $justice]));
+});
+
 Breadcrumbs::for('user.index', function ($trail) {
     $trail->push('The DCJ Team', route('user.index'));
 });

@@ -1,6 +1,8 @@
 <article class="user card @isset($cssClass) {{ $cssClass }} @endisset">
     <h1>
-        {{ $user->name }}
+        <a href="{{ route('user.task.index', $user) }}">
+            {{ $user->name }}
+        </a>
     </h1>
     <h2>
         {{ $user->email }}

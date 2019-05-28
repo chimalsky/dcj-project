@@ -8,6 +8,7 @@ use App\Task;
 use App\Justice;
 use App\ConflictSeries;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Conflict extends Model
 {
@@ -20,6 +21,20 @@ class Conflict extends Model
         parent::__construct($attributes);
 
         $this->setTable(config('ucdp.table_names.conflicts'));
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('type', function (Builder $builder) {
+            $builder->where('type', '!=', 2);
+        });
     }
 
     public function series()

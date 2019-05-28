@@ -5,7 +5,7 @@
 <header class="grid-x">
 
     <a href="{{ route('conflict-series.index') }}" class="cell button shrink">
-        View as UCDP Conflicts
+        View as International UCDP Conflicts
     </a>
 </header>
 

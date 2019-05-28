@@ -19,9 +19,9 @@ class JusticePolicy
      * @param  \App\Justice  $justice
      * @return mixed
      */
-    public function view(User $user, Justice $justice)
+    public function view(?User $user, Justice $justice)
     {
-        //
+        return true;
     }
 
     /**
