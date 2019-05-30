@@ -48,7 +48,6 @@ class CreateJusticesTable extends Migration
             $table->string('gender')->nullable();
             $table->string('sexviolence')->nullable();
 
-
             $table->unsignedInteger('conflict_id')
                 ->nullable();
 
@@ -73,6 +72,5 @@ class CreateJusticesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('justices');
     }
 }

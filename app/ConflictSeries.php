@@ -27,6 +27,18 @@ class ConflictSeries extends Model
     {
         return $this->hasMany(Conflict::class, 'conflict_id')->withCount('justices');
     }
+
+    public function dyads()
+    {
+        return $this->hasManyThrough(
+            DyadicConflict::class,
+            Conflict::class,
+            'conflict_id',
+            'conflictyear_id',
+            'id',
+            'id'
+        );
+    }
     
     public function justices()
     {

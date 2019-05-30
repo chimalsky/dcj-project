@@ -6,23 +6,18 @@ use DB;
 use App\Dyad;
 use App\Task;
 use App\Justice;
-use App\DyadidConflict;
+use App\Conflict;
 use App\ConflictSeries;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class Conflict extends Model
+class DyadicConflict extends Model
 {
     protected $guarded = [
         'id'
     ];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->setTable(config('ucdp.table_names.conflicts'));
-    }
+    protected $table = 'dyadic_conflicts';
 
     /**
      * The "booting" method of the model.
@@ -32,6 +27,10 @@ class Conflict extends Model
     protected static function boot()
     {
         parent::boot();
+
+        static::addGlobalScope('type', function (Builder $builder) {
+            $builder->where('type', '!=', 2);
+        });
     }
 
     public function series()
@@ -39,19 +38,19 @@ class Conflict extends Model
         return $this->belongsTo(ConflictSeries::class, 'conflict_id');
     }
 
+    public function conflict()
+    {
+        return $this->belongsTo(Conflict::class, 'conflictyear_id');
+    }
+
     public function justices()
     {
-        return $this->hasMany(Justice::class);
+        return $this->hasMany(Justice::class, 'dyadic_conflict_id');
     }
 
     public function dyad()
     {
         return $this->belongsTo(Dyad::class);
-    }
-
-    public function dyads()
-    {
-        return $this->hasMany(DyadicConflict::class, 'conflictyear_id');
     }
 
     public function getRegionAttribute($value)

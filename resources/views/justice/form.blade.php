@@ -1,3 +1,9 @@
+<input type="hidden" name="task" value ="{{ isTaskWorkflow() }}" />
+@isset ($justiceType)
+    <input type="hidden" name="type" value="{{ $justiceType }}" />
+@endisset
+<input type="hidden" name="conflict_id" value="{{ $conflict->id }}"/>
+
 <section data-controller="form"
     data-form-conflict-year="{{ $conflict->year }}"
     class="grid-x cell align-top">
@@ -239,6 +245,25 @@
     <div class="cell medium-6">
         {{ Form::label('related justice') }}
         {{ Form::select('related', $justice->possibleRelated ?? $conflict->justicesSelect, $justice->related, ['placeholder' => '---']) }}
+    </div>
+
+    <div class="cell medium-6">
+        <h1 class="cell">
+            UCDP Dyads 
+        </h1>
+        
+        @foreach($conflict->dyads as $dyad)
+            <div class="cell"> 
+                <input type="checkbox" name="dyad-{{ $dyad->id }}" value="{{ $dyad->id }}" 
+                    @if($justice->dyadicConflict->id == $dyad->id)
+                        checked 
+                    @endif
+                    />
+                <label>
+                    {{ $dyad->dyad_id }} {{ $dyad->side_a }} vs {{ $dyad->side_b }}
+                </label>
+            </div>
+        @endforeach
     </div>
 
     <footer class="cell">

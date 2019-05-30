@@ -22,6 +22,7 @@ Route::get('/conflict-series/search', 'ConflictSeriesSearchController@index')->n
 Route::resource('/conflict-series', 'ConflictSeriesController');
 
 Route::resource('/conflict', 'ConflictController');
+Route::resource('/dyadic-conflict', 'DyadicConflictController');
 
 Route::resource('/conflict/{conflict}/justice', 'JusticeController');
 

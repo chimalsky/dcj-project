@@ -1,7 +1,7 @@
 <article class="card @isset($cssClass) {{ $cssClass }} @endisset">
   <a href="{{ route('conflict.show', [
-        'conflict' => $conflict->id,
-        'task' => isTaskWorkflow() ?? false
+    'conflict' => $conflict->conflictyear_id,
+    'dyad' => $conflict->dyad_id
     ]) }}">
     <header class="card-divider grid-x align-justify">
         <h1 class="cell">
@@ -18,10 +18,6 @@
     </header>
 
     <main class="card-section cell grid-x grid-margin-y">
-        <p class="cell">
-            In {{ $conflict->location }}
-        </p>
-
         @isset ( $conflict->territory )
             <p class="cell">
                 Over {{ $conflict->territory }}
@@ -32,15 +28,9 @@
     <aside class="card-section grid-x">
         <section class="cell text-right">
             <p class="cell">
-                UCDP Conflict ID: {{ $conflict->conflict_id }}
+                UCDP Conflict ID: {{ $conflict->conflict->conflict_id }}
             </p>
 
-            <p class="cell">
-            </p>
-
-            <p class="cell">
-                Old Conflict ID: {{ $conflict->old_conflict_id }}
-            </p>
         </section>
     </aside>
   </a>
@@ -49,14 +39,6 @@
         <p class="cell">
             Total DCJ Processes: {{ $conflict->justices_count }}
         </p>
-
-        @foreach ($conflict->dyads as $dyad) 
-            <a href="{{ route('dyadic-conflict.show', $dyad) }}">
-                {{ $dyad->dyad_id }}
-                {{ $dyad->side_a }}
-                {{ $dyad->side_b }}
-            </a>
-        @endforeach
 
         @can ('attachJustice', $conflict)
             <a href="{{ route('justice.create', [

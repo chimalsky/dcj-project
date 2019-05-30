@@ -69,9 +69,10 @@ class ConflictSeriesController extends Controller
             return redirect()->route('login');
         }
 
-        $conflictSeries->withCount(['justices']);
+       // $conflictSeries->withCount(['justices']);
+        $conflictYears = $conflictSeries->episodes()->with('dyads')->get();
 
-        return view('conflict-series.show', compact('conflictSeries', 'taskWorkflow'));
+        return view('conflict-series.show', compact('conflictSeries', 'conflictYears', 'taskWorkflow'));
     }
 
     /**

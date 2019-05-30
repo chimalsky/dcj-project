@@ -7,6 +7,7 @@ use Str;
 use Arr;
 use App\Coding;
 use App\Conflict;
+use App\DyadicConflict;
 use App\CustomCasts\Enum;
 use App\Enums\JusticeTarget;
 use App\Enums\JusticeSender;
@@ -90,6 +91,11 @@ class Justice extends Model
     public function conflict()
     {
         return $this->belongsTo(Conflict::class);
+    }
+
+    public function dyadicConflict()
+    {
+        return $this->belongsTo(DyadicConflict::class, 'dyadic_conflict_id');
     }
 
     public function getTypeAttribute()
