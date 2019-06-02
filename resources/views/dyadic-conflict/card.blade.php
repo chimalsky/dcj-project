@@ -36,7 +36,8 @@
         @can ('attachJustice', $conflict->conflict)
             <a href="{{ route('justice.create', [
                     'conflict'=> $conflict->conflictyear_id,
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => $conflict->dyad_id
                 ] ) }}" class="button cell small hollow">
                 Add a new DCJ
             </a> 

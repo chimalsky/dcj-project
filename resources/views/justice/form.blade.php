@@ -18,10 +18,12 @@
                 <input type="checkbox" name="dyadicConflicts[{{ $dyadicConflict->id }}]" value="{{ $dyadicConflict->id }}" 
                     @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
                         checked
-                    @elseif (request()->query('dyad') == $dyadicConflict->dyad_id)
-                        checked
-                    @elseif (request()->query('dyad') == 0)
-                        checked
+                    @else
+                        @if (request()->query('dyad') == $dyadicConflict->dyad_id)
+                            checked
+                        @elseif (!request()->query('dyad') && $loop->first)
+                            checked
+                        @endif
                     @endif
                     />
                 <label>
