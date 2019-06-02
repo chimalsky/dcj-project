@@ -88,7 +88,6 @@ class ImportUcpdArmedConflictDataset181 extends Migration
         Excel::import(new TranslateConflictImport, 'public/translate_conf.xlsx');
         Excel::import(new ConflictImport, 'public/ucdp-prio-acd-181.xlsx');
         Excel::import(new DyadImport, 'public/translate_dyad.xlsx');
-        Excel::import(new DyadicIntegration, 'public/ucdp-dyadic-181.xlsx');
 
         $conflicts = Conflict::all();
         $conflicts->each(function($episode) {
