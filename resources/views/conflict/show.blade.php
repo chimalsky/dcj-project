@@ -63,10 +63,6 @@
                 Start Date: {{ $selectedDyadicConflict->start_date }} <br/>
                 Start 2 Date: {{ $selectedDyadicConflict->start_2_date }}
             </p>
-
-            <p class="cell medium-auto">
-                End Date: {{ $selectedDyadicConflictDate->episode_end_date ?? 'Not Ended' }}
-            </p>
         </section>
     </div>
 </section>
