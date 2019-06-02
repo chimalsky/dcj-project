@@ -21,57 +21,54 @@
 <section class="cell medium-9 large-7">
     @include('conflict.title')
 
-    <p class="cell medium-shrink">
-        {{ $selectedDyadicConflict }}
-        @if ($conflict->dyads()->count() > 1)
-            Dyads: 
-            @foreach ($conflict->dyads as $dyad)
-                <a href="{{ route('conflict.show', [
-                    'conflict' => $conflict->id,
-                    'dyad' => $dyad->dyad_id
-                    ]) }}"
-                    @if ($selectedDyadicConflict == $dyad->dyad_id)
-                        class="is-active"
-                    @endif
-                    >
-                    {{ $dyad->dyad_id }}
-                </a>
-            @endforeach
-        @else 
-            Dyad ID: {{ $conflict->dyads->first()->dyad_id }}
-        @endif
+    <div class="cell grid-x grid-margin-x grid-margin-y callout">
+        <header class="cell grid-x grid-margin-x align-top">
+            @if ($conflict->dyads()->count() > 1)
+                <p class="cell shrink">
+                    Dyads: 
+                </p>
+                <ul class="menu cell auto">
+                    @foreach ($conflict->dyads as $dyad)
+                        <li>
+                            <a href="{{ route('conflict.show', [
+                                'conflict' => $conflict->id,
+                                'dyad' => $dyad->dyad_id
+                                ]) }}"
+                                @if ($selectedDyadicConflict->dyad_id == $dyad->dyad_id)
+                                    class="is-active"
+                                @endif
+                                >
+                                {{ $dyad->dyad_id }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            @else 
+                Dyad ID: {{ $selectedDyadicConflict->dyad_id }}
+            @endif
+        </header>
 
         <section class="cell grid-x grid-margin-x">
             <p class="cell medium-auto">
-                Side A: {{ $conflict->side_a }}
+                Side A: {{ $selectedDyadicConflict->side_a }}
             </p>
 
             <p class="cell medium-auto">
-                Side B: {{ $conflict->side_b }}
+                Side B: {{ $selectedDyadicConflict->side_b }}
             </p>
         </section>
-    </p>
 
-    <section class="cell grid-x grid-margin-x">
-        <p class="cell medium-auto">
-            Start Date: {{ $conflict->start_date }} <br/>
-            Start 2 Date: {{ $conflict->start_2_date }}
-        </p>
+        <section class="cell grid-x grid-margin-x">
+            <p class="cell medium-auto">
+                Start Date: {{ $selectedDyadicConflict->start_date }} <br/>
+                Start 2 Date: {{ $selectedDyadicConflict->start_2_date }}
+            </p>
 
-        <p class="cell medium-auto">
-            End Date: {{ $conflict->episode_end_date ?? 'Not Ended' }}
-        </p>
-    </section>
-
-    <section class="cell grid-x grid-margin-x">
-        <p class="cell medium-auto">
-            Side A: {{ $conflict->side_a }}
-        </p>
-
-        <p class="cell medium-auto">
-            Side B: {{ $conflict->side_b }}
-        </p>
-    </section>
+            <p class="cell medium-auto">
+                End Date: {{ $selectedDyadicConflictDate->episode_end_date ?? 'Not Ended' }}
+            </p>
+        </section>
+    </div>
 </section>
 </main>
 
