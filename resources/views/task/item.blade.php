@@ -1,19 +1,31 @@
 
 <article class="grid-x grid-padding-x cell item" data-task-status="{{ $task->status }}">
-    <header class="cell grid-x">
+    <header class="cell grid-x align-top">
         <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
-        class="cell">
-            <h2>
+        class="cell auto">
+            <h2 class="cell">
                 {{ $task->conflictSeries->name }}
             </h2>
-            <ul>
+            <p class="cell">
                 @foreach ( $task->conflictSeries->dyads as $dyadicConflict )
-                    <li>
-                        {{ $dyadicConflict->dyad->name }}
-                    </li>
+                    {{ $dyadicConflict->side_b }} 
+                    @unless ($loop->last) | @endunless
                 @endforeach
-            </ul>
+            </p>
         </a>
+
+        @can('delete', $task)
+            <form class="cell shrink" data-controller="form"
+                action="{{ route('task.destroy', $task) }}" method="post">
+                @csrf 
+                @method('delete')
+
+                <button data-action="click->form#delete"
+                    class="cell shrink button hollow warning">
+                    Delete
+                </button>
+            </form>
+        @endcan
     </header>
 
     <main class="cell grid-x align-justify">

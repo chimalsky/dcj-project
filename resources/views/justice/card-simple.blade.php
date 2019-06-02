@@ -15,19 +15,28 @@
             </main>
         </a>
         
-    <footer class="grid-x grid-margin-x grid-padding-x">
-        @foreach($conflict->dyads as $dyadicConflict)
-            <div class="cell"> 
-                <input type="checkbox" name="dyadicConflicts[{{ $dyadicConflict->id }}]" value="{{ $dyadicConflict->id }}" 
-                    @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
-                        checked
-                    @endif
-                    />
-                <label>
-                    {{ $dyadicConflict->dyad_id }} {{ $dyadicConflict->side_a }} vs {{ $dyadicConflict->side_b }}
-                </label>
-            </div>
-        @endforeach
+    <footer data-controller="edit-panel" class="grid-x grid-margin-x grid-padding-x grid-margin-y">
+        <form class="cell" action="post">
+            @csrf 
+            @method('put')
+
+            @foreach($conflict->dyads as $dyadicConflict)
+                <div class="cell"> 
+                    <input data-action="change->edit-panel#edit" 
+                        type="checkbox" name="dyadicConflicts[{{ $dyadicConflict->id }}]" value="{{ $dyadicConflict->id }}" 
+                        @cannot("update", $justice)
+                            disabled
+                        @endcannot
+                        @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
+                            checked
+                        @endif
+                        />
+                    <label>
+                       ( Dyad: {{ $dyadicConflict->dyad_id }} ) -- {{ $dyadicConflict->side_b }}
+                    </label>
+                </div>
+            @endforeach
+        </form>
 
         @if ($justice->updated_at != $justice->created_at)
             <p class="cell text-right">

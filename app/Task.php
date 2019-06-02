@@ -64,6 +64,11 @@ class Task extends Model
             ->mode();
     }
 
+    public function getNameAttribute()
+    {
+        return $this->conflictSeries->name;
+    }
+
     public function scopeRegion($query, $region)
     {
         return $query;

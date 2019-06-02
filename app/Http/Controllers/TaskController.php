@@ -146,7 +146,9 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Task $task)
-    {
-        //
+    {   
+        $task->delete();
+        $flash = "Task " . $task->name . " for " . $task->user->name . " deleted";
+        return redirect( url()->previous() )->with('status', $flash);
     }
 }
