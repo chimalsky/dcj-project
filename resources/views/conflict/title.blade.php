@@ -13,26 +13,6 @@
         <p class="cell medium-shrink">
             Old Conflict ID: {{ $conflict->old_conflict_id }}
         </p>
-
-        <p class="cell medium-shrink">
-            @if ($conflict->dyads()->count() > 1)
-                Dyads: 
-                @foreach ($conflict->dyads as $dyad)
-                    <a href="{{ route('conflict.show', [
-                        'conflict' => $conflict->id,
-                        'dyad' => $dyad->dyad_id
-                        ]) }}"
-                        @if (request()->query('dyad') == $dyad->dyad_id)
-                            class="is-active"
-                        @endif
-                        >
-                        {{ $dyad->dyad_id }}
-                    </a>
-                @endforeach
-            @else 
-                Dyad ID: {{ $conflict->dyads->first()->dyad_id }}
-            @endif
-        </p>
     </section>
 
     <p class="cell">

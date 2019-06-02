@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyConflictsAndJusticesTables extends Migration
+class CreateDyadicConflictJusticeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,22 @@ class ModifyConflictsAndJusticesTables extends Migration
      */
     public function up()
     {
-        
-
-        Schema::table('justices', function(Blueprint $table) {
+        Schema::create('dyadic_conflict_justice', function (Blueprint $table) {            
             $table->unsignedInteger('dyadic_conflict_id')
-                ->nullable()
                 ->references('id')
                 ->on('dyadic_conflicts')
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->unsignedInteger('justice_id')
+                ->references('id')
+                ->on('justices')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->timestamps();
+
+            $table->primary(['dyadic_conflict_id', 'justice_id']);	
         });
     }
 
@@ -31,6 +39,6 @@ class ModifyConflictsAndJusticesTables extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('dyadic_conflict_justice');
     }
 }

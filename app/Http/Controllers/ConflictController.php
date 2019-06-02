@@ -76,7 +76,9 @@ class ConflictController extends Controller
             $justices = $conflict->justices()->latest('updated_at')->get();
         }
 
-        return view('conflict.show', compact('conflict', 'justices', 'justiceType'));
+        $selectedDyadicConflict = $conflict->dyads->get('dyad_id', $request->query('dyad')) ?? $conflict->dyads->first();
+
+        return view('conflict.show', compact('conflict', 'justices', 'justiceType', 'selectedDyadicConflict '));
     }
 
     /**

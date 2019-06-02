@@ -4,9 +4,15 @@
         <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
         class="cell">
             <h2>
-                UCDP {{ $task->conflictSeries->id }} |
                 {{ $task->conflictSeries->name }}
             </h2>
+            <ul>
+                @foreach ( $task->conflictSeries->dyads as $dyadicConflict )
+                    <li>
+                        {{ $dyadicConflict->dyad->name }}
+                    </li>
+                @endforeach
+            </ul>
         </a>
     </header>
 

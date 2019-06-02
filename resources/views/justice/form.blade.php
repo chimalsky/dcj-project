@@ -6,11 +6,31 @@
 
 <section data-controller="form"
     data-form-conflict-year="{{ $conflict->year }}"
-    class="grid-x cell align-top">
-    @include('justice.episode.form')
+    class="grid-x grid-margin-y cell align-top">
+    
+    <section class="grid-x grid-margin-x cell">
+        <h1 class="cell">
+            UCDP Dyads 
+        </h1>
+            
+        @foreach($conflict->dyads as $dyadicConflict)
+            <div class="cell"> 
+                <input type="checkbox" name="dyadicConflicts[{{ $dyadicConflict->id }}]" value="{{ $dyadicConflict->id }}" 
+                    @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
+                        checked
+                    @elseif (request()->query('dyad') == $dyadicConflict->dyad_id)
+                        checked
+                    @endif
+                    />
+                <label>
+                    {{ $dyadicConflict->dyad_id }} {{ $dyadicConflict->side_a }} vs {{ $dyadicConflict->side_b }}
+                </label>
+            </div>
+        @endforeach
+    </section>
 
-    <section class="grid-x grid-margin-y cell large-6">
-        <div class="cell">
+    <section class="grid-x grid-margin-y cell">
+        <div class="cell large-auto">
             @include('components.form.englishBoolean', [
                 'name' => 'implemented',
                 'label' => 'DCJ was Implemented?',
@@ -18,7 +38,7 @@
             ])
         </div>
 
-        <div class="cell">
+        <div class="cell large-auto">
             @include('components.form.englishBoolean', [
                 'name' => 'peace_initiated',
                 'label' => 'Initiated by Peace Agreement?',
@@ -26,6 +46,9 @@
             ])
         </div>
     </section>
+
+    @include('justice.episode.form')
+
 </section>
 
 <section class="grid-x grid-margin-x grid-margin-y cell callout">
@@ -245,25 +268,6 @@
     <div class="cell medium-6">
         {{ Form::label('related justice') }}
         {{ Form::select('related', $justice->possibleRelated ?? $conflict->justicesSelect, $justice->related, ['placeholder' => '---']) }}
-    </div>
-
-    <div class="cell medium-6">
-        <h1 class="cell">
-            UCDP Dyads 
-        </h1>
-        
-        @foreach($conflict->dyads as $dyad)
-            <div class="cell"> 
-                <input type="checkbox" name="dyad-{{ $dyad->id }}" value="{{ $dyad->id }}" 
-                    @if($justice->dyadicConflict->id == $dyad->id)
-                        checked 
-                    @endif
-                    />
-                <label>
-                    {{ $dyad->dyad_id }} {{ $dyad->side_a }} vs {{ $dyad->side_b }}
-                </label>
-            </div>
-        @endforeach
     </div>
 
     <footer class="cell">

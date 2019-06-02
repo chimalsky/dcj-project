@@ -22,9 +22,7 @@ class ConvertOldDcjsToDyadic extends Migration
             $conflict = $justice->conflict;
 
             if ($conflict->has('dyads')) {
-                $dyadicConflict = $conflict->dyads[0];
-                $dyadicConflict->justices()->save($justice);
-                $dyadicConflict->save();
+                $justice->dyadicConflicts()->sync($conflict->dyads->pluck('id'));
             }
         });
     }

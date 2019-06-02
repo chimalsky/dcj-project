@@ -36,6 +36,7 @@
             </p>
 
             <p class="cell">
+                Dyad ID: {{ $conflict->dyads->pluck('id') }}
             </p>
 
             <p class="cell">
@@ -49,14 +50,6 @@
         <p class="cell">
             Total DCJ Processes: {{ $conflict->justices_count }}
         </p>
-
-        @foreach ($conflict->dyads as $dyad) 
-            <a href="{{ route('dyadic-conflict.show', $dyad) }}">
-                {{ $dyad->dyad_id }}
-                {{ $dyad->side_a }}
-                {{ $dyad->side_b }}
-            </a>
-        @endforeach
 
         @can ('attachJustice', $conflict)
             <a href="{{ route('justice.create', [

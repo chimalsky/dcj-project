@@ -44391,9 +44391,7 @@ window.$ = jquery__WEBPACK_IMPORTED_MODULE_2___default.a;
 window.flatpickr = flatpickr__WEBPACK_IMPORTED_MODULE_7___default.a;
 jquery__WEBPACK_IMPORTED_MODULE_2___default()(document).foundation();
 turbolinks__WEBPACK_IMPORTED_MODULE_6___default.a.start();
-document.addEventListener('turbolinks:load', function () {
-  initDateInputs();
-});
+document.addEventListener('turbolinks:load', function () {});
 
 function initDateInputs() {
   var $dateInputs = jquery__WEBPACK_IMPORTED_MODULE_2___default()("input[type='date']");
@@ -44426,6 +44424,7 @@ jquery__WEBPACK_IMPORTED_MODULE_2___default()('.english-boolean label').click(fu
 
 var map = {
 	"./application_controller.js": "./resources/js/controllers/application_controller.js",
+	"./date_picker_controller.js": "./resources/js/controllers/date_picker_controller.js",
 	"./form_controller.js": "./resources/js/controllers/form_controller.js"
 };
 
@@ -44507,6 +44506,102 @@ function (_Controller) {
 
 /***/ }),
 
+/***/ "./resources/js/controllers/date_picker_controller.js":
+/*!************************************************************!*\
+  !*** ./resources/js/controllers/date_picker_controller.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var stimulus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! stimulus */ "./node_modules/stimulus/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_Controller) {
+  _inherits(_default, _Controller);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "initialize",
+    value: function initialize() {
+      console.log("Hello, data-picker!", this.element, this.dateInputTarget);
+      this.updatePrecision();
+      this.inputChanged();
+    }
+  }, {
+    key: "updatePrecision",
+    value: function updatePrecision() {
+      this.precision = this.precisionTarget.value;
+    }
+  }, {
+    key: "inputChanged",
+    value: function inputChanged(ev) {
+      console.log(this.dateInputTarget);
+      this.dateInputTarget.value = this.year + '-' + this.month + '-' + this.day;
+    }
+  }, {
+    key: "precision",
+    get: function get() {
+      this.data.get('precision');
+    },
+    set: function set(value) {
+      this.data.set('precision', value.toLowerCase());
+    }
+  }, {
+    key: "year",
+    get: function get() {
+      return parseInt(this.yearTarget.querySelector('input').value);
+    }
+  }, {
+    key: "month",
+    get: function get() {
+      return parseInt(this.monthTarget.querySelector('select').value);
+    }
+  }, {
+    key: "day",
+    get: function get() {
+      return parseInt(this.dayTarget.querySelector('input').value);
+    }
+  }]);
+
+  return _default;
+}(stimulus__WEBPACK_IMPORTED_MODULE_0__["Controller"]);
+
+_defineProperty(_default, "targets", ['dateInput', 'precision', 'day', 'month', 'year']);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/controllers/form_controller.js":
 /*!*****************************************************!*\
   !*** ./resources/js/controllers/form_controller.js ***!
@@ -44560,6 +44655,9 @@ function (_Controller) {
       if (this.state == 'disabled') {
         this.element.querySelectorAll('input').forEach(function (input) {
           input.setAttribute('disabled', 'true');
+        });
+        this.element.querySelectorAll('select').forEach(function (select) {
+          select.setAttribute('disabled', 'true');
         });
       }
     }

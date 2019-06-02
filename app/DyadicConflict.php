@@ -29,7 +29,7 @@ class DyadicConflict extends Model
         parent::boot();
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', '!=', 2);
+            $builder->where('dyadic_conflicts.type', '!=', 2);
         });
     }
 
@@ -45,7 +45,7 @@ class DyadicConflict extends Model
 
     public function justices()
     {
-        return $this->hasMany(Justice::class, 'dyadic_conflict_id');
+        return $this->belongsToMany(Justice::class, 'dyadic_conflict_justice', 'dyadic_conflict_id', 'justice_id');
     }
 
     public function dyad()

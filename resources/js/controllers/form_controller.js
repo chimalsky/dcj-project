@@ -6,8 +6,11 @@ export default class extends Controller {
     console.log(this.state)
 
     if (this.state == 'disabled') {
-      this.element.querySelectorAll('input').forEach(function(input) {
+      this.element.querySelectorAll('input').forEach((input) => {
         input.setAttribute('disabled', 'true')
+      })
+      this.element.querySelectorAll('select').forEach((select) => {
+        select.setAttribute('disabled', 'true')
       })
     }
   }

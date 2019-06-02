@@ -1,0 +1,25 @@
+*[data-controller='date-picker'] {
+    *[data-target*='date-picker.input'] {
+        display:none;
+    }
+}
+
+*[data-controller='date-picker'][data-date-picker-precision="low"] {
+    *[data-target*='date-picker.input date-picker.year'] {
+        display: initial;
+    }
+}
+*[data-controller='date-picker'][data-date-picker-precision="medium"] {
+    *[data-target*='date-picker.input date-picker.year'],
+    *[data-target*='date-picker.input date-picker.month'] {
+        display: initial;
+    }
+}
+
+*[data-controller='date-picker'][data-date-picker-precision="high"] {
+    *[data-target*='date-picker.input date-picker.year'],
+    *[data-target*='date-picker.input date-picker.month'],
+    *[data-target*='date-picker.input date-picker.day'] {
+        display: initial;
+    }
+}

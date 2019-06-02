@@ -3,6 +3,7 @@
 namespace App;
 
 use DB;
+use App\Dyad;
 use App\User;
 use App\Justice;
 use App\Conflict;
@@ -28,7 +29,7 @@ class ConflictSeries extends Model
         return $this->hasMany(Conflict::class, 'conflict_id')->withCount('justices');
     }
 
-    public function dyads()
+    public function dyadicConflicts()
     {
         return $this->hasManyThrough(
             DyadicConflict::class,
@@ -39,7 +40,7 @@ class ConflictSeries extends Model
             'id'
         );
     }
-    
+
     public function justices()
     {
         return $this->hasManyThrough(
@@ -51,6 +52,21 @@ class ConflictSeries extends Model
             'id'
         );
     }   
+
+    public function getDyadsAttribute()
+    {
+        return $this->dyadicConflicts->unique('dyad_id');
+    }
+
+    public function getRegionAttribute()
+    {
+        return $this->episodes->mode('region')[0];
+    }
+
+    public function getLocationAttribute()
+    {
+        return $this->episodes->mode('location')[0];
+    }
 
     public function getSideAAttribute()
     {
@@ -93,8 +109,11 @@ class ConflictSeries extends Model
         $sideA = $this->sideA;
         $sideB = $this->sideB;
         
-        return "$sideA vs $sideB | " . $this->years;
+        return "UCDP " . $this->id . " | " . $this->years . ' @ ' . $this->location;
     }
 
-    
+    public function getIsPolydyadicAttribute()
+    {
+        return $this->dyads->count() > 1;
+    }
 }

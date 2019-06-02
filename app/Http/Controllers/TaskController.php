@@ -26,7 +26,7 @@ class TaskController extends Controller
         $status = $request->query('status') ?? 'all';
         $viewType = $request->query('view_type') ?? null;
 
-        $tasks = Task::with('user', 'assigner', 'conflictSeries')
+        $tasks = Task::with('user', 'assigner', 'conflictSeries', 'conflictEpisodes')
             ->withCount('conflictEpisodes', 'conflictJustices');
         
 
@@ -34,7 +34,8 @@ class TaskController extends Controller
             $tasks = $tasks->where('status', $status);
         }
         
-        $tasks = $tasks->latest('updated_at')->get();
+        $tasks = $tasks->latest('updated_at')->get()->sortBy('conflictSeries.region');
+        
         return view('task.index', compact('tasks', 'status', 'viewType'));
     }
 

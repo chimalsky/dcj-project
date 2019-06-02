@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Conflict;
 use App\Justice;
 use Illuminate\Http\Request;
+use App\Http\Requests\JusticeRequest;
 
 class JusticeController extends Controller
 {
@@ -20,7 +21,8 @@ class JusticeController extends Controller
      */
     public function index()
     {
-        //
+        $justices = Justice::all();
+        return view('justice.index', compact('justices'));
     }
 
     /**
@@ -40,13 +42,16 @@ class JusticeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\JusticeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Conflict $conflict, Request $request)
+    public function store(Conflict $conflict, JusticeRequest $request)
     {
         $justiceableParams = $request->input('justiceable') ?? [];
-        $justiceParams = $request->except(['justiceable', 'task']);
+        $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
+
+        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task']);
+
         $task = $request->input('task') ?? null;
         $justice = Justice::create($justiceParams);
 
@@ -58,6 +63,8 @@ class JusticeController extends Controller
         $justiceable->save();
 
         $justiceable->justice()->save($justice);
+
+        $justice->dyadicConflicts()->sync($dyadicConflictsParams);
 
         if ($relatedDcj = $justice->related) {
             $related = Justice::where('dcjid', $relatedDcj)->first();
@@ -98,21 +105,25 @@ class JusticeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\JusticeRequest  $request
      * @param  \App\Justice  $justice
      * @return \Illuminate\Http\Response
      */
-    public function update(Conflict $conflict, Request $request, Justice $justice)
+    public function update(Conflict $conflict, JusticeRequest $request, Justice $justice)
     {
         $justiceableParams = $request->input('justiceable') ?? [];
-        $justiceParams = $request->except(['justiceable', 'task']);
-
+        $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
+       
+        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task']);
+        
         $task = $request->input('task') ?? null;
 
         $justice->update($justiceParams);
         $justice->justiceable()->update($justiceableParams);
 
         $justice->save();
+
+        $justice->dyadicConflicts()->sync($dyadicConflictsParams);
 
         if ($relatedDcj = $justice->related) {
             $related = Justice::where('dcjid', $relatedDcj)->first();

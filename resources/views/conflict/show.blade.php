@@ -6,7 +6,12 @@
     
 @can ('attachJustice', $conflict)
 <section class="cell grid-x align-right">
-    <a href="{{ route('justice.create', ['conflict' => $conflict->id, 'task' => isTaskWorkflow() ?? false ]) }}"
+    <a href="{{ route('justice.create', [
+        'conflict' => $conflict->id, 
+        'task' => isTaskWorkflow() ?? false,
+        'dyad' => request()->query('dyad') ?? false 
+        ])
+        }}"
         class="cell shrink button hollow align-right">
         Create a new DCJ
     </a>
@@ -15,6 +20,37 @@
 
 <section class="cell medium-9 large-7">
     @include('conflict.title')
+
+    <p class="cell medium-shrink">
+        {{ $selectedDyadicConflict }}
+        @if ($conflict->dyads()->count() > 1)
+            Dyads: 
+            @foreach ($conflict->dyads as $dyad)
+                <a href="{{ route('conflict.show', [
+                    'conflict' => $conflict->id,
+                    'dyad' => $dyad->dyad_id
+                    ]) }}"
+                    @if ($selectedDyadicConflict == $dyad->dyad_id)
+                        class="is-active"
+                    @endif
+                    >
+                    {{ $dyad->dyad_id }}
+                </a>
+            @endforeach
+        @else 
+            Dyad ID: {{ $conflict->dyads->first()->dyad_id }}
+        @endif
+
+        <section class="cell grid-x grid-margin-x">
+            <p class="cell medium-auto">
+                Side A: {{ $conflict->side_a }}
+            </p>
+
+            <p class="cell medium-auto">
+                Side B: {{ $conflict->side_b }}
+            </p>
+        </section>
+    </p>
 
     <section class="cell grid-x grid-margin-x">
         <p class="cell medium-auto">

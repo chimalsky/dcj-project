@@ -12,6 +12,7 @@ use App\CustomCasts\Enum;
 use App\Enums\JusticeTarget;
 use App\Enums\JusticeSender;
 use App\Enums\JusticePrecision;
+use App\Traits\UsesPreciseDates;
 use App\CustomCasts\EnglishBoolean;
 use Illuminate\Database\Eloquent\Model;
 use Collective\Html\Eloquent\FormAccessible;
@@ -19,7 +20,7 @@ use Vkovic\LaravelCustomCasts\HasCustomCasts;
 
 class Justice extends Model
 {   
-    use FormAccessible, HasCustomCasts;
+    use UsesPreciseDates, FormAccessible, HasCustomCasts;
 
     protected $guarded = [
         'id'
@@ -93,9 +94,9 @@ class Justice extends Model
         return $this->belongsTo(Conflict::class);
     }
 
-    public function dyadicConflict()
+    public function dyadicConflicts()
     {
-        return $this->belongsTo(DyadicConflict::class, 'dyadic_conflict_id');
+        return $this->belongsToMany(DyadicConflict::class, 'dyadic_conflict_justice', 'justice_id', 'dyadic_conflict_id');
     }
 
     public function getTypeAttribute()

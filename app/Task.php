@@ -5,6 +5,7 @@ namespace App;
 use App\User;
 use App\Justice;
 use App\Conflict;
+use App\DyadicConflict;
 use App\ConflictSeries;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,18 @@ class Task extends Model
     public function conflictEpisodes()
     {
         return $this->hasMany(Conflict::class, 'conflict_id', 'conflict_ucdp_id');
+    }
+
+    public function dyadicConflicts()
+    {
+        return $this->hasManyThrough(
+            DyadicConflict::class,
+            Conflict::class,
+            'conflict_id',
+            'conflictyear_id',
+            'conflict_ucdp_id',
+            'id'
+        );
     }
 
     public function conflictJustices()

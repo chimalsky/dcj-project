@@ -30,7 +30,6 @@ $(document).foundation()
 turbolinks.start()  
 
 document.addEventListener('turbolinks:load', function() {
-    initDateInputs()
 })
 
 function initDateInputs() {

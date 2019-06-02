@@ -32,6 +32,11 @@ class Conflict extends Model
     protected static function boot()
     {
         parent::boot();
+
+        static::addGlobalScope('type', function (Builder $builder) {
+            $builder->where(config('ucdp.table_names.conflicts') . '.type', '!=', 2);
+        });
+    
     }
 
     public function series()
@@ -51,7 +56,8 @@ class Conflict extends Model
 
     public function dyads()
     {
-        return $this->hasMany(DyadicConflict::class, 'conflictyear_id');
+        return $this->hasMany(DyadicConflict::class, 'conflictyear_id')
+            ->withCount('justices');
     }
 
     public function getRegionAttribute($value)
@@ -86,6 +92,11 @@ class Conflict extends Model
     public function getNameAttribute()
     {
         return "$this->year $this->side_a vs. $this->side_b";
+    }
+
+    public function getIsPolydyadicAttribute()
+    {
+        return $this->dyads()->count() > 1;
     }
     
 }

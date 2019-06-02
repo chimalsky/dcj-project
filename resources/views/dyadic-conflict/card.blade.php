@@ -25,28 +25,21 @@
         @endisset
     </main>
 
-    <aside class="card-section grid-x">
-        <section class="cell text-right">
-            <p class="cell">
-                UCDP Conflict ID: {{ $conflict->conflict->conflict_id }}
-            </p>
-
-        </section>
-    </aside>
+    
   </a>
 
-    <footer class="card-divider grid-x">
+  <aside class="card-section grid-x grid-margin-x">
         <p class="cell">
             Total DCJ Processes: {{ $conflict->justices_count }}
         </p>
 
-        @can ('attachJustice', $conflict)
+        @can ('attachJustice', $conflict->conflict)
             <a href="{{ route('justice.create', [
                     'conflict'=> $conflict->id,
                     'task' => isTaskWorkflow() ?? false
-                ] ) }}" class="button small hollow">
+                ] ) }}" class="button cell small hollow">
                 Add a new DCJ
             </a>
         @endcan
-    </footer>
+</aside>
 </article>

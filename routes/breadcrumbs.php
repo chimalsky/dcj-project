@@ -37,15 +37,15 @@ Breadcrumbs::for('conflict.show', function ($trail, $conflict) {
         $trail->parent('task.index');
 
         $trail->push("UCDP " . $conflict->series->id, route('conflict-series.show', $conflict->series));
-
-
-        //$trail->push($conflict->name, route('conflict.show', ['conflict' => $conflict, 'task' => isTaskWorkflow()]));
     } else {
         $trail->parent('conflict-series.show', $conflict->series);
-
     }
-        $trail->push($conflict->name, route('conflict.show', $conflict));
     
+    $trail->push($conflict->year . " @ " . $conflict->location, route('conflict.show', $conflict));
+});
+
+Breadcrumbs::for('justice.index', function ($trail) {
+    $trail->push('During Conflict Justices', route('justice.index'));
 });
 
 Breadcrumbs::for('justice.create', function ($trail, $conflict) {

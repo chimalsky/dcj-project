@@ -29,7 +29,13 @@
 
     <main class="cell medium-10 grid-x grid-margin-y">
         @if (!$viewType)
-            @include('task.list', $tasks)
+            @foreach($tasks->pluck('conflictSeries.region')->unique() as $region)
+                <h1 class="cell"> 
+                    {{ $region }}
+                </h1>
+
+                @include('task.list', ['tasks' => $tasks->where('conflictSeries.region', $region)])
+            @endforeach
         @elseif ($viewType == 'user')
             @foreach ($users as $user) 
                 {{ $user }}

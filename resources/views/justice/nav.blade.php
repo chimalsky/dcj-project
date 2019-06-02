@@ -6,10 +6,12 @@
                 route::currentRouteName(), 
                 [
                     'conflict' => $conflict->id,
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => request()->query('dyad') ?? false 
+
                 ] )
             }}"
-                class="cell is-active shrink">
+                class="cell shrink">
                 All Process Types
             </a>
         </li>
@@ -21,7 +23,9 @@
                 [
                     'conflict' => $conflict->id,
                     'justice_type' => 'trial',
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => request()->query('dyad') ?? false 
+
                 ] )
             }}"
             class="cell shrink">
@@ -35,7 +39,8 @@
                 [
                     'conflict' => $conflict->id,
                     'justice_type' => 'truth',
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => request()->query('dyad') ?? false 
                 ] )
             }}"
             class="cell shrink">
@@ -49,7 +54,8 @@
                 [
                     'conflict' => $conflict->id,
                     'justice_type' => 'reparation',
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => request()->query('dyad') ?? false 
                 ] )
             }}"class="cell shrink">
             Reparation
@@ -62,7 +68,8 @@
                 [
                     'conflict' => $conflict->id,
                     'justice_type' => 'amnesty',
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => request()->query('dyad') ?? false 
                 ] )
             }}"
             class="cell shrink">
@@ -76,7 +83,8 @@
                 [
                     'conflict' => $conflict->id,
                     'justice_type' => 'purge',
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => request()->query('dyad') ?? false 
                 ] )
             }}"class="cell shrink">
             Purge
@@ -89,7 +97,8 @@
                 [
                     'conflict' => $conflict->id,
                     'justice_type' => 'exile',
-                    'task' => isTaskWorkflow() ?? false
+                    'task' => isTaskWorkflow() ?? false,
+                    'dyad' => request()->query('dyad') ?? false 
                 ] )
             }}"
             class="cell shrink">
