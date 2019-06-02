@@ -20,6 +20,8 @@
                         checked
                     @elseif (request()->query('dyad') == $dyadicConflict->dyad_id)
                         checked
+                    @elseif (request()->query('dyad') == 0)
+                        checked
                     @endif
                     />
                 <label>
