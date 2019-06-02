@@ -5,20 +5,14 @@
             role="option" data-autocomplete-value="{{ $series->id }}" class="cell"> 
             {{ $series->name }} 
 
-            @if ($series->isPolydyadic)
-                <p>
-                    <strong>
-                    Dyads:
-                    </strong>
-                </p>
-            @endif
-
-            @foreach ($series->dyads as $dyadicConflict)
-                <p>
-                    {{ $dyadicConflict->dyad->name }}
-                </p>
+            <p>
+                {{ $series->sideA }} vs.
+            </p>
+        
+            @foreach ($series->dyads as $dyad)
+                {{ $dyad->side_b }} 
+                @unless ($loop->last) | @endunless
             @endforeach
-                
         </li>
     @endforeach
 @else

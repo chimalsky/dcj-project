@@ -35,11 +35,11 @@
 
         @can ('attachJustice', $conflict->conflict)
             <a href="{{ route('justice.create', [
-                    'conflict'=> $conflict->id,
+                    'conflict'=> $conflict->conflictyear_id,
                     'task' => isTaskWorkflow() ?? false
                 ] ) }}" class="button cell small hollow">
                 Add a new DCJ
-            </a>
+            </a> 
         @endcan
 </aside>
 </article>
