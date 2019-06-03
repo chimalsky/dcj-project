@@ -68,12 +68,12 @@ Breadcrumbs::for('justice.show', function ($trail, $conflict, $justice) {
 });
 
 Breadcrumbs::for('user.index', function ($trail) {
-    $trail->push('The DCJ Team', route('user.index'));
+    $trail->push('The DCJ Crew', route('user.index'));
 });
 
 Breadcrumbs::for('user.create', function ($trail) {
     $trail->parent('user.index');
-    $trail->push('Add Team Member', route('user.create'));
+    $trail->push('Add Crew Member', route('user.create'));
 });
 
 

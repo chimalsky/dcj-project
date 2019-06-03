@@ -42,14 +42,4 @@ function initDateInputs() {
 
 // English Boolean. Later convert to StimulusJS
 
-$('.english-boolean label').click(function(ev) {
-    let target = ev.delegateTarget,
-        container = target.parentElement,
-        input = container.querySelector('input')
-    
-    if (input.checked == true) {
-        input.checked = false
-        console.log(input)
-    }
-})
 

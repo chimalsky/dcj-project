@@ -19,7 +19,7 @@
 
         <footer class="grid-x align-center">
             <button class="button shrink hollow cell">
-                Add Person
+                Add Crew member
             </button>
         </footer>
     {{ Form::close() }}

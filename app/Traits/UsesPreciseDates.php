@@ -2,8 +2,21 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
+
 trait UsesPreciseDates
 {
+
+    public function getStartAttribute($value)
+    {
+        return $this->start_precision ? Carbon::parse($value) : null;
+    }
+
+    public function getEndAttribute($value)
+    {
+        return $this->end_precision ? Carbon::parse($value) : null;
+    }
+
     /**
      * Model can access start date directly as attribute
      */
@@ -14,14 +27,14 @@ trait UsesPreciseDates
 
     public function getStartMonthAttribute()
     {
-        $precision = strtolower($this->start_precision);
+        $precision = $this->start_precision ? strtolower($this->start_precision) : null;
 
         switch ($precision) {
             case 'high':
-                return $this->start->format('m');
+                return $this->start ? $this->start->format('n') : null;
                 break;
             case 'medium':
-                return $this->start->format('m');
+                return $this->start ? $this->start->format('n') : null;
                 break;
             default:
                 return null;
@@ -30,21 +43,16 @@ trait UsesPreciseDates
 
     public function getStartDayAttribute()
     {
-        $precision = strtolower($this->start_precision);
-
+        $precision = $this->start_precision ? strtolower($this->start_precision) : null;
         switch ($precision) {
             case 'high':
-                return $this->start->format('d');
+                return $this->start ? $this->start->format('d') : null;
                 break;
             default:
                 return null;
         }
     }
 
-    public function formStartMonthAttribute()
-    {
-        return 10;
-    }
 
     public function getEndYearAttribute()
     {
@@ -53,14 +61,14 @@ trait UsesPreciseDates
 
     public function getEndMonthAttribute()
     {
-        $precision = strtolower($this->end_precision);
+        $precision = $this->end_precision ? strtolower($this->end_precision) : null;
 
         switch ($precision) {
             case 'high':
-                return $this->end->format('m');
+                return $this->end ? $this->end->format('n') : null;
                 break;
             case 'medium':
-                return $this->end->format('m');
+                return $this->end ? $this->end->format('n') : null;
                 break;
             default:
                 return null;
@@ -69,11 +77,11 @@ trait UsesPreciseDates
 
     public function getEndDayAttribute()
     {
-        $precision = strtolower($this->end_precision);
+        $precision = $this->end_precision ? strtolower($this->end_precision) : null;
 
         switch ($precision) {
             case 'high':
-                return $this->end->format('d');
+                return $this->end ? $this->end->format('d') : null;
                 break;
             default:
                 return null;

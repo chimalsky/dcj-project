@@ -31,7 +31,13 @@ export default class extends Controller {
   }
 
   radio(event) {
-    console.log(event)
+    /*let target = event.target;
+
+    if (target.type !== 'radio')
+      return;
+    
+    console.log(target, target.checked)*/
+
   }
 
   submit(event) {

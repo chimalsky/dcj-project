@@ -30,7 +30,6 @@ export default class extends Controller {
     this.data.set('precision', value.toLowerCase())
   }
 
-
   get year() {
     return parseInt(this.yearTarget.querySelector('input').value)
   }

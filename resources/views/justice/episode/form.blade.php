@@ -47,6 +47,7 @@
                     {{ Form::selectMonth(null, $justice->startMonth ?? 1, [
                         'data-action' => 'change->date-picker#inputChanged'
                     ]) }} 
+
                 </div>
 
                 <div data-target="date-picker.input date-picker.year"

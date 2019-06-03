@@ -44401,18 +44401,6 @@ function initDateInputs() {
   });
 } // English Boolean. Later convert to StimulusJS
 
-
-jquery__WEBPACK_IMPORTED_MODULE_2___default()('.english-boolean label').click(function (ev) {
-  var target = ev.delegateTarget,
-      container = target.parentElement,
-      input = container.querySelector('input');
-
-  if (input.checked == true) {
-    input.checked = false;
-    console.log(input);
-  }
-});
-
 /***/ }),
 
 /***/ "./resources/js/controllers sync recursive \\.js$":
@@ -44746,7 +44734,11 @@ function (_Controller) {
   }, {
     key: "radio",
     value: function radio(event) {
-      console.log(event);
+      /*let target = event.target;
+        if (target.type !== 'radio')
+        return;
+      
+      console.log(target, target.checked)*/
     }
   }, {
     key: "submit",

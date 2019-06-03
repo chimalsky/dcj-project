@@ -4,7 +4,7 @@
 <header class="grid-x grid-margin-x align-right">
     @can('create', 'App\User')
         <a href="{{ route('user.create') }}" class="cell shrink hollow button">
-            Add a Team Member
+            Add a Crew Member
         </a>
     @endcan
 </header>

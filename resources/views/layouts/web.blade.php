@@ -8,10 +8,10 @@
             {{ config('app.name') }}
         </title>
 
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
         @stack('stylesheets')
         
-        <script src="{{ asset('js/app.js') }}" defer="true"></script>
+        <script src="{{ mix('js/app.js') }}" defer="true"></script>
         @stack('scripts')
     </head>
     <body data-controller="application">
