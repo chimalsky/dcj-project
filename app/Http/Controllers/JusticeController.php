@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Conflict;
 use App\Justice;
 use Illuminate\Http\Request;
@@ -51,6 +52,7 @@ class JusticeController extends Controller
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
 
         $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task']);
+        $justiceParams['user'] = Auth::user();
 
         $task = $request->input('task') ?? null;
         $justice = Justice::create($justiceParams);

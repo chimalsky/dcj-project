@@ -5,6 +5,7 @@ namespace App;
 use DB;
 use Str;
 use Arr;
+use App\User;
 use App\Coding;
 use App\Conflict;
 use App\DyadicConflict;
@@ -83,6 +84,11 @@ class Justice extends Model
     {
         return $this->belongsToMany(Justice::class, );
     }*/
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function justiceable()
     {
@@ -307,5 +313,16 @@ class Justice extends Model
             $value = $this->type;
         }
         return ucfirst($value); //. " #$this->count ";
+    }
+
+
+    /**
+     *  Set Mutators
+     */
+
+    public function setUserAttribute(User $user)
+    {
+        $this->user_id = $user->id;
+        $this->setRelation('user', $user);
     }
 }

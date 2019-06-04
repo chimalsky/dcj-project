@@ -1,4 +1,4 @@
-<input type="hidden" name="task" value ="{{ isTaskWorkflow() }}" />
+<input type="hidden" name="task" value="{{ isTaskWorkflow() }}" />
 @isset ($justiceType)
     <input type="hidden" name="type" value="{{ $justiceType }}" />
 @endisset

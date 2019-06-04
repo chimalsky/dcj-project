@@ -40,12 +40,15 @@
 
         @if ($justice->updated_at != $justice->created_at)
             <p class="cell text-right">
-                Updated: {{ $justice->updatedAtHuman }}
+                Last Updated: {{ $justice->updated_at }}
             </p>
         @endif
 
         <p class="cell text-right">
-            Created: {{ $justice->createdAtHuman }}
+            Created: {{ $justice->created_at }}
+            @isset($justice->user)
+                - {{ $justice->user->name }}
+            @endisset
         </p>
     </footer>
 </article>
