@@ -212,6 +212,20 @@
             'model' => $justice,
             'labels' => ['Non-community', 'Community']
         ])
+
+        <div class="cell">
+            {{ Form::select('justiceable[funder]', [
+                    'Side A' => 'Side A',
+                    'Side B' => 'Side B',
+                    'Both' => 'Both',
+                    'Other' => 'Other',
+                    'International' => 'International'
+                ],
+                null,
+                ['placeholder' => 'Funder of the Reparation']
+                )
+            }}
+        </div>
     @endif
 
     @if ($justice->type == 'amnesty')
