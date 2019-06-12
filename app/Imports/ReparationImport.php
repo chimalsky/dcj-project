@@ -30,7 +30,6 @@ class ReparationImport implements OnEachRow,
             return null;
         }
 
-
         $dcj = Reparation::create([
             'property' => $row['rep_property'],
             'money' => $row['rep_money'],

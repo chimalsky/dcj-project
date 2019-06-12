@@ -8,7 +8,6 @@ export default class extends Controller {
   ]
 
   initialize() {
-    console.log("Hello, data-picker!", this.element, this.dateInputTarget)
     this.updatePrecision()
     this.inputChanged()
   }

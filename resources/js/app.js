@@ -40,6 +40,31 @@ function initDateInputs() {
     })
 }
 
-// English Boolean. Later convert to StimulusJS
+function initEnglishBooleans() {    
+    $('.english-boolean input[type=radio]').each(function(i, el) {
+        if (el.checked)
+            $(el).attr('data-checked', true);
+    })
 
+    $('.english-boolean input[type=radio]').click(function(ev) {
+        let target = ev.target,
+            inputs = $(target).parent().parent().find('input'),
+            nullRadioInput = $(target).parent().parent().find('input[value=""]');
+
+        if ($(target).attr('data-checked')) {
+            $(inputs).removeAttr('data-checked')    
+                .removeAttr('checked')
+                .each((i,el) => {
+                    el.checked = false
+                });
+        } else {
+            $(inputs).removeAttr('data-checked')    
+                .removeAttr('checked');
+
+            $(target).attr('data-checked', true)
+            
+            console.log('false')
+        }
+    })
+}
 

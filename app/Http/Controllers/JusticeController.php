@@ -112,7 +112,7 @@ class JusticeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Conflict $conflict, JusticeRequest $request, Justice $justice)
-    {
+    {        
         $justiceableParams = $request->input('justiceable') ?? [];
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
        
@@ -120,8 +120,9 @@ class JusticeController extends Controller
         
         $task = $request->input('task') ?? null;
 
-        $justice->update($justiceParams);
+        $justice->fill($justiceParams);
         $justice->justiceable()->update($justiceableParams);
+
 
         $justice->save();
 

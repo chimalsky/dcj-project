@@ -27,6 +27,9 @@ class EnglishBoolean extends CustomCastBase
             case '':
                 return null;
                 break;
+            case 'foobar-null':
+                return 'asdf';
+                break;
             case null:
                 return null;
                 break;  
@@ -45,7 +48,7 @@ class EnglishBoolean extends CustomCastBase
             $value = 'N/A';
         }
         else {
-            return "null";
+            return null;
         }
         
         return ucfirst($value);

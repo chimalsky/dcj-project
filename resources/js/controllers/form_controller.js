@@ -3,8 +3,6 @@ import $ from 'jquery'
 
 export default class extends Controller {
   connect() {
-    console.log(this.state)
-
     if (this.state == 'disabled') {
       this.element.querySelectorAll('input').forEach((input) => {
         input.setAttribute('disabled', 'true')
@@ -31,12 +29,11 @@ export default class extends Controller {
   }
 
   radio(event) {
-    /*let target = event.target;
+    let target = event.target;
 
-    if (target.type !== 'radio')
-      return;
-    
-    console.log(target, target.checked)*/
+    console.log(target)
+
+    target.checked = false
 
   }
 
