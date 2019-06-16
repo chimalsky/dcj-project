@@ -50,23 +50,40 @@ class JusticeController extends Controller
     {
         $justiceableParams = $request->input('justiceable') ?? [];
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
+        $metaParams = $request->input('meta') ?? [];
 
-        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task']);
-        $justiceParams['user'] = Auth::user();
+        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'meta']);
 
         $task = $request->input('task') ?? null;
+        
         $justice = Justice::create($justiceParams);
 
-        $type = ucfirst($justice->type);
-        $justiceTypeClass = "App\\$type";
+        $justice->conflict()->associate($conflict);
+        $justice->user()->associate(Auth::user());
 
-        $justiceable = new $justiceTypeClass();
-        $justiceable->fill($justiceableParams);
-        $justiceable->save();
+        $justice->save();
 
-        $justiceable->justice()->save($justice);
-
+        $justice->createMeta($metaParams);
+        
         $justice->dyadicConflicts()->sync($dyadicConflictsParams);
+
+        // todo: put this stuff in a db later.
+        // deprecate using process as trait models
+        $processDictionary = [
+            'trial' => 'T',
+            'truth' => 'C',
+            'reparation' => 'R',
+            'amnesty' => 'A',
+            'purge' => 'P',
+            'exile' => 'E'
+        ];
+           
+        $convertedType = $processDictionary[$justice->type];            
+
+        $justice->dcjid = $conflict->old_conflict_id . "_" . $conflict->year 
+            . "_" . $convertedType . "_" . $justice->count;
+            
+        $justice->save();
 
         if ($relatedDcj = $justice->related) {
             $related = Justice::where('dcjid', $relatedDcj)->first();
@@ -74,8 +91,8 @@ class JusticeController extends Controller
             $related->save();
         }
 
-        return redirect()->route('conflict.show', ['conflict' => $justice->conflict, 'task' => $task])
-            ->with('status', "$type $justice->dcjid created");
+        return redirect()->route('conflict.show', ['conflict' => $conflict, 'task' => $task])
+            ->with('status', "$justice->type $justice->dcjid created");
     }
 
     /**
@@ -115,16 +132,22 @@ class JusticeController extends Controller
     {        
         $justiceableParams = $request->input('justiceable') ?? [];
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
+        $metaParams = $request->input('meta') ?? [];
        
-        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task']);
+        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'meta']);
         
         $task = $request->input('task') ?? null;
 
-        $justice->fill($justiceParams);
-        $justice->justiceable()->update($justiceableParams);
+        $foobarParams = collect($justice->getFillable())->mapWithKeys(function($key) use ($justiceParams) {
+            return [
+                $key => $justiceParams[$key] ?? null
+            ];
+        })->toArray();
 
-
+        $justice->fill($foobarParams);
         $justice->save();
+
+        $justice->upsertMeta($metaParams);
 
         $justice->dyadicConflicts()->sync($dyadicConflictsParams);
 

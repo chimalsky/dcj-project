@@ -113,174 +113,20 @@
         {{ Form::select('sexviolence', $justice->sexviolenceCodes, $justice->sexviolence, ['placeholder' => '---']) }}
     </div>
 
-    @if ($justice->type == 'trial')
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[domestic]',
-            'label' => 'Location domestic?',
-            'model' => $justice,
-            'labels' => ['Non-domestic', 'Domestic']
-        ])
 
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[international]',
-            'label' => 'International Involvement?',
-            'model' => $justice,
-            'labels' => ['Non-international', 'International']
-        ])
-
-        {{ Form::select('justiceable[venue]', [
-                'Domestic law court' => 'Domestic law court',
-                'Military court' => 'Military court',
-                'International court' => 'International court',
-                'Ad hoc conflict-specific court' => 'Ad hoc conflict-specific court'
-            ],
-            null,
-            ['placeholder' => 'Select a Trial venue']
-            )
-        }}
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[absentia]',
-            'label' => 'Absentia?',
-            'model' => $justice,
-            'labels' => ['Non-absentia', 'Is absentia']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[executed]',
-            'label' => 'Executed?',
-            'model' => $justice,
-            'labels' => ['No execution', 'Execution']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[breach]',
-            'label' => 'Breached?',
-            'model' => $justice,
-            'labels' => ['Non-breach', 'Breach']
-        ])
-    @endif
-
-    @if ($justice->type == 'truth')
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[report]',
-            'label' => 'Report Released?',
-            'model' => $justice,
-            'labels' => ['No release', 'Release']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[breach]',
-            'label' => 'Breach of Justice?',
-            'model' => $justice,
-            'labels' => ['Non-breach', 'Breach']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[international]',
-            'label' => 'International Involvement?',
-            'model' => $justice,
-            'labels' => ['Non-international', 'International']
-        ])
-    @endif
-
-    @if ($justice->type == 'reparation')
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[property]',
-            'label' => 'Property?',
-            'model' => $justice,
-            'labels' => ['Non-property', 'Property']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[money]',
-            'label' => 'Money?',
-            'model' => $justice,
-            'labels' => ['Non-monetary', 'Monetary']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[training_education]',
-            'label' => 'Training/Education',
-            'model' => $justice,
-            'labels' => ['No skills/education', 'Skills/education']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[community]',
-            'label' => 'Community',
-            'model' => $justice,
-            'labels' => ['Non-community', 'Community']
-        ])  
-
-        <div class="cell">
-            {{ Form::select('justiceable[funder]', [
-                    'Side A' => 'Side A',
-                    'Side B' => 'Side B',
-                    'Both' => 'Both',
-                    'Other' => 'Other',
-                    'International' => 'International'
-                ],
-                null,
-                ['placeholder' => 'Funder of the Reparation']
-                )
-            }}
-        </div>
-    @endif
-
-    @if ($justice->type == 'amnesty')
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[limited]',
-            'label' => 'Limited?',
-            'model' => $justice,
-            'labels' => ['Not limited', 'Limited']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[unconditional]',
-            'label' => 'Amnesty conditions were:',
-            'model' => $justice,
-            'labels' => ['Not unconditional', 'Unconditional']
-        ])
-    @endif
-
-    @if ($justice->type == 'purge')
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[permanent]',
-            'label' => 'Permanent?',
-            'model' => $justice,
-            'labels' => ['Non-permanent', 'Permanent']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[military]',
-            'label' => 'Military?',
-            'model' => $justice,
-            'labels' => ['Non-military', 'Military']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[judiciary]',
-            'label' => 'Judiciary?',
-            'model' => $justice,
-            'labels' => ['Non-judiciary', 'Judiciary']
-        ])
-
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[civil_service]',
-            'label' => 'Civil Service?',
-            'model' => $justice,
-            'labels' => ['Not civil service', 'Civil service']
-        ])
-    @endif
-    
-    @if ($justice->type == 'exile')
-        @include('components.form.englishBoolean', [
-            'name' => 'justiceable[permanent]',
-            'label' => 'Permanent?',
-            'model' => $justice,
-            'labels' => ['Non-permanent', 'permanent']
-        ])
+    @if ($justice->form->items)
+        @foreach ($justice->form->items as $meta)
+            @if (!isset($meta['type']))
+                @include('components.form.englishBoolean', [
+                    'name' => 'meta[' . $meta['name'] . ']',
+                    'label' => $meta['label'],
+                    'model' => $justice,
+                    'labels' => $meta['options']
+                ])
+            @elseif ($meta['type'] == 'dropdown')
+                @include('components.form.select', $meta)
+            @endif
+        @endforeach
     @endif
 
     <div class="cell medium-6">

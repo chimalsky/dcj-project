@@ -6,10 +6,13 @@ use DB;
 use Str;
 use Arr;
 use App\User;
+use App\Form;
 use App\Coding;
 use App\Conflict;
 use App\DyadicConflict;
+use App\Traits\Formable;
 use App\CustomCasts\Enum;
+use App\JusticeRelationship;
 use App\Enums\JusticeTarget;
 use App\Enums\JusticeSender;
 use App\Enums\JusticePrecision;
@@ -21,10 +24,28 @@ use Vkovic\LaravelCustomCasts\HasCustomCasts;
 
 class Justice extends Model
 {   
-    use UsesPreciseDates, FormAccessible, HasCustomCasts;
+    use Formable, UsesPreciseDates, FormAccessible, HasCustomCasts;
 
     protected $guarded = [
         'id'
+    ];
+
+    protected $fillable = [
+        'type',
+        'start', 'end', 'implemented', 
+        'civilian', 'rank_and_file', 'elite',
+        'peace_initiated', 'implemented',
+        "start_precision",
+        "start_event",
+        "end_precision",
+        "end_event",
+        "target",
+        "scope",
+        "scope_count",
+        "sender",
+        "wrong",
+        "gender",
+        "sexviolence"
     ];
 
     protected $casts = [
@@ -48,35 +69,6 @@ class Justice extends Model
      */
     protected $with = ['conflict'];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        // todo: put this stuff in a db later.
-        // deprecate using process as trait models
-        $processDictionary = [
-            'trial' => 'T',
-            'truth' => 'C',
-            'reparation' => 'R',
-            'amnesty' => 'A',
-            'purge' => 'P',
-            'exile' => 'E'
-        ];
-
-        static::created(function ($justice) use ($processDictionary) {
-            if ($justice->dcjid || !$justice->conflict) {
-                return;
-            }
-
-            $conflict = $justice->conflict;
-            $convertedType = $processDictionary[$justice->type];            
-
-            $justice->dcjid = $conflict->old_conflict_id . "_" . $conflict->year 
-                . "_" . $convertedType . "_" . $justice->count;
-            $justice->save();
-        });
-    }
-
     /**
      * A justice model can be associated with other justice models
      */
@@ -90,11 +82,6 @@ class Justice extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function justiceable()
-    {
-        return $this->morphTo();
-    }
-
     public function conflict()
     {
         return $this->belongsTo(Conflict::class);
@@ -105,10 +92,9 @@ class Justice extends Model
         return $this->belongsToMany(DyadicConflict::class, 'dyadic_conflict_justice', 'justice_id', 'dyadic_conflict_id');
     }
 
-    public function getTypeAttribute()
+    public function relatedJustices()
     {
-        return $this->attributes['type'] ??
-            class_basename($this->justiceable_type);
+        return $this->hasMany(JusticeRelationship::class, 'justice_a');
     }
 
     public function getPossibleRelatedAttribute()
@@ -135,9 +121,9 @@ class Justice extends Model
             ->get();
         
         $index = $justiceOfTypes
-                ->search(function($item, $key) use ($justice) {
-                    return $item->id === $justice->id;
-                });
+            ->search(function($item, $key) use ($justice) {
+                return $item->id === $justice->id;
+            });
         
         if (is_int($index)) {
             return $index + 1;
@@ -320,9 +306,5 @@ class Justice extends Model
      *  Set Mutators
      */
 
-    public function setUserAttribute(User $user)
-    {
-        $this->user_id = $user->id;
-        $this->setRelation('user', $user);
-    }
+    
 }

@@ -33,6 +33,7 @@ Route::resource('/task/geo', 'TaskGeoController', ['as' => 'task'])->middleware(
 
 Route::resource('/task', 'TaskController')->middleware('auth');
 
+Route::resource('form', 'FormController')->middleware('auth');
 
 Auth::routes(['register' => false]);
 
