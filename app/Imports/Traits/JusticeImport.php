@@ -34,7 +34,6 @@ Trait JusticeImport
         ]);
 
         $justice = new Justice([
-            'conflict_id' => $conflict->first() ? $conflict->first()->id : null,
             'type' => $model->type,
 
             'implemented' => $params[$type . '_implement'],
@@ -62,6 +61,7 @@ Trait JusticeImport
             'related' => $params[$type .'_rdcj']
         ]);
 
+        $justice->conflict_id = $conflict->first() ? $conflict->first()->id : null;
         $justice->dcjid = $params['dcjid'] ?? null;
         $justice->save();
 
