@@ -61,6 +61,10 @@ class JusticeController extends Controller
         $justice->conflict()->associate($conflict);
         $justice->user()->associate(Auth::user());
 
+        if ($relatedDcjid = $request->input('related')) {
+            $justice->related = $relatedDcjid;
+        }
+
         $justice->save();
 
         $justice->createMeta($metaParams);
@@ -90,6 +94,7 @@ class JusticeController extends Controller
             $related->related = $justice->dcjid;
             $related->save();
         }
+
 
         return redirect()->route('conflict.show', ['conflict' => $conflict, 'task' => $task])
             ->with('status', "$justice->type $justice->dcjid created");
@@ -138,13 +143,21 @@ class JusticeController extends Controller
         
         $task = $request->input('task') ?? null;
 
+        //Later these justice params will all be moved to formable metas as well
         $foobarParams = collect($justice->getFillable())->mapWithKeys(function($key) use ($justiceParams) {
             return [
                 $key => $justiceParams[$key] ?? null
             ];
         })->toArray();
 
+        $foobarParams['type'] = $justice->type;
+
         $justice->fill($foobarParams);
+        
+        if ($relatedDcjid = $request->input('related')) {
+            $justice->related = $relatedDcjid;
+        }
+        
         $justice->save();
 
         $justice->upsertMeta($metaParams);
