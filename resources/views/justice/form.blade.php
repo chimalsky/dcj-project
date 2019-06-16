@@ -116,16 +116,7 @@
 
     @if ($justice->form)
         @foreach ($justice->form->items as $meta)
-            @if (!isset($meta['type']))
-                @include('components.form.englishBoolean', [
-                    'name' => 'items[' . $meta['name'] . ']',
-                    'label' => $meta['label'],
-                    'model' => $justice,
-                    'labels' => $meta['options']
-                ])
-            @elseif ($meta['type'] == 'dropdown')
-                @include('components.form.select', $meta)
-            @endif
+            {{ 'items[' . $meta['name'] . ']' }}
         @endforeach
     @endif
 
