@@ -3,13 +3,21 @@
 namespace App\Traits;
 
 use App\Form;
+use Zoha\Metable;
 
 trait Formable
 {
+    use Metable;
+
     public function getFormAttribute()
     {
         $type = $this->type;
         return Form::where('name', $type)->first();
+    }
+
+    public function getItemsAttribute()
+    {
+        return $this->getMetas();
     }
 
     public function createItems($metaParams)

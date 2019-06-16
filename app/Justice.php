@@ -8,7 +8,6 @@ use Arr;
 use App\User;
 use App\Form;
 use App\Coding;
-use Zoha\Metable;
 use App\Conflict;
 use App\DyadicConflict;
 use App\Traits\Formable;
@@ -25,7 +24,7 @@ use Vkovic\LaravelCustomCasts\HasCustomCasts;
 
 class Justice extends Model
 {   
-    use Metable, Formable, UsesPreciseDates, FormAccessible, HasCustomCasts;
+    use Formable, UsesPreciseDates, FormAccessible, HasCustomCasts;
 
     protected $guarded = [
         'id'
