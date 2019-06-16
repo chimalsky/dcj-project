@@ -8,6 +8,7 @@ use Arr;
 use App\User;
 use App\Form;
 use App\Coding;
+use Zoha\Metable;
 use App\Conflict;
 use App\DyadicConflict;
 use App\Traits\Formable;
@@ -24,7 +25,7 @@ use Vkovic\LaravelCustomCasts\HasCustomCasts;
 
 class Justice extends Model
 {   
-    use Formable, UsesPreciseDates, FormAccessible, HasCustomCasts;
+    use Metable, Formable, UsesPreciseDates, FormAccessible, HasCustomCasts;
 
     protected $guarded = [
         'id'
@@ -100,11 +101,6 @@ class Justice extends Model
     public function relatedJustices()
     {
         return $this->hasMany(JusticeRelationship::class, 'justice_a');
-    }
-
-    public function getItemsAttribute()
-    {
-        return $this->getMetas();
     }
 
     public function getPossibleRelatedAttribute()
