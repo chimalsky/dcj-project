@@ -104,6 +104,7 @@ class Justice extends MetableModel
 
     public function getItemsAttribute()
     {
+        dd($this);
         return $this->getMetas() ?? [];
     }
 
