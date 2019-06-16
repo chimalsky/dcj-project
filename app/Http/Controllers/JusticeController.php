@@ -109,7 +109,6 @@ class JusticeController extends Controller
     public function show(Conflict $conflict, Justice $justice, Request $request)
     {
         $type = $request->input('type');
-        $justice->getMetas();
         
         return view('justice.show', compact('justice', 'conflict', 'type'));
     }
@@ -123,7 +122,6 @@ class JusticeController extends Controller
     public function edit(Conflict $conflict, Justice $justice, Request $request)
     {
         $type = $request->input('type');
-        $justice->getMetas();
         
         return view('justice.edit', compact('justice', 'conflict', 'type'));
     }
