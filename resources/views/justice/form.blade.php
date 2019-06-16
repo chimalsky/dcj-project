@@ -125,7 +125,6 @@
                     'labels' => $meta['options']
                 ])
             @elseif ($meta['type'] == 'dropdown')
-                @include('components.form.select', $meta)
             @endif
         @endforeach
     @endif
