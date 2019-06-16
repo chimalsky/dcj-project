@@ -9,6 +9,7 @@ use App\User;
 use App\Form;
 use App\Coding;
 use App\Conflict;
+use Zoha\MetableModel;
 use App\DyadicConflict;
 use App\Traits\Formable;
 use App\CustomCasts\Enum;
@@ -18,11 +19,10 @@ use App\Enums\JusticeSender;
 use App\Enums\JusticePrecision;
 use App\Traits\UsesPreciseDates;
 use App\CustomCasts\EnglishBoolean;
-use Illuminate\Database\Eloquent\Model;
 use Collective\Html\Eloquent\FormAccessible;
 use Vkovic\LaravelCustomCasts\HasCustomCasts;
 
-class Justice extends Model
+class Justice extends MetableModel
 {   
     use Formable, UsesPreciseDates, FormAccessible, HasCustomCasts;
 
