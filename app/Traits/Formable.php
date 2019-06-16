@@ -7,9 +7,7 @@ use Zoha\Metable;
 
 trait Formable
 {
-    use Metable {
-        createMeta as protected traitCreateMeta;
-    }
+    use Metable;
 
     public function getFormAttribute()
     {
@@ -22,13 +20,13 @@ trait Formable
         return $this->getMetas();
     }
 
-    public function createMeta($metaParams)
+    public function createItems($metaParams)
     {
         $filtered = $this->filterParams($metaParams);
-        $this->traitCreateMeta($filtered->toArray());
+        $this->createMeta($filtered->toArray());
     }
 
-    public function upsertMeta($metaParams)
+    public function upsertItems($metaParams)
     {
         $filtered = $this->filterParams($metaParams);
         $this->setMeta($filtered->toArray());

@@ -67,7 +67,7 @@ class JusticeController extends Controller
 
         $justice->save();
 
-        $justice->createMeta($metaParams);
+        $justice->createItems($metaParams);
         
         $justice->dyadicConflicts()->sync($dyadicConflictsParams);
 
@@ -153,14 +153,14 @@ class JusticeController extends Controller
         $foobarParams['type'] = $justice->type;
 
         $justice->fill($foobarParams);
-        
+
         if ($relatedDcjid = $request->input('related')) {
             $justice->related = $relatedDcjid;
         }
         
         $justice->save();
 
-        $justice->upsertMeta($metaParams);
+        $justice->upsertItems($metaParams);
 
         $justice->dyadicConflicts()->sync($dyadicConflictsParams);
 
