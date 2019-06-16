@@ -50,9 +50,9 @@ class JusticeController extends Controller
     {
         $justiceableParams = $request->input('justiceable') ?? [];
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
-        $metaParams = $request->input('meta') ?? [];
+        $metaParams = $request->input('items') ?? [];
 
-        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'meta']);
+        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'items']);
 
         $task = $request->input('task') ?? null;
         
@@ -137,9 +137,9 @@ class JusticeController extends Controller
     {        
         $justiceableParams = $request->input('justiceable') ?? [];
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
-        $metaParams = $request->input('meta') ?? [];
+        $metaParams = $request->input('items') ?? [];
        
-        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'meta']);
+        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'items']);
         
         $task = $request->input('task') ?? null;
 

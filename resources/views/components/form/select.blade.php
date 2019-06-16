@@ -4,7 +4,7 @@
     </label>
     {{ 
         Form::select(
-            'meta[' . $meta['name'] . ']', 
+            'items[' . $meta['name'] . ']', 
             $meta['options'],
             null,
             ['placeholder' => '---']

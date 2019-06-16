@@ -15,7 +15,7 @@ trait Formable
         return Form::where('name', $type)->first();
     }
 
-    public function getMetaAttribute()
+    public function getItemsAttribute()
     {
         return $this->getMetas();
     }

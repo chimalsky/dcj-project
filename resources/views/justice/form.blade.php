@@ -118,7 +118,7 @@
         @foreach ($justice->form->items as $meta)
             @if (!isset($meta['type']))
                 @include('components.form.englishBoolean', [
-                    'name' => 'meta[' . $meta['name'] . ']',
+                    'name' => 'items[' . $meta['name'] . ']',
                     'label' => $meta['label'],
                     'model' => $justice,
                     'labels' => $meta['options']
