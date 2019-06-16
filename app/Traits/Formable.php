@@ -12,11 +12,6 @@ trait Formable
         return Form::where('name', $type)->first();
     }
 
-    public function getItemsAttribute()
-    {
-        return $this->getMetas();
-    }
-
     public function createItems($metaParams)
     {
         $filtered = $this->filterParams($metaParams);
