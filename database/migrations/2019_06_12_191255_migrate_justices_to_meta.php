@@ -14,7 +14,7 @@ class MigrateJusticesToMeta extends Migration
      */
     public function up()
     {
-        $justices = Justice::with('justiceable')
+        $justices = Justice::with('justiceable');
 
         $justices->each(function($justice) {
             $process = $justice->justiceable;
