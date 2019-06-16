@@ -6,7 +6,7 @@
     <div data-controller="radio-group"
         class="cell grid-x grid-margin-x">
 
-        {{ $model }}
+        {{ $model->$name }}
 
     </div>
 </section>
