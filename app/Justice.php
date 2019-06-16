@@ -67,7 +67,7 @@ class Justice extends Model
      *
      * @var array
      */
-    protected $with = ['conflict'];y
+    protected $with = ['conflict'];
 
     /**
      * A justice model can be associated with other justice models
