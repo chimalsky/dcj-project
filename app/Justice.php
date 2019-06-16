@@ -67,7 +67,7 @@ class Justice extends Model
      *
      * @var array
      */
-    protected $with = ['conflict'];
+    protected $with = ['conflict'];y
 
     /**
      * A justice model can be associated with other justice models
@@ -80,6 +80,11 @@ class Justice extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function justiceable()
+    {
+        return $this->morphTo();
     }
 
     public function conflict()
