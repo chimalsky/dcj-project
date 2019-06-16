@@ -102,6 +102,11 @@ class Justice extends Model
         return $this->hasMany(JusticeRelationship::class, 'justice_a');
     }
 
+    public function getItemsAttribute()
+    {
+        return $this->getMetas();
+    }
+
     public function getPossibleRelatedAttribute()
     {
         if (! $this->conflict) {
