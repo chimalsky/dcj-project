@@ -105,7 +105,6 @@ class Justice extends Model
 
     public function getItemsAttribute()
     {
-        dd($this);
         return $this->getMetas();
     }
 
