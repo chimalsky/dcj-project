@@ -114,7 +114,7 @@
     </div>
 
 
-    @if ($justice->form->items)
+    @if ($justice->form)
         @foreach ($justice->form->items as $meta)
             @if (!isset($meta['type']))
                 @include('components.form.englishBoolean', [
