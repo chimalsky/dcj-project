@@ -33,8 +33,6 @@
             {{ Form::label("$name-na", 'N/A') }}   
         </div>
         
-        <div class="hide">
-            
-        </div>
+        {{ $model->getFoobar() }}
     </div>
 </section>

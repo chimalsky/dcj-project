@@ -102,6 +102,11 @@ class Justice extends MetableModel
         return $this->hasMany(JusticeRelationship::class, 'justice_a');
     }
 
+    public function getFoobar()
+    {
+        return 'foobar city';
+    }
+
     public function getPossibleRelatedAttribute()
     {
         if (! $this->conflict) {
