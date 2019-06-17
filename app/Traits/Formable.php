@@ -14,7 +14,11 @@ trait Formable
 
     public function getItemsAttribute()
     {
-        return $this->meta;
+        return $this->meta()->get()->mapWithKeys(function($item) {
+            return [
+                $item->key => $item->value ?? null
+            ];
+        });
     }
 
     public function createItems($metaParams)
