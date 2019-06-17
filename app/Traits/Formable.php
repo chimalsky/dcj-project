@@ -14,7 +14,7 @@ trait Formable
 
     public function getItemsAttribute()
     {
-        return $this->getMetas();
+        return $this->getMetas() ?? collect();
     }
 
     public function createItems($metaParams)
