@@ -20,11 +20,13 @@
                 @include('layouts.header')
             </section>
 
-            <section class="grid-container grid-x">
-                <nav class="cell grid-x grid-margin-x align-center align-middle breadcrumbs">
-                    {{ Breadcrumbs::render() }}
-                </nav>
-            </section>
+            @if (Breadcrumbs::exists())
+                <section class="grid-container grid-x">
+                    <nav class="cell grid-x grid-margin-x align-center align-middle breadcrumbs">
+                        {{ Breadcrumbs::render() }}
+                    </nav>
+                </section>
+            @endif
             
             @yield('header')
         </header>

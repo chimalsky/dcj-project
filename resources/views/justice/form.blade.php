@@ -115,6 +115,8 @@
 
 
     @if ($justice->form)
+        {!! $justice->form->getMarkup() !!}
+    
         @foreach ($justice->form->items as $meta)
             
             @if (!isset($meta['type']))

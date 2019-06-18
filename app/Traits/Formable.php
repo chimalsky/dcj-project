@@ -18,7 +18,7 @@ trait Formable
             return [
                 $item->key => $item->value ?? null
             ];
-        });
+        }); 
     }
 
     public function createItems($metaParams)

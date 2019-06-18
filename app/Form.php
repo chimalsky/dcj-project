@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\FormItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
@@ -16,7 +17,9 @@ class Form extends Model
 
     public function getItemsAttribute() 
     {
-        return collect($this->schema->get('meta'));
+        return collect($this->schema->get('meta'))->map(function($item) {
+            return new FormItem($item);
+        });
     }
 
     public function filterParams($params) 
@@ -36,5 +39,12 @@ class Form extends Model
     public function scopeWithSchema(): Builder
     {
         return SchemalessAttributes::scopeWithSchemalessAttributes('schema');
+    }
+
+    public function getMarkup()
+    {
+        $form = $this;  
+
+        return view('form.show', compact('form'));
     }
 }
