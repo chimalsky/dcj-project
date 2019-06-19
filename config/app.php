@@ -169,6 +169,8 @@ return [
         App\Providers\FormServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\Html\HtmlServiceProvider::class,
+
 
         /*
          * Application Service Providers...

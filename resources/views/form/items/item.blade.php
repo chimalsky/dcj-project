@@ -1,4 +1,4 @@
-<article class="grid-x">
+<article>
     <header class="cell grid-x grid-margin-x">
         <div class="cell medium-shrink">
             <h2>
@@ -20,11 +20,7 @@
     </header>
 
     <main class="cell grid-x grid-margin-x">
-        <h2 class="cell">
-            Options
-        </h2>
-        
-        <ul class="cell callout grid-margin-x">
+        <ul class="cell callout secondary grid-margin-x">
         @foreach ($item->options as $option) 
             <li class="cell">
                 {{ $option }}

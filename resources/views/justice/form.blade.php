@@ -113,22 +113,10 @@
         {{ Form::select('sexviolence', $justice->sexviolenceCodes, $justice->sexviolence, ['placeholder' => '---']) }}
     </div>
 
-
     @if ($justice->form)
-        {!! $justice->form->getMarkup() !!}
-    
-        @foreach ($justice->form->items as $meta)
-            
-            @if (!isset($meta['type']))
-                @include('components.form.englishBoolean', [
-                    'name' => 'items[' . $meta['name'] . ']',
-                    'label' => $meta['label'],
-                    'model' => $justice,
-                    'labels' => $meta['options']
-                ])
-            @elseif ($meta['type'] == 'dropdown')
-            @endif
-        @endforeach
+        <div class="cell">
+            {!! $justice->form->getMarkup($justice) !!}
+        </div>
     @endif
 
     <div class="cell medium-6">

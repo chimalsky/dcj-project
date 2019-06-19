@@ -41,10 +41,10 @@ class Form extends Model
         return SchemalessAttributes::scopeWithSchemalessAttributes('schema');
     }
 
-    public function getMarkup()
+    public function getMarkup($model = null)
     {
         $form = $this;  
 
-        return view('form.show', compact('form'));
+        return view('form.show', compact('form', 'model'));
     }
 }
