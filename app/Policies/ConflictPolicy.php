@@ -11,6 +11,17 @@ class ConflictPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view any conflict.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewAny(?User $user)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can view the conflict.
      *
      * @param  \App\User  $user

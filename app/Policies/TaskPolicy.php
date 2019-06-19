@@ -11,6 +11,17 @@ class TaskPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view any tasks.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can view the task.
      *
      * @param  \App\User  $user
@@ -22,6 +33,7 @@ class TaskPolicy
         return $user->id == $task->user_id;
     }
 
+    
     /**
      * Determine whether the user can create tasks.
      *
