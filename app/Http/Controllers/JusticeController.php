@@ -57,6 +57,7 @@ class JusticeController extends Controller
         $task = $request->input('task') ?? null;
         
         $justice = Justice::create($justiceParams);
+        $justice->coding_notes = $justiceParams['coding_notes'];
 
         $justice->conflict()->associate($conflict);
         $justice->user()->associate(Auth::user());
@@ -153,6 +154,8 @@ class JusticeController extends Controller
         $foobarParams['type'] = $justice->type;
 
         $justice->fill($foobarParams);
+        $justice->coding_notes = $justiceParams['coding_notes'];
+
 
         if ($relatedDcjid = $request->input('related')) {
             $justice->related = $relatedDcjid;

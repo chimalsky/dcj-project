@@ -34,6 +34,8 @@ Route::resource('/task/geo', 'TaskGeoController', ['as' => 'task'])->middleware(
 Route::resource('/task', 'TaskController')->middleware('auth');
 
 Route::resource('form', 'FormController')->middleware('auth');
+Route::resource('form.schema', 'FormSchemaController')->middleware('auth');
+
 Route::resource('form.item', 'FormItemController')->middleware('auth');
 
 //Route::put('form/{form}/')
