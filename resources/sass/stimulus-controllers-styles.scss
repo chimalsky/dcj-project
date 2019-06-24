@@ -24,7 +24,7 @@
     }
 }
 
-*[data-controller=togglable]:not([data-togglable-toggled]) {
+*[data-controller*=togglable]:not([data-togglable-toggled]) {
     *[data-target='togglable.togglable'] {
         display: none;
     }

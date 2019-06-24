@@ -15,11 +15,28 @@ class Form extends Model
         'schema' => 'array',
     ];
 
+    public function newItems()
+    {
+        return $this->belongsToMany(FormItem::class);
+    }
+
     public function getItemsAttribute() 
     {
-        return collect($this->schema->get('meta'))->map(function($item) {
-            return new FormItem($item);
+        $form = $this;
+
+        return collect($this->schema->get('meta'))->map(function($itemArray) use ($form) {
+            $item = new FormItem($itemArray);
+            $item->form_id = $form->id;
+            
+            return $item;
         });
+    }
+
+    public function addItem(FormItem $formItem) 
+    {        
+        $schema = $this->schema->get('meta');
+        $schema[] = $formItem->toArray();
+        $this->schema->set('meta', $schema);
     }
 
     public function filterParams($params) 

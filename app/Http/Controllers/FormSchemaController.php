@@ -57,7 +57,7 @@ class FormSchemaController extends Controller
      */
     public function edit(Form $form)
     {
-        //
+        return view('form.schema.edit', compact('form'));
     }
 
     /**

@@ -3,7 +3,7 @@
         The During Conflict Justice Project
     </a>
 
-    <aside class="cell shrink grid-x grid-margin-x">
+    <aside class="cell shrink grid-x grid-margin-x text-middle">
         @guest
             <a data-turbolinks="false" class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
             @if (Route::has('register'))
@@ -30,6 +30,10 @@
                     Manage Users
                 </a>
             @endif
+
+            <a href="{{ route('justice.export') }}" class="cell shrink" data-turbolinks="false">
+                Download Data
+            </a>
 
             <a data-turbolinks="false"
                 class="cell shrink" href="{{ route('logout') }}"

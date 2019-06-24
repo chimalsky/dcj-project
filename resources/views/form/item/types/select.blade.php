@@ -1,4 +1,4 @@
-<div class="cell">
+<div class="cell medium-6">
     <label>
         {{ $item->label }}
     </label>

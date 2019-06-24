@@ -140,11 +140,12 @@ class JusticeController extends Controller
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
         $metaParams = $request->input('items') ?? [];
        
-        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'items']);
+        $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'formItems']);
         
         $task = $request->input('task') ?? null;
 
-        //Later these justice params will all be moved to formable metas as well
+        // Later these justice params should be moved into its own 'justice' base form
+        // that all the other dcj process forms inherit from
         $foobarParams = collect($justice->getFillable())->mapWithKeys(function($key) use ($justiceParams) {
             return [
                 $key => $justiceParams[$key] ?? null

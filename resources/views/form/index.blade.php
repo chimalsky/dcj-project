@@ -8,7 +8,19 @@
                 {{ $form->name }}
             </h1>
 
-            <main class="cell medium-6 grid-x grid-margin-y">
+            <main data-controller="form-edit" 
+                class="cell medium-6 grid-x grid-margin-y">
+
+                <section data-controller="togglable">
+                    <button data-action="togglable#toggle" class="button">
+                        Add Item
+                    </button>
+
+                    <div data-target="togglable.togglable">
+                        @include('form.item.create', ['form' => $form])
+                    </div>
+                </section>
+
                 <table class="table">
                     <thead>
                         <th>
@@ -18,49 +30,15 @@
                             Label
                         </th>
                         <th>
-                             
+                            
                         </th>
                     </thead>
                     <tbody>
                         @foreach ($form->items as $item)
-                            <tr data-controller="togglable">
-                                <td>
-                                   {{ $item->name }}
-                                </td>
-                                <td>
-                                    {{ $item->label }}
-                                </td>
-                                <td>
-                                    <button data-action="togglable#toggle" 
-                                        class="button hollow">
-                                        edit
-                                    </button>
-
-                                    <div data-target="togglable.togglable">
-                                        {{ html()->form('PUT', route(
-                                            'form.update', $form
-                                        ))->open() }}
-                                            
-                                            @foreach ($item->options as $option)
-                                                {{ html()->text('name', $option, [
-                                                    'data-action' => true
-                                                    ]) 
-                                                }}
-                                            @endforeach
-
-                                        {{ html()->form()->close() }}
-                                    </div>
-                                </td>
-                            </tr>
+                            @include('form.item.row', ['item' => $item])
                         @endforeach
                     </tbody>
                 </table>
-
-                @foreach ($form->items as $item)
-                    <div class="cell">
-                        @include('form.items.item', ['item' => $item])
-                    </div>
-                @endforeach
             </main>
 
             <aside class="cell grid-x medium-6 callout">

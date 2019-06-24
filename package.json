@@ -11,8 +11,9 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.3.4",
+        "@fortawesome/fontawesome-free": "^5.9.0",
         "@github/auto-complete-element": "^1.0.1",
-        "axios": "^0.18",
+        "axios": "^0.19.0",
         "cross-env": "^5.1",
         "css-loader": "^2.1.1",
         "datatables.net-zf": "^1.10.19",

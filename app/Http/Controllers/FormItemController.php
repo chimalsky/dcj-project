@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Form;
 use App\FormItem;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,20 @@ class FormItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Form $form, Request $request)
     {
-        //
+        $formItem = new FormItem([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'label' => $request->input('label'),
+            'options' => $request->input('options')
+        ]);
+
+        $form->addItem($formItem);
+
+        $form->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -44,9 +56,8 @@ class FormItemController extends Controller
      * @param  \App\FormItem  $formItem
      * @return \Illuminate\Http\Response
      */
-    public function show(FormItem $formItem)
+    public function show(Form $form, FormItem $formItem)
     {
-        //
     }
 
     /**
@@ -78,8 +89,8 @@ class FormItemController extends Controller
      * @param  \App\FormItem  $formItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FormItem $formItem)
+    public function destroy(Form $form, FormItem $formItem)
     {
-        //
+        dd($form, $formItem);
     }
 }

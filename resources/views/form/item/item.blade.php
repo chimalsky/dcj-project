@@ -1,4 +1,4 @@
-<article>
+<article data-controller="">
     <header class="cell grid-x grid-margin-x">
         <div class="cell medium-shrink">
             <h2>
@@ -28,5 +28,4 @@
         @endforeach
         </ul>
     </main>
-   
 </article>

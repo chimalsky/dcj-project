@@ -50,7 +50,7 @@
             ])
         </div>
     </section>
-
+    
     @include('justice.episode.form')
 
 </section>
@@ -133,3 +133,4 @@
         <trix-editor input="coding_notes"></trix-editor>
     </footer>
 </section>
+

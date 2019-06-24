@@ -34,9 +34,17 @@ Route::resource('/task/geo', 'TaskGeoController', ['as' => 'task'])->middleware(
 Route::resource('/task', 'TaskController')->middleware('auth');
 
 Route::resource('form', 'FormController')->middleware('auth');
-Route::resource('form.schema', 'FormSchemaController')->middleware('auth');
+Route::get('form/{form}/schema', 'FormSchemaController@show');
 
-Route::resource('form.item', 'FormItemController')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('form/{form}/schema/edit', 'FormSchemaController@edit')->name('form.schema.edit');
+    Route::put('form/{form}/schema', 'FormSchemaController@update')->name('form.schema.update');
+
+    Route::post('form/{form}/item', 'FormItemController@store')->name('form.item.store');
+    Route::put('form/{form}/item', 'FormItemController@update')->name('form.item.update');
+    Route::delete('form/{form}/item', 'FormItemController@destroy')->name('form.item.destroy');
+});
+
 
 //Route::put('form/{form}/')
 

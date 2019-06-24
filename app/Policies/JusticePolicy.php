@@ -43,6 +43,7 @@ class JusticePolicy
      */
     public function create(User $user)
     {
+        // Change Justice Policy to ConflictJustice Policy in future
         return true;
         if ($user->role == 'admin') {
             return true;
