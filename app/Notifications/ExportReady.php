@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,14 +12,17 @@ class ExportReady extends Notification
 {
     use Queueable;
 
+    public $fileName;
+
     /**
      * Create a new notification instance.
      *
+     * @param string $fileName
      * @return void
      */
-    public function __construct()
+    public function __construct($fileName)
     {
-        //
+        $this->fileName = $fileName;
     }
 
     /**
@@ -40,10 +44,13 @@ class ExportReady extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = url(Storage::url($this->fileName));
+
+        logger($this->fileName);
+        
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Your DCJ download is now ready')
+                    ->action('Download Data Here', $url);
     }
 
     /**

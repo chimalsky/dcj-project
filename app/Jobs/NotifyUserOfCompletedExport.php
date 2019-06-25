@@ -15,16 +15,19 @@ class NotifyUserOfCompletedExport implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $user;
+    public $fileName;
 
     /**
      * Create a new job instance.
      *
      * @param \App\User $user
+     * @param string $fileName
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $fileName)
     {
         $this->user = $user;
+        $this->fileName = $fileName;
     }
 
     /**
@@ -34,6 +37,6 @@ class NotifyUserOfCompletedExport implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->notify(new ExportReady());
+        $this->user->notify(new ExportReady($this->fileName));
     }
 }

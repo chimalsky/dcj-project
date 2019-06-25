@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Justice as JusticeExport;
@@ -11,16 +12,15 @@ class JusticeExportController extends Controller
 {
     public function export() 
     {
-        return new JusticeExport();
-        /*
-        (new JusticeExport)->queue('dcj-data-download.xlsx')->chain([
-            new NotifyUserOfCompletedExport(request()->user())
+        
+        $fileName = 'public/data/dcj-download_' . html_entity_decode(Carbon::now()) . '.xlsx';
+
+        (new JusticeExport)->queue($fileName)->chain([
+            new NotifyUserOfCompletedExport(request()->user(), $fileName)
         ]);
 
-        return redirect()->route('home')->with('status', "Your Excel File is being processed");*/
-
-
-        //return Excel::download(new JusticeExport, 'dcj-data-download.xlsx');
+        return back()->with('status', 'Justice Data is being processed. You will receive an email when it is complete');
     }
 
 }
+
