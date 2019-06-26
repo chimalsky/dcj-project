@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class HelgaColumnsImport implements OnEachRow,
-    ShouldQueue
+    ShouldQueue,
     WithHeadingRow
 {
     public function onRow(Row $row)
