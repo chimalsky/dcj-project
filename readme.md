@@ -12,7 +12,7 @@ One important thing to configure in the `.env` file for this project is the queu
 https://laravel.com/docs/5.8/configuration
 
 ## Database
-Because I'm sending you a mysqldump, you won't need to run migrations like you normally would with Laravel projects. You simply need to ins
+Because I'm sending you a mysqldump, you won't need to run migrations like you normally would with Laravel projects. You simply need to create a database, and restore from the sql file.
 
 ## External APIs
 The DCJ project requires a mailing service for password-resets and job-completetion-notification. Currently, I use a service called Mailgun. However, you can use any mailing service you desire. You simply need to configure it in the `.env` file. I prefer to use Mailgun, because of it's HTTP based nature, which allows me to obviate the setting up of an SMTP server. Your hosting provider will most likely have their own mailing service that they offer.
