@@ -7,9 +7,11 @@ use App\Justice;
 use Maatwebsite\Excel\Row;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\OnEachRow;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class HelgaColumnsImport implements OnEachRow,
+    ShouldQueue
     WithHeadingRow
 {
     public function onRow(Row $row)
