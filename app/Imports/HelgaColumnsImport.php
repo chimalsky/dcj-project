@@ -9,10 +9,12 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 class HelgaColumnsImport implements OnEachRow,
     ShouldQueue,
-    WithHeadingRow
+    WithHeadingRow,
+    WithChunkReading
 {
     public function onRow(Row $row)
     {
