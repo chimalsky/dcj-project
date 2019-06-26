@@ -15,7 +15,7 @@ class MigrateHelgaColumns extends Migration
      */
     public function up()
     {
-        Excel::import(new HelgaColumnsImport, 'public/DCJ-helga.xlsx');
+        Excel::queueImport(new HelgaColumnsImport, 'public/DCJ-helga.xlsx');
     }
 
     /**

@@ -229,27 +229,27 @@ class Justice extends MetableModel
     public function getWrongCodesAttribute()
     {
         return [
-            'Affiliation' => 'Affiliation',
-            'Specific event' => 'Specific event',
-            'The conflict' => 'The conflict',
-            'Other' => 'Other'
+            1 => 'Affiliation',
+            2 => 'Specific event',
+            3 => 'The conflict',
+            4 => 'Other'
         ];
     }
 
     public function getGenderCodesAttribute()
     {
         return [
-            'Men' => 'Men',
-            'Women' => 'Women',
-            'Missing' => 'Missing'
+            0 => 'Men',
+            1 => 'Women',
+            9 => 'Missing'
         ];
     }
 
     public function getSexviolenceCodesAttribute()
     {
         return [
-            'No sexual violence' => 'No sexual violence',
-            'Sexual violence' => 'Sexual violence'
+            0 => 'No sexual violence',
+            1 => 'Sexual violence'
         ];
     }
 
