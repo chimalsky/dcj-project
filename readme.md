@@ -1,11 +1,13 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## The During Conflict Justice Project
+DCJ is built with Laravel and tries to follow  modern web application standards to the best of its abilities in order to make future contributions and modifications frictionlessly as possible. Because Laravel is so well documented, most of the DCJ project's documentation will simply link to relevant parts of the Laravel docs.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Installation
+https://laravel.com/docs/5.8/installation
+
+## Configuration
+The important file to note is the `.env` file in the root directory. This is where you set values pertaining to database connection/credentials, Web URL, the Key that is used for encryption, and API Keys for external services. If a `.env` file does not exist, copy the `.env.example' file and create one named `.env`
+
+https://laravel.com/docs/5.8/configuration
 
 ## About Laravel
 
