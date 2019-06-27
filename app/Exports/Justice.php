@@ -135,15 +135,12 @@ class Justice implements FromView, Responsable
             'gwno_loc',
             'region',
             'version',
-            'dcjid'
+            'dcjid',
+            'dcjidd'
         ];
 
         foreach ($this->types as $type) {
             $headers = array_merge($headers, $this->getJusticeSpecificHeader($type));
-        }
-
-        foreach ($this->types as $type) {
-            //$headers[] = $type . '_' . 'text';
         }
 
         return $headers;

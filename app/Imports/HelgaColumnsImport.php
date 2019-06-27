@@ -55,7 +55,7 @@ class HelgaColumnsImport implements OnEachRow,
         $justice->sexviolence = $row[$type . '_sexviol'];
 
         if ($type == 'purge') {
-            $justice->setMeta('purge', $row[$type . '_political']);
+            $justice->setMeta('political', $row[$type . '_political']);
         }
 
         $justice->save();

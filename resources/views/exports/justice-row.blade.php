@@ -35,6 +35,8 @@
     <td>18.1</td>
 
     <td>{{ $justice->dcjid }}</td>
+    <td>{{ $justice->dcjid . '_' . $dyad->id }}</td>
+
 
     @foreach ($types as $processType)
         <td>
@@ -86,15 +88,5 @@
             </td>
         @endforeach
     @endforeach
-
-    @if(false)
-        @foreach ($types as $processType)
-            <td>
-                @if ($processType == $justice->type)
-                    {{ $justice->coding_notes }} .
-                @endif
-            </td>
-        @endforeach
-    @endif
 
 </tr>

@@ -12,6 +12,11 @@ trait Formable
         return Form::where('name', $type)->first();
     }
 
+    public static function possibleForms() 
+    {
+        return Form::all();
+    }
+
     public function getItemsAttribute()
     {
         return $this->meta()->get()->mapWithKeys(function($item) {

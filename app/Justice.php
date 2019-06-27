@@ -12,19 +12,17 @@ use App\Conflict;
 use Zoha\MetableModel;
 use App\DyadicConflict;
 use App\Traits\Formable;
-use App\CustomCasts\Enum;
 use App\JusticeRelationship;
-use App\Enums\JusticeTarget;
-use App\Enums\JusticeSender;
-use App\Enums\JusticePrecision;
 use App\Traits\UsesPreciseDates;
 use App\CustomCasts\EnglishBoolean;
 use Collective\Html\Eloquent\FormAccessible;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Vkovic\LaravelCustomCasts\HasCustomCasts;
 
 class Justice extends MetableModel
 {   
-    use Formable, UsesPreciseDates, FormAccessible, HasCustomCasts;
+    use Formable, UsesPreciseDates, FormAccessible, 
+        SoftDeletes, HasCustomCasts;
 
     protected $guarded = [
         'id'
@@ -121,7 +119,7 @@ class Justice extends MetableModel
         $justice = $this;
 
         $justiceOfTypes = $this->conflict
-            ->justices()
+            ->justices()->withTrashed()
             ->where('type', $this->type)
             ->get();
         
@@ -159,7 +157,6 @@ class Justice extends MetableModel
             'High' => 'High'
         ];
 
-        //return JusticePrecision::toSelectArray();
     }
 
     public function getTargetCodesAttribute()
@@ -170,7 +167,6 @@ class Justice extends MetableModel
             'Both' => 'Both',
             'Other' => 'Other'
         ];  
-        //return JusticeTarget::toSelectArray();
     }
 
     public function getSenderCodesAttribute()
@@ -182,7 +178,6 @@ class Justice extends MetableModel
             'Other' => 'Other',
             'International' => 'International'
         ];
-       // return JusticeSender::toSelectArray();
     }
 
     public function getScopeCodesAttribute()
@@ -253,40 +248,6 @@ class Justice extends MetableModel
         ];
     }
 
-    public function getCreatedAtHumanAttribute()
-    {
-        $value = $this->created_at;
-
-        return $value->diffForHumans();
-    }
-
-    public function getUpdatedAtHumanAttribute()
-    {
-        $value = $this->updated_at;
-
-        return $value->diffForHumans();
-    }
-
-    public function formStartPrecisionAttribute($value)
-    {
-        return $value;
-    }
-
-    public function formEndPrecisionAttribute($value)
-    {
-        return $value;
-    }
-
-    public function formTargetAttribute($value)
-    {
-        return $value;
-    }
-
-    public function formSenderAttribute($value)
-    {
-        return $value;
-    }
-
     public function setOldConflictIdAttribute($value)
     {
         $translation = DB::table('translate_conflicts')
@@ -298,11 +259,7 @@ class Justice extends MetableModel
 
     public function getNameAttribute()
     {
-        if ($this->type == 'truth') {
-            $value = 'Truth Commission';
-        } else {
-            $value = $this->type;
-        }
+        $value = $this->form->schema['name'] ?? $this->form->name ?? 'Unnamed';
         return ucfirst($value); //. " #$this->count ";
     }
 

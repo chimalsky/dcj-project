@@ -15,18 +15,19 @@
             
         @foreach($conflict->dyads as $dyadicConflict)
             <div class="cell"> 
-                <input type="checkbox" name="dyadicConflicts[{{ $dyadicConflict->id }}]" value="{{ $dyadicConflict->id }}" 
-                    @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
-                        checked
-                    @else
-                        @if (request()->query('dyad') == $dyadicConflict->dyad_id)
-                            checked
-                        @elseif (!request()->query('dyad') && $loop->first)
-                            checked
-                        @endif
-                    @endif
-                    />
                 <label>
+                    <input type="checkbox" name="dyadicConflicts[{{ $dyadicConflict->id }}]" value="{{ $dyadicConflict->id }}" 
+                        @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
+                            checked
+                        @else
+                            @if (request()->query('dyad') == $dyadicConflict->dyad_id)
+                                checked
+                            @elseif (!request()->query('dyad') && $loop->first)
+                                checked
+                            @endif
+                        @endif
+                        />
+                        
                     {{ $dyadicConflict->dyad_id }} {{ $dyadicConflict->side_a }} vs {{ $dyadicConflict->side_b }}
                 </label>
             </div>
