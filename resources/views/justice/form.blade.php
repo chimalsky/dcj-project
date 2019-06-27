@@ -15,6 +15,7 @@
             
         @foreach($conflict->dyads as $dyadicConflict)
             <div class="cell"> 
+            {{ $justice->dyadicConflicts->pluck('id') }} -- {{ $dyadicConflict->id }}
                 <label>
                     <input type="checkbox" name="dyadicConflicts[{{ $dyadicConflict->id }}]" value="{{ $dyadicConflict->id }}" 
                         @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
