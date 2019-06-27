@@ -27,8 +27,17 @@
                             @endif
                         @endif
                         />
-                        
-                    {{ $dyadicConflict->dyad_id }} {{ $dyadicConflict->side_a }} vs {{ $dyadicConflict->side_b }}
+
+                    <span>
+                        {{ $dyadicConflict->dyad_id }} {{ $dyadicConflict->side_a }} vs {{ $dyadicConflict->side_b }}
+                    </span>
+                    @isset ($justice->dcjid)
+                        <span>
+                            <strong>
+                                DCJIDD -- {{ $justice->dcjid . '_' . $dyadicConflict->dyad_id }} 
+                            </strong>
+                        </span>
+                    @endisset
                 </label>
             </div>
         @endforeach
