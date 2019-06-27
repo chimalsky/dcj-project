@@ -32,11 +32,13 @@
                         {{ $dyadicConflict->dyad_id }} {{ $dyadicConflict->side_a }} vs {{ $dyadicConflict->side_b }}
                     </span>
                     @isset ($justice->dcjid)
-                        <span>
-                            <strong>
-                                DCJIDD -- {{ $justice->dcjid . '_' . $dyadicConflict->dyad_id }} 
-                            </strong>
-                        </span>
+                        @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
+                            <span>
+                                <strong>
+                                    DCJIDD -- {{ $justice->dcjid . '_' . $dyadicConflict->dyad_id }} 
+                                </strong>
+                            </span>
+                        @endif
                     @endisset
                 </label>
             </div>
