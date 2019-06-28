@@ -6,6 +6,7 @@ use Request;
 use App\User;
 use App\Justice;
 use App\Conflict;
+use App\ConflictSeries;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class JusticePolicy
@@ -44,7 +45,7 @@ class JusticePolicy
     public function create(User $user)
     {
         // Change Justice Policy to ConflictJustice Policy in future
-        return true;
+        // Right now we have this ductape way
         if ($user->role == 'admin') {
             return true;
         }
@@ -52,6 +53,7 @@ class JusticePolicy
         $conflictSeries = ConflictSeries::find(Request::query('conflict'));
         
         $ucdpIds = $user->tasks->pluck('conflict_ucdp_id');
+        
         $tasked = $ucdpIds->contains($conflictSeries->conflict_id);
         return $tasked;
     }
@@ -69,10 +71,16 @@ class JusticePolicy
             return true;
         }
 
-        $conflict = $justice->conflict;
-        
-        $ucdpIds = $user->tasks->pluck('conflict_ucdp_id');
-        $tasked = $ucdpIds->contains($conflict->conflict_id);
+        $tasked = $user->tasks->firstWhere('conflict_ucdp_id', $justice->conflict->conflict_id);
+
+        if (!$tasked) {
+            return false;
+        }
+
+        if ($tasked->status >= 2) { 
+            return false;
+        }
+
         return $tasked;
     }
 

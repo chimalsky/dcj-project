@@ -2,9 +2,8 @@
 
 @section('content')
 <ul class="cell menu grid-x grid-margin-x align-center text-center">    
-
     @foreach (App\Justice::possibleForms() as $possibleForm)
-        <li class="@if (request()->query('form_type') == $possibleForm->name) is-active @endif">
+        <li class="@if ($form->name == $possibleForm->name) is-active @endif">
             <a href="{{ route('form.edit', $possibleForm) }}"
                 class="cell shrink">
                 {{ ucwords($possibleForm->schema['name']) }}
@@ -15,11 +14,27 @@
 
 
 <section class="grid-x grid-margin-y">
-    @foreach ($forms as $form)
-        <article class="cell grid-x grid-margin-x align-top">
-            <h1 class="text-center cell">
-                {{ $form->name }}
-            </h1>
+        <article class="cell grid-x grid-margin-x grid-margin-y align-top">
+
+            <header class="cell grid-x grid-margin-x">
+                {{ html()->modelForm($form, 'PUT', route('form.update', $form))->open() }}
+                    <label class="cell">
+                        <span>Process Name: </span>
+                        {{ html()->text("schema[name]") }}
+                    </label>
+
+
+                    <label class="cell">
+                        <span>Excel Prefix: </span>
+                        {{ html()->text("schema[excel.prefix]") }}
+                    </label>
+
+                
+                    <button class="button hollow">
+                        Save this Form
+                    </button>
+                {{ html()->closeModelForm() }}
+            </header>
 
             <main data-controller="form-edit" 
                 class="cell medium-6 grid-x grid-margin-y">
@@ -65,6 +80,5 @@
             </aside>
           
         </article>
-    @endforeach
 </section>
 @endsection

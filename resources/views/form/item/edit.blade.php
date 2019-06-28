@@ -9,14 +9,23 @@
         Options
     </label>
 
-    @foreach ($item->options as $option)
-        
-        {{ 
-            html()->text('options', $option)->attributes([
-                'data-action' => ''
-            ]) 
-        }}
-    @endforeach
+    @if (!$item->type)
+        @foreach (collect($item->options)->reverse() as $option)
+            {{ 
+                html()->text('options', $option)->attributes([
+                    'data-action' => ''
+                ]) 
+            }}
+        @endforeach
+    @else
+        @foreach (collect($item->options) as $option)
+            {{ 
+                html()->text('options', $option)->attributes([
+                    'data-action' => ''
+                ]) 
+            }}
+        @endforeach
+    @endif
 
 {{ html()->form()->close() }}
 
@@ -28,6 +37,8 @@
         ])
     )->open() 
 }}
+
+    <input type="hidden" name="name" value="{{ $item->name }}"" />
 
     <button class="button alert">
         Delete this Item

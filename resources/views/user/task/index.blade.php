@@ -8,7 +8,7 @@
         @can('create', 'App\Task')
             <div class="cell medium-shrink">
                 <a href="{{ route('task.index') }}" class="button">
-                    Show all tasks
+                    Show everyone's tasks
                 </a>
             </div>
         @endcan

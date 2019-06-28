@@ -54,7 +54,67 @@ class TaskPolicy
      */
     public function update(User $user, Task $task)
     {
+        return $user->id == $task->user_id || $user->role == 'admin';
+    }
+
+    /**
+     * Determine whether the user can mark the task complete.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Task  $task
+     * @return mixed
+     */
+    public function markComplete(User $user, Task $task)
+    {
         return $user->id == $task->user_id;
+    }
+
+    /**
+     * Determine whether the user can lock the task for review.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Task  $task
+     * @return mixed
+     */
+    public function lock(User $user, Task $task)
+    {
+        return $user->role == 'admin' && $task->status == 1;
+    }
+
+    /**
+     * Determine whether the user can unlock the task.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Task  $task
+     * @return mixed
+     */
+    public function unlock(User $user, Task $task)
+    {
+        return $user->role == 'admin' && $task->status == 2;
+    }
+
+    /**
+     * Determine whether the user can finzlize the task.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Task  $task
+     * @return mixed
+     */
+    public function finalize(User $user, Task $task)
+    {
+        return $user->role == 'admin' && $task->status == 2;
+    }
+
+    /**
+     * Determine whether the user can finzlize the task.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Task  $task
+     * @return mixed
+     */
+    public function unfinalize(User $user, Task $task)
+    {
+        return $user->role == 'admin' && $task->status == 3;
     }
 
     /**

@@ -130,9 +130,13 @@ class TaskController extends Controller
 
         $flash = "Task -- " . $task->conflictSeries->name . " -- ";
 
-        if ($status) {
+        if ($status == 1) {
             $flash .= "marked as completed.";
-        } else {
+        } else if ($status == 2) {
+            $flash .= 'locked for review.';
+        } else if ($status == 3) {
+            $flash .= 'finalized -- coded and reviewed!';
+        } else if ($status == 0) {
             $flash .= "changed back to 'in progress.'";
         }
 

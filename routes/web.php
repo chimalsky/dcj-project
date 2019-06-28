@@ -32,7 +32,8 @@ Route::resource('/task/geo', 'TaskGeoController', ['as' => 'task'])->middleware(
 
 Route::resource('/task', 'TaskController')->middleware('auth');
 
-Route::resource('form', 'FormController')->middleware('auth');
+// Form CRUDDING not ready for v 1.0
+//Route::resource('form', 'FormController')->middleware('auth');
 Route::get('form/{form}/schema', 'FormSchemaController@show');
 
 Route::middleware(['auth'])->group(function () {

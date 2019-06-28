@@ -2,7 +2,9 @@
 
 namespace App\Policies;
 
+use Request;
 use App\User;
+use App\Task;
 use App\Conflict;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -94,18 +96,23 @@ class ConflictPolicy
 
     /**
      * Determine whether user can attach a justice to conflict
-     */
-
+     * @param  \App\User  $user
+     * @param  \App\Conflict  $conflict
+     * @return mixed
+     */ 
     public function attachJustice(User $user, Conflict $conflict)
-    {
-        if ($user->role == 'admin') {
-            return true;
+    {        
+        $conflictSeries = $conflict->series;
+
+        $tasked = $user->tasks->firstWhere('conflict_ucdp_id', $conflictSeries->id);
+
+        if (!$tasked) {
+            return false;
         }
 
-        $conflictSeries = $conflict->series;
-        
-        $ucdpIds = $user->tasks->pluck('conflict_ucdp_id');
-        $tasked = $ucdpIds->contains($conflictSeries->id);
+        if ($tasked->status >= 2) { 
+            return false;
+        }
 
         return $tasked;
     }

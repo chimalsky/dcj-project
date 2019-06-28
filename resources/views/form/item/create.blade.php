@@ -1,5 +1,4 @@
 <section data-controller="form-item-edit">
-
     {{ html()->form('POST', route('form.item.store', $form))->open() }}
         {{ html()->label('Name', 'name') }}
         {{ html()->text('name') }}
@@ -19,10 +18,10 @@
 
         {{ html()->label('Options', 'options') }}
         {{
-            html()->text('options[]')
+            html()->text('options[1]')
         }}
         {{
-            html()->text('options[]')
+            html()->text('options[0]')
         }}
 
         <button class="button">

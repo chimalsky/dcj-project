@@ -24,8 +24,19 @@ class Form extends Model
     {
         $form = $this;
 
-        return collect($this->schema->get('meta'))->map(function($itemArray) use ($form) {
-            $item = new FormItem($itemArray);
+        $items = collect($this->schema->get('meta'));
+
+        $items = $items->filter(function($item) {
+            // todo figure out a better way to do statuses
+            if (!isset($item['status'])) {
+                return true;
+            }
+
+            return !$item['status'];
+        });
+
+        return $items->map(function($itemArray) use ($form) {
+            $item = new FormItem($itemArray);   
             $item->form_id = $form->id;
             
             return $item;
@@ -56,6 +67,11 @@ class Form extends Model
     public function scopeWithSchema(): Builder
     {
         return SchemalessAttributes::scopeWithSchemalessAttributes('schema');
+    }
+
+    public function getSchemaNameAttribute()
+    {
+        return $this->schema['name'];
     }
 
     public function getMarkup($model = null)

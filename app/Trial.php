@@ -12,6 +12,8 @@ use App\Enums\TrialHistoryStartCode as StartCodes;
 
 class Trial extends Model
 {
+    // Deprecated. Leaving file in here until v2.0 just in case
+
     use HasJustice, HasCustomCasts;
 
     public $timestamps = false;

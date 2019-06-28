@@ -58,7 +58,7 @@ class FormController extends Controller
      */
     public function edit(Form $form)
     {
-        //
+        return view('form.edit', compact('form'));
     }
 
     /**
@@ -70,7 +70,12 @@ class FormController extends Controller
      */
     public function update(Request $request, Form $form)
     {
-        //
+        // TODO: make this more resilient.
+        $form->schema->set($request->input('schema'));
+        $form->save();
+
+        return redirect()->route('form.edit', compact('form'))
+            ->with('status', $form->schema->name . " form was updated");
     }
 
     /**
