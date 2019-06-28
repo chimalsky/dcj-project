@@ -35,7 +35,7 @@
                         @if ($justice->dyadicConflicts->pluck('id')->contains($dyadicConflict->id))
                             <span>
                                 <strong>
-                                    DCJIDD -- {{ $justice->dcjid . '_' . $dyadicConflict->dyad_id }} 
+                                    DCJIDD -- {{ $dyadicConflict->dyad_id . '_' . $justice->dcjid }} 
                                 </strong>
                             </span>
                         @endif
