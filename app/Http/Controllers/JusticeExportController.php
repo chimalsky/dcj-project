@@ -22,5 +22,6 @@ class JusticeExportController extends Controller
         return back()->with('status', 'Justice Data is being processed. You will receive an email when it is complete');
     }
 
+
 }
 
