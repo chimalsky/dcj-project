@@ -118,7 +118,7 @@ class Justice extends MetableModel
     {
         $exploded = explode('_', $this->dcjid);
 
-        return $exploded[1] . '_' . $exploded[2] . '_' $exploded[3];
+        return $exploded[1] . '_' . $exploded[2] . '_' . $exploded[3];
     }
 
     public function getCountAttribute()
