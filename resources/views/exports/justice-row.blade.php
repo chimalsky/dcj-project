@@ -35,7 +35,7 @@
     <td>18.1</td>
 
     <td>{{ $justice->dcjid }}</td>
-    <td>{{ $dyad->id . '_' . $dyad->year . '_' . explode('_', $justice->dcjid)[2] . '_' . explode('_', $justice->dcjid)[3] }}</td>
+    <td>{{ $dyad->dyad_id . '_' . $dyad->year . '_' . explode('_', $justice->dcjid)[2] . '_' . explode('_', $justice->dcjid)[3] }}</td>
 
 
     @foreach ($types as $processType)

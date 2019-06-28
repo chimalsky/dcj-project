@@ -112,7 +112,7 @@ class ConflictPolicy
 
         if ($tasked->status >= 2) { 
             return false;
-        }
+        }   
 
         return $tasked;
     }

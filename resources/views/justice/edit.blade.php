@@ -23,7 +23,6 @@
             @endisset
 
             <input type="hidden" name="task" value ="{{ isTaskWorkflow() }}" />
-
             @include('forms.errors')
         </header>
 
