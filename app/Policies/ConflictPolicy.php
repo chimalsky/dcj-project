@@ -102,6 +102,10 @@ class ConflictPolicy
      */ 
     public function attachJustice(User $user, Conflict $conflict)
     {        
+        if ($user->role == 'admin') {
+            return true;
+        }
+        
         $conflictSeries = $conflict->series;
 
         $tasked = $user->tasks->firstWhere('conflict_ucdp_id', $conflictSeries->id);

@@ -44,6 +44,7 @@ class JusticePolicy
      */
     public function create(User $user)
     {
+        return true;
         // Change Justice Policy to ConflictJustice Policy in future
         // Right now we have this ductape way
         if ($user->role == 'admin') {
@@ -69,6 +70,10 @@ class JusticePolicy
     {
         if ($user->role == 'admin') {
             return true;
+        }
+
+        if ($justice->user) {
+            return $justice->user->id == $user->id;
         }
 
         $tasked = $user->tasks->firstWhere('conflict_ucdp_id', $justice->conflict->conflict_id);
