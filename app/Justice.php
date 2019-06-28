@@ -114,6 +114,13 @@ class Justice extends MetableModel
             });
     }
 
+    public function getDcjidTruncatedAttribute() 
+    {
+        $exploded = explode('_', $this->dcjid);
+
+        return $exploded[1] . '_' . $exploded[2] . '_' $exploded[3];
+    }
+
     public function getCountAttribute()
     {
         $justice = $this;

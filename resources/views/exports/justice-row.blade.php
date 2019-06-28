@@ -35,7 +35,7 @@
     <td>18.1</td>
 
     <td>{{ $justice->dcjid }}</td>
-    <td>{{ $dyad->dyad_id }} _ {{ $justice->dcjid }}</td>
+    <td>{{ $dyad->dyad_id }} _ {{ $justice->dcjid_truncated }}</td>
 
 
     @foreach ($types as $processType)
