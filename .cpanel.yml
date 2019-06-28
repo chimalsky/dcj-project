@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/dcjmigra/
+    - export DEPLOYPATH=/home/dcjmigra/public_html/dcj
     - /bin/cp -R . $DEPLOYPATH
