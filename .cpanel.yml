@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/dcjmigra/public_html/dcj/
+    - export DEPLOYPATH=/home/nexusatn/justice-data.com/coding/
     - /bin/cp -R . $DEPLOYPATH
     - composer install --no-interaction --prefer-dist --optimize-autoloader
     - php artisan migrate --force
