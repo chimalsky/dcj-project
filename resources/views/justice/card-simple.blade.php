@@ -8,6 +8,16 @@
 
                 {{ $justice->dcjid }}
 
+                @isset($attributes)
+                <br><br>
+                <div class="cell">
+                    @foreach($attributes as $key => $value)
+                        <p>
+                            {{ $key }} -- <strong>{{ $value }}</strong>
+                        </p>
+                    @endforeach
+                </div>
+                @endisset
             </header>
 
             <main class="card-section">

@@ -142,20 +142,6 @@ class Justice extends MetableModel
         return null;
     }
 
-    public function getTargetAttribute($value) 
-    {
-        $attrKey = Str::snake($value);
-        
-        return $this->conflict->$attrKey ?? $value;
-    }
-
-    public function getSenderAttribute($value) 
-    {
-        $attrKey = Str::snake($value);
-        
-        return $this->conflict->$attrKey ?? $value;
-    }
-
     public function getPrecisionCodesAttribute()
     {
         return [
