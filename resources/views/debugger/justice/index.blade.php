@@ -9,6 +9,7 @@
     @foreach ($justices as $justice)
         <div class="cell medium-6 large-4">
             @include('justice.card-simple', ['justice' => $justice, 'conflict' => $justice->conflict, 
+            'newTab' => true,
             'attributes' => [
                 'sender' => $justice->sender,
                 'target' => $justice->target
