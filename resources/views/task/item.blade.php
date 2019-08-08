@@ -57,6 +57,12 @@
                 @endunless
             </p>
 
+            @if ($task->status == 3)
+                <p class="cell">
+                    Task Finalized
+                </p>
+            @endif
+
             @if ($task->status == 2)
                 <p class="cell">
                     Task is currently under review
@@ -82,7 +88,7 @@
                         />
                         
                         @if ($task->status < 2)
-                            Task Completed
+                            Mark as Completed for Helga
                         @endif
                 </form>
             @endif

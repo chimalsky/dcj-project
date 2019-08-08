@@ -28,6 +28,8 @@ class Justice extends MetableModel
         'id'
     ];
 
+    protected $hidden = ['coding_notes'];
+
     protected $fillable = [
         'type',
         'start', 'end', 'implemented', 

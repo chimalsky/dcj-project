@@ -37,56 +37,57 @@
     <td>{{ $justice->dcjid }}</td>
     <td>{{ $dyad->dyad_id . '_' . $justice->dcjid }}</td>
 
-
-    @foreach ($types as $processType)
-        <td>
-            @if ($justice->type == $processType)
-                1
-            @else
-                0
-            @endif
-        </td>
-
-        @if ($justice->type == $processType)
-            @include('exports.justice-items', $justice)
-        @else
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-            <td></td>
-            <td></td>
-        @endif
-
-        @foreach($forms->firstWhere('name', $processType)->items->pluck('name') as $itemName)
+    @if (isset($justice))
+        @foreach ($types as $processType)
             <td>
-                @if ($processType == $justice->type)
-                    {{ $justice->getMeta($itemName) ?? null }}
+                @if ($justice->type == $processType)
+                    1
+                @else
+                    0
                 @endif
             </td>
+
+            @if ($justice->type == $processType)
+                @include('exports.justice-items', $justice)
+            @else
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td></td>
+                <td></td>
+                <td></td>
+            @endif
+
+            @foreach($forms->firstWhere('name', $processType)->items->pluck('name') as $itemName)
+                <td>
+                    @if ($processType == $justice->type)
+                        {{ $justice->getMeta($itemName) ?? null }}
+                    @endif
+                </td>
+            @endforeach
         @endforeach
-    @endforeach
+    @endif
 
 </tr>
