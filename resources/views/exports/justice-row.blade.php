@@ -1,14 +1,30 @@
 <tr>
-    <td>{{ route('justice.show', [
-            'conflict' => $dyad->conflict->id,
-            'justice' => $justice->id
-        ])
+    <td>
+        @if (isset($justice))
+        {{ 
+            route('justice.show', [
+              'conflict' => $dyad->conflict->id,
+              'justice' => $justice->id
+            ])
         }}
+        @endif
     </td>
     <td>{{ $dyad->dyad_id  }}</td>
-    <td>{{ $justice->conflict->conflict_id }}</td>
-    <td>{{ $justice->conflict->old_conflict_id }}</td>
-    <td>{{ $justice->conflict->location }}</td>
+    <td>
+        @if (isset($justice))
+            {{ $justice->conflict->conflict_id }}
+        @endif 
+    </td>
+    <td>
+        @if (isset($justice))
+            {{ $justice->conflict->old_conflict_id }}
+        @endif
+    </td>
+    <td>
+        @if (isset($justice))
+            {{ $justice->conflict->location }}
+        @endif
+    </td>
 
     <td>{{ $dyad->side_a }}</td>
     <td>{{ $dyad->side_a_id }}</td>
@@ -34,8 +50,16 @@
 
     <td>18.1</td>
 
-    <td>{{ $justice->dcjid }}</td>
-    <td>{{ $dyad->dyad_id . '_' . $justice->dcjid }}</td>
+    <td>
+        @if (isset($justice))
+            {{ $justice->dcjid }}
+        @endif 
+    </td>
+    <td>        
+        @if (isset($justice))
+            {{ $dyad->dyad_id . '_' . $justice->dcjid }}
+        @endif
+    </td>
 
     @if (isset($justice))
         @foreach ($types as $processType)
