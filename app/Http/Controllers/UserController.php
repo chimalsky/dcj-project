@@ -100,8 +100,7 @@ class UserController extends Controller
      */
     public function destroy(User $user, Request $request)
     {
-        return "HI";
-        dd($request);
         $user->delete();    
+        return back()->with('status', $user->email . " was removed from DCJ crew.");
     }
 }

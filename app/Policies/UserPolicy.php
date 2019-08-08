@@ -68,10 +68,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return false;
-        if ($model->role == 'admin') {
-            return false;
-        }
+        return true;
         return $user->role == 'admin';
     }
 
