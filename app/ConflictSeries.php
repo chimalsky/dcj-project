@@ -22,11 +22,11 @@ class ConflictSeries extends Model
      *
      * @var array
      */
-    protected $with = ['episodes'];
+    protected $with = [];
 
     public function episodes()
     {
-        return $this->hasMany(Conflict::class, 'conflict_id')->withCount('justices');
+        return $this->hasMany(Conflict::class, 'conflict_id');
     }
 
     public function dyadicConflicts()

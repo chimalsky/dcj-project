@@ -67,7 +67,7 @@ class Justice extends MetableModel
      *
      * @var array
      */
-    protected $with = ['conflict'];
+    protected $with = [];
 
     /**
      * A justice model can be associated with other justice models

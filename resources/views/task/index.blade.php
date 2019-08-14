@@ -32,9 +32,11 @@
     <main class="cell medium-10 grid-x grid-margin-y">
         @if (!$viewType)
             @foreach($tasks->pluck('conflictSeries.region')->unique() as $region)
-                <h1 class="cell"> 
-                    {{ $region }}
-                </h1>
+                <a class="cell" href="{{ route('task.index', ['region' => $region]) }}"> 
+                    <h1>
+                        {{ $region }}
+                    </h1>
+                </a>
 
                 @include('task.list', ['tasks' => $tasks->where('conflictSeries.region', $region)])
             @endforeach
@@ -47,11 +49,15 @@
         @endif
     </main>
 
-    @if ($tasks instanceof \Illuminate\Pagination\AbstractPaginator)
-        <footer class="cell grid-x align-center">
+    <footer class="grid-x cell">
+        <nav class="callout" style="position:fixed; bottom:0;">
+            @if (Request::query('region'))
+                Showing only tasks in {{ Request::query('region') }}
+            @endif
+
             {{ $tasks->links() }}
-        <footer>
-    @endif
+        </nav>
+    </footer>
 </section>
 
 @endsection

@@ -22,7 +22,7 @@ class ConflictController extends Controller
         $me = Auth::user();
         $tasks = $me->tasks ?? null;
 
-        $conflicts = Conflict::withCount('justices');
+        $conflicts = Conflict::with('dyads')->withCount('justices');
 
         if ($query = $request->query('query')) {
             $conflicts = $conflicts->where('side_a', 'like', "%$query%")
