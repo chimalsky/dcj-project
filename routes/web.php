@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('form/{form}/item', 'FormItemController@store')->name('form.item.store');
     Route::put('form/{form}/item', 'FormItemController@update')->name('form.item.update');
     Route::delete('form/{form}/item', 'FormItemController@destroy')->name('form.item.destroy');
+
+    // List of Potentially bug ridden DCJ's to help coders fix
+    Route::get('/debugger', 'JusticeDebuggerController@index');
 });
 
 

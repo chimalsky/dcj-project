@@ -57,6 +57,7 @@ class JusticeController extends Controller
         $task = $request->input('task') ?? null;
         
         $justice = Justice::create($justiceParams);
+        
         $justice->coding_notes = $justiceParams['coding_notes'];
 
         $justice->conflict()->associate($conflict);

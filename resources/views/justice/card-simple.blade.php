@@ -1,13 +1,31 @@
 <article class="card @isset($cssClass) {{ $cssClass }} @endisset">
     @can('update', $justice)
-        <a href="{{ route('justice.edit', ['conflict' => $justice->conflict, 'justice' => $justice, 'task' => isTaskWorkflow() ?? false]) }}">
+        <a href="{{ route('justice.edit', ['conflict' => $justice->conflict, 'justice' => $justice, 'task' => isTaskWorkflow() ?? false]) }}"
+            @isset($newTab) 
+                target="_blank"
+            @endisset
+        >
     @else 
-        <a href="{{ route('justice.show', ['conflict' => $justice->conflict, 'justice' => $justice, 'task' => isTaskWorkflow() ?? false]) }}">
+        <a href="{{ route('justice.show', ['conflict' => $justice->conflict, 'justice' => $justice, 'task' => isTaskWorkflow() ?? false]) }}"
+            @isset($newTab) 
+                target="_blank"
+            @endisset
+        >
     @endcan
             <header class="card-divider grid-x align-justify">
 
                 {{ $justice->dcjid }}
 
+                @isset($attributes)
+                <br><br>
+                <div class="cell">
+                    @foreach($attributes as $key => $value)
+                        <p>
+                            {{ $key }} -- <strong>{{ $value }}</strong>
+                        </p>
+                    @endforeach
+                </div>
+                @endisset
             </header>
 
             <main class="card-section">

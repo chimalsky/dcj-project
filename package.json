@@ -21,7 +21,7 @@
         "foundation-sites": "^6.5.3",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.15",
-        "lodash": "^4.17.5",
+        "lodash": "^4.17.13",
         "motion-ui": "^2.0.3",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
@@ -29,8 +29,6 @@
         "sass-loader": "^7.1.0",
         "stimulus": "^1.1.1",
         "trix": "^1.1.1",
-        "turbolinks": "^5.2.0",
-        "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "turbolinks": "^5.2.0"
     }
 }

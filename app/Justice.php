@@ -28,6 +28,8 @@ class Justice extends MetableModel
         'id'
     ];
 
+    protected $hidden = ['coding_notes'];
+
     protected $fillable = [
         'type',
         'start', 'end', 'implemented', 
@@ -65,7 +67,7 @@ class Justice extends MetableModel
      *
      * @var array
      */
-    protected $with = ['conflict'];
+    protected $with = [];
 
     /**
      * A justice model can be associated with other justice models
@@ -140,20 +142,6 @@ class Justice extends MetableModel
         }
 
         return null;
-    }
-
-    public function getTargetAttribute($value) 
-    {
-        $attrKey = Str::snake($value);
-        
-        return $this->conflict->$attrKey ?? $value;
-    }
-
-    public function getSenderAttribute($value) 
-    {
-        $attrKey = Str::snake($value);
-        
-        return $this->conflict->$attrKey ?? $value;
     }
 
     public function getPrecisionCodesAttribute()

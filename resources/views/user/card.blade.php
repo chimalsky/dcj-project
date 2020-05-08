@@ -29,13 +29,16 @@
                 </form>
     @can('delete', $user)
             <aside class="cell grid-x align-right">
+                <form id="delete-form" action="{{ route('user.destroy', $user) }}" method="POST">
+                    @method('delete')
+                    @csrf
 
-                <a href="{{ route('user.destroy', $user) }}"
-                    class="button alert tiny"
-                    onclick="event.preventDefault();
-                                    document.getElementById('delete-form').submit();">
-                    Remove from Team
-                </a>
+                    <button class="button alert tiny">
+                        Remove
+                    </button>
+
+                </form>
+
             </aside>
     @endcan
 </article>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Task;
 use App\User;
+use App\ConflictSeries;
 use Illuminate\Http\Request;
 
 class UserTaskController extends Controller
@@ -22,11 +23,20 @@ class UserTaskController extends Controller
 
         $tasks = $user->tasks()->with('assigner', 'conflictSeries')
             ->withCount('conflictEpisodes', 'conflictJustices');
+
         if ($status != 'all') {
             $tasks = $tasks->where('status', $status);
         }
-        
-        $tasks = $tasks->latest('updated_at')->get();
+
+        if ($region = trim($request->query('region')) ) {
+            $conflictSeries = ConflictSeries::with('episodes')->get()->filter(function($cs) use ($region) {
+                return $region == $cs->region;
+            });
+
+            $tasks = $tasks->whereIn('conflict_ucdp_id', $conflictSeries->pluck('id'));
+        }
+
+        $tasks = $tasks->latest('updated_at')->paginate(30);
 
         $meOnly = false;
         $viewType = null;

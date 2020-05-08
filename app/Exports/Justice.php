@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Form;
+use App\DyadicConflict;
 use App\Justice as Model;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -30,16 +31,18 @@ class Justice implements FromView, Responsable
 
     public function view(): View 
     {
-        $justices = Model::with('conflict', 'dyadicConflicts')->withMeta()
+        $dyadicConflicts = DyadicConflict::with('justices')->get();
+        $justices = Model::with('conflict')->withMeta()
             ->get();
 
         $forms = Form::all();
 
-        return view('exports.justice', [
+        return view('exports.dyadic-conflict', [
             'forms' => $forms,
             'headers' => $this->getHeaders(),
             'types' => $this->types,
-            'justices' => $justices
+            'justices' => $justices,
+            'dyadicConflicts' => $dyadicConflicts
         ]);
     }
 

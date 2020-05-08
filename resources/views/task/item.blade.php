@@ -1,7 +1,7 @@
 
 <article class="grid-x grid-padding-x cell item" data-task-status="{{ $task->status }}">
     <header class="cell grid-x align-justify align-top">
-        <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
+    <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
         class="cell auto">
             <h2 class="cell">
                 {{ $task->conflictSeries->name }}
@@ -57,6 +57,12 @@
                 @endunless
             </p>
 
+            @if ($task->status == 3)
+                <p class="cell">
+                    Task Finalized
+                </p>
+            @endif
+
             @if ($task->status == 2)
                 <p class="cell">
                     Task is currently under review
@@ -82,7 +88,7 @@
                         />
                         
                         @if ($task->status < 2)
-                            Task Completed
+                            Mark as Completed for Helga
                         @endif
                 </form>
             @endif

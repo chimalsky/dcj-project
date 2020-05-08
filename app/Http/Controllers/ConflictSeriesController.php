@@ -18,14 +18,17 @@ class ConflictSeriesController extends Controller
     {
         $conflictSeries = ConflictSeries::with('episodes', 'justices');
 
-        $query = $request->query('query');
+        $conflictEpisodes = new Conflict;
 
-        $conflictEpisodes = Conflict::where('side_a', 'like', "%$query%")
-            ->orWhere('side_b', 'like', "%$query%")
-            ->orWhere('territory', 'like', "%$query%")
-            ->orWhere('location', 'like', "%$query%")
-            ->orWhere('conflict_id', $query)
-            ->get();
+        if ($query = $request->query('query')) {
+            $conflictEpisodes = $conflictEpisodes->where('side_a', 'like', "%$query%")
+                ->orWhere('side_b', 'like', "%$query%")
+                ->orWhere('territory', 'like', "%$query%")
+                ->orWhere('location', 'like', "%$query%")
+                ->orWhere('conflict_id', $query);
+        }
+
+        $conflictEpisodes = $conflictEpisodes->get();
 
         $conflictIds = $conflictEpisodes->unique('conflict_id')->pluck('conflict_id');
 

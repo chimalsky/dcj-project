@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Task;
 use App\User;
+use App\ConflictSeries;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -26,16 +27,25 @@ class TaskController extends Controller
         $status = $request->query('status') ?? 'all';
         $viewType = $request->query('view_type') ?? null;
 
-        $tasks = Task::with('user', 'assigner', 'conflictSeries', 'conflictEpisodes')
+        $tasks = Task::latest('updated_at')->with('user', 'assigner', 'conflictSeries.episodes')
             ->withCount('conflictEpisodes', 'conflictJustices');
         
 
         if ($status != 'all') {
             $tasks = $tasks->where('status', $status);
         }
+
+        if ($region = trim($request->query('region')) ) {
+            $conflictSeries = ConflictSeries::with('episodes')->get()->filter(function($cs) use ($region) {
+                return $region == $cs->region;
+            });
+
+            $tasks = $tasks->whereIn('conflict_ucdp_id', $conflictSeries->pluck('id'));
+        }
         
-        $tasks = $tasks->latest('updated_at')->get()->sortBy('conflictSeries.region');
-        
+        $tasks = $tasks->latest('updated_at')
+            ->paginate(30);
+
         return view('task.index', compact('tasks', 'status', 'viewType'));
     }
 
