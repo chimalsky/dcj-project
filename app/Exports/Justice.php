@@ -31,8 +31,9 @@ class Justice implements FromView, Responsable
 
     public function view(): View 
     {
-        $dyadicConflicts = DyadicConflict::with('justices')->get();
+        $dyadicConflicts = DyadicConflict::with('justices', 'conflict')->get();
         $justices = Model::with('conflict')->withMeta()
+            ->limit(100)
             ->get();
 
         $forms = Form::all();

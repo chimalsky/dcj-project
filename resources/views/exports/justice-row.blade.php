@@ -11,19 +11,13 @@
     </td>
     <td>{{ $dyad->dyad_id  }}</td>
     <td>
-        @if (isset($justice))
-            {{ $justice->conflict->conflict_id }}
-        @endif 
+        {{ $dyad->conflict->conflict_id }}
     </td>
     <td>
-        @if (isset($justice))
-            {{ $justice->conflict->old_conflict_id }}
-        @endif
+        {{ $dyad->conflict->old_conflict_id }}
     </td>
     <td>
-        @if (isset($justice))
-            {{ $justice->conflict->location }}
-        @endif
+        {{ $dyad->conflict->location }}
     </td>
 
     <td>{{ $dyad->side_a }}</td>
