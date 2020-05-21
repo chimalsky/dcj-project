@@ -12,24 +12,12 @@
     <td>{{ $dyad->dyad_id  }}</td>
     <td>
         {{ $dyad->conflict->conflict_id }}
-
-        @if (isset($justice))
-             -- {{ $justice->conflict->conflict_id }}
-        @endif 
     </td>
     <td>
         {{ $dyad->conflict->old_conflict_id }}
-
-        @if (isset($justice))
-            -- {{ $justice->conflict->old_conflict_id }}
-        @endif
     </td>
     <td>
         {{ $dyad->conflict->location }}
-
-        @if (isset($justice))
-            -- {{ $justice->conflict->location }}
-        @endif
     </td>
 
     <td>{{ $dyad->side_a }}</td>
