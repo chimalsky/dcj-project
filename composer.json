@@ -22,7 +22,8 @@
         "spatie/laravel-html": "^2.22",
         "spatie/laravel-schemaless-attributes": "^1.4",
         "vkovic/laravel-custom-casts": "^1.0",
-        "zoha/laravel-meta": "^1.6"
+        "zoha/laravel-meta": "^1.6",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
