@@ -73,7 +73,7 @@ Breadcrumbs::for('user.create', function ($trail) {
 });
 
 Breadcrumbs::for('task.index', function ($trail) {
-    if (Auth::check() && Auth::user()->can('create', 'App\Task')) {
+    if (Auth::check() && Auth::user()->can('create', \App\Task::class)) {
         $title = 'Tasks';
         $route = route('task.index');
     } else {
