@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use App\ConflictSeries;
 use App\Task;
 use App\User;
-use App\ConflictSeries;
+use Auth;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-
     public function __construct()
     {
         $this->authorizeResource(Task::class);
@@ -22,27 +21,26 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
+    {
         $me = Auth::user();
         $status = $request->query('status') ?? 'all';
         $viewType = $request->query('view_type') ?? null;
 
         $tasks = Task::latest('updated_at')->with('user', 'assigner', 'conflictSeries.episodes')
             ->withCount('conflictEpisodes', 'conflictJustices');
-        
 
         if ($status != 'all') {
             $tasks = $tasks->where('status', $status);
         }
 
-        if ($region = trim($request->query('region')) ) {
-            $conflictSeries = ConflictSeries::with('episodes')->get()->filter(function($cs) use ($region) {
+        if ($region = trim($request->query('region'))) {
+            $conflictSeries = ConflictSeries::with('episodes')->get()->filter(function ($cs) use ($region) {
                 return $region == $cs->region;
             });
 
             $tasks = $tasks->whereIn('conflict_ucdp_id', $conflictSeries->pluck('id'));
         }
-        
+
         $tasks = $tasks->latest('updated_at')
             ->paginate(30);
 
@@ -56,9 +54,10 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $users = User::select('id', 'name', 'email')->get()->mapWithKeys(function($user) {
-            return [$user['id'] => $user['name'] . " -- " . $user['email']];
+        $users = User::select('id', 'name', 'email')->get()->mapWithKeys(function ($user) {
+            return [$user['id'] => $user['name'].' -- '.$user['email']];
         });
+
         return view('task.create', compact('users'));
     }
 
@@ -72,30 +71,30 @@ class TaskController extends Controller
     {
         $request->validate([
             'conflict_series' => 'exists:conflict_series,id',
-            'user' => 'required|array|min:1'
+            'user' => 'required|array|min:1',
         ]);
-        
+
         $usersInputs = collect($request->input('user'));
 
-        $statuses = $usersInputs->map(function($userInput) use ($request) {
+        $statuses = $usersInputs->map(function ($userInput) use ($request) {
             $redundantTask = Task::where([
                 ['conflict_ucdp_id', $request->input('conflict_series')],
-                ['user_id', $userInput]
+                ['user_id', $userInput],
             ])->exists();
 
             $user = User::find($userInput);
 
             if ($redundantTask) {
-                return $user->name . " was already assigned to UCDP #" . $request->input('conflict_series');
+                return $user->name.' was already assigned to UCDP #'.$request->input('conflict_series');
             } else {
                 $task = new Task;
-    
+
                 $task->user_id = $user->id;
                 $task->conflict_ucdp_id = $request->input('conflict_series');
                 $task->created_by = Auth::id();
                 $task->save();
-    
-                return "UCPD #" . $task->conflict_ucdp_id . " assigned to " . $task->user->name;
+
+                return 'UCPD #'.$task->conflict_ucdp_id.' assigned to '.$task->user->name;
             }
         });
 
@@ -138,19 +137,19 @@ class TaskController extends Controller
         $task->status = $status;
         $task->save();
 
-        $flash = "Task -- " . $task->conflictSeries->name . " -- ";
+        $flash = 'Task -- '.$task->conflictSeries->name.' -- ';
 
         if ($status == 1) {
-            $flash .= "marked as completed.";
-        } else if ($status == 2) {
+            $flash .= 'marked as completed.';
+        } elseif ($status == 2) {
             $flash .= 'locked for review.';
-        } else if ($status == 3) {
+        } elseif ($status == 3) {
             $flash .= 'finalized -- coded and reviewed!';
-        } else if ($status == 0) {
+        } elseif ($status == 0) {
             $flash .= "changed back to 'in progress.'";
         }
 
-        return redirect( url()->previous() )->with('status', $flash);
+        return redirect(url()->previous())->with('status', $flash);
     }
 
     /**
@@ -160,9 +159,10 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Task $task)
-    {   
+    {
         $task->delete();
-        $flash = "Task " . $task->name . " for " . $task->user->name . " deleted";
-        return redirect( url()->previous() )->with('status', $flash);
+        $flash = 'Task '.$task->name.' for '.$task->user->name.' deleted';
+
+        return redirect(url()->previous())->with('status', $flash);
     }
 }

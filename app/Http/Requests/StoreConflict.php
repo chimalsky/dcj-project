@@ -25,7 +25,7 @@ class StoreConflict extends FormRequest
     {
         return [
             'history.start' => 'required|date',
-            'history.end' => 'nullable|date'
+            'history.end' => 'nullable|date',
         ];
     }
 }

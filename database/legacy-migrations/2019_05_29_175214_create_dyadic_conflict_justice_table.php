@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDyadicConflictJusticeTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateDyadicConflictJusticeTable extends Migration
      */
     public function up()
     {
-        Schema::create('dyadic_conflict_justice', function (Blueprint $table) {            
+        Schema::create('dyadic_conflict_justice', function (Blueprint $table) {
             $table->unsignedInteger('dyadic_conflict_id')
                 ->references('id')
                 ->on('dyadic_conflicts')
@@ -28,7 +28,7 @@ class CreateDyadicConflictJusticeTable extends Migration
 
             $table->timestamps();
 
-            $table->primary(['dyadic_conflict_id', 'justice_id']);	
+            $table->primary(['dyadic_conflict_id', 'justice_id']);
         });
     }
 

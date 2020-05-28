@@ -30,5 +30,5 @@ return [
             // example : 'posts_meta' , 'users_meta'
 
         ],
-    ]
+    ],
 ];

@@ -2,22 +2,22 @@
 
 namespace App;
 
-use App\User;
-use App\Justice;
 use App\Conflict;
-use App\DyadicConflict;
 use App\ConflictSeries;
+use App\DyadicConflict;
+use App\Justice;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $guarded = [ 'id' ];
+    protected $guarded = ['id'];
 
     public function assigner()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -73,5 +73,4 @@ class Task extends Model
     {
         return $query;
     }
-
 }

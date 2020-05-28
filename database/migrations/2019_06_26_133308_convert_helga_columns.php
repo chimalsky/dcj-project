@@ -1,9 +1,9 @@
 <?php
 
 use App\Justice;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class ConvertHelgaColumns extends Migration
 {
@@ -23,14 +23,14 @@ class ConvertHelgaColumns extends Migration
         Justice::whereNotNull('gender')
             ->where('gender', 'Women')
             ->update(['gender' => 9]);
-        
+
         Justice::whereNotNull('sexviolence')
             ->where('sexviolence', 'No sexual violence')
             ->update(['sexviolence' => 0]);
         Justice::whereNotNull('sexviolence')
             ->where('sexviolence', 'Sexual violence')
             ->update(['sexviolence' => 1]);
-        
+
         Justice::whereNotNull('wrong')
             ->where('wrong', 'Affiliation')
             ->update(['wrong' => 1]);
@@ -43,7 +43,6 @@ class ConvertHelgaColumns extends Migration
         Justice::whereNotNull('wrong')
             ->where('wrong', 'Other')
             ->update(['wrong' => 4]);
-        
     }
 
     /**

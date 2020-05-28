@@ -2,25 +2,25 @@
 
 namespace App\Imports;
 
-use App\Truth;
-use Maatwebsite\Excel\Row;
 use App\Imports\Traits\JusticeImport;
+use App\Truth;
 use Maatwebsite\Excel\Concerns\OnEachRow;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Row;
 
-
-class TruthImport implements OnEachRow,
+class TruthImport implements
+    OnEachRow,
     WithHeadingRow,
     WithChunkReading
 {
     use JusticeImport;
 
     /**
-    * @param Row $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param Row $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function onRow(Row $row)
     {
         $row = $row->toArray();
@@ -33,7 +33,7 @@ class TruthImport implements OnEachRow,
         $dcj = Truth::create([
             'report' => $row['truth_report'],
             'international' => $row['truth_intl'],
-            'breach' => $row['truth_breach']
+            'breach' => $row['truth_breach'],
         ]);
 
         $dcj->save();

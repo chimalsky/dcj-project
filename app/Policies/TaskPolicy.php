@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Task;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TaskPolicy
@@ -33,7 +33,6 @@ class TaskPolicy
         return $user->id == $task->user_id;
     }
 
-    
     /**
      * Determine whether the user can create tasks.
      *

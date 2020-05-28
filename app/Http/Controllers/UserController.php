@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
 use App\User;
+use Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -84,11 +84,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if (!$request->input('role')) {
+        if (! $request->input('role')) {
             return redirect()->route('user.index');
         }
 
         $user->update($request->all());
+
         return redirect()->route('user.index');
     }
 
@@ -100,7 +101,8 @@ class UserController extends Controller
      */
     public function destroy(User $user, Request $request)
     {
-        $user->delete();    
-        return back()->with('status', $user->email . " was removed from DCJ crew.");
+        $user->delete();
+
+        return back()->with('status', $user->email.' was removed from DCJ crew.');
     }
 }

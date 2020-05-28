@@ -2,25 +2,25 @@
 
 namespace App\Imports;
 
-use App\Purge;
-use Maatwebsite\Excel\Row;
 use App\Imports\Traits\JusticeImport;
+use App\Purge;
 use Maatwebsite\Excel\Concerns\OnEachRow;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Row;
 
-
-class PurgeImport implements OnEachRow,
+class PurgeImport implements
+    OnEachRow,
     WithHeadingRow,
     WithChunkReading
 {
     use JusticeImport;
 
     /**
-    * @param Row $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param Row $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function onRow(Row $row)
     {
         $row = $row->toArray();

@@ -15,6 +15,6 @@ class Reparation extends Model
     public $type = 'reparation';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 }

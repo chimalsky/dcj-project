@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
 use App\Conflict;
 use App\ConflictSeries;
+use App\Task;
 use Illuminate\Http\Request;
 
 class TaskGeoController extends Controller
@@ -17,13 +17,13 @@ class TaskGeoController extends Controller
     public function index()
     {
         $tasks = Task::paginate(15);
-        $regions = $tasks->map(function($task) {
+        $regions = $tasks->map(function ($task) {
             return $task->region;
         })->unique();
 
         dd($regions);
-        return view('task.geo.index', compact('tasks', 'meOnly', 'status'));
 
+        return view('task.geo.index', compact('tasks', 'meOnly', 'status'));
     }
 
     /**

@@ -3,8 +3,8 @@
 namespace App;
 
 use App\FormItem;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
 
 class Form extends Model
@@ -20,41 +20,41 @@ class Form extends Model
         return $this->belongsToMany(FormItem::class);
     }
 
-    public function getItemsAttribute() 
+    public function getItemsAttribute()
     {
         $form = $this;
 
         $items = collect($this->schema->get('meta'));
 
-        $items = $items->filter(function($item) {
+        $items = $items->filter(function ($item) {
             // todo figure out a better way to do statuses
-            if (!isset($item['status'])) {
+            if (! isset($item['status'])) {
                 return true;
             }
 
-            return !$item['status'];
+            return ! $item['status'];
         });
 
-        return $items->map(function($itemArray) use ($form) {
-            $item = new FormItem($itemArray);   
+        return $items->map(function ($itemArray) use ($form) {
+            $item = new FormItem($itemArray);
             $item->form_id = $form->id;
-            
+
             return $item;
         });
     }
 
-    public function addItem(FormItem $formItem) 
-    {        
+    public function addItem(FormItem $formItem)
+    {
         $schema = $this->schema->get('meta');
         $schema[] = $formItem->toArray();
         $this->schema->set('meta', $schema);
     }
 
-    public function filterParams($params) 
+    public function filterParams($params)
     {
-        return $this->items->mapWithKeys(function($item) use ($params) {
+        return $this->items->mapWithKeys(function ($item) use ($params) {
             return [
-                $item['name'] => $params[$item['name']] ?? null
+                $item['name'] => $params[$item['name']] ?? null,
             ];
         });
     }
@@ -76,7 +76,7 @@ class Form extends Model
 
     public function getMarkup($model = null)
     {
-        $form = $this;  
+        $form = $this;
 
         return view('form.show', compact('form', 'model'));
     }

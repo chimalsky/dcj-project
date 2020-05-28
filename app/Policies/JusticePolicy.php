@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use Request;
-use App\User;
-use App\Justice;
 use App\Conflict;
 use App\ConflictSeries;
+use App\Justice;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Request;
 
 class JusticePolicy
 {
@@ -55,10 +55,11 @@ class JusticePolicy
         }
 
         $conflictSeries = ConflictSeries::find(Request::query('conflict'));
-        
+
         $ucdpIds = $user->tasks->pluck('conflict_ucdp_id');
-        
+
         $tasked = $ucdpIds->contains($conflictSeries->conflict_id);
+
         return $tasked;
     }
 
@@ -83,11 +84,11 @@ class JusticePolicy
 
         $tasked = $user->tasks->firstWhere('conflict_ucdp_id', $conflict->conflict_id);
 
-        if (!$tasked) {
+        if (! $tasked) {
             return false;
         }
 
-        if ($tasked->status >= 2) { 
+        if ($tasked->status >= 2) {
             return false;
         }
 
@@ -108,9 +109,10 @@ class JusticePolicy
         }
 
         $conflict = $justice->conflict;
-        
+
         $ucdpIds = $user->tasks->pluck('conflict_ucdp_id');
         $tasked = $ucdpIds->contains($conflict->conflict_id);
+
         return $tasked;
     }
 

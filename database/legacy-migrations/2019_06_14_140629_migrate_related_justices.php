@@ -2,9 +2,9 @@
 
 use App\Justice;
 use App\JusticeRelationship;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class MigrateRelatedJustices extends Migration
 {
@@ -17,16 +17,16 @@ class MigrateRelatedJustices extends Migration
     {
         $justices = Justice::whereNotNull('related');
 
-        $justices->get()->each(function($justice) {
+        $justices->get()->each(function ($justice) {
             $related = Justice::where('dcjid', $justice->related)->first();
 
-            if (!$related) {
+            if (! $related) {
                 return;
             }
 
             JusticeRelationship::create([
                 'justice_a' => $justice->id,
-                'justice_b' => $related->id
+                'justice_b' => $related->id,
             ]);
         });
     }

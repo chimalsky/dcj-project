@@ -2,13 +2,12 @@
 
 namespace App;
 
-use App\Traits\HasJustice;
 use App\CustomCasts\EnglishBoolean;
-use Illuminate\Database\Eloquent\Model;
-use Vkovic\LaravelCustomCasts\HasCustomCasts;
 use App\Enums\TrialHistoryEndCode as EndCodes;
 use App\Enums\TrialHistoryStartCode as StartCodes;
-
+use App\Traits\HasJustice;
+use Illuminate\Database\Eloquent\Model;
+use Vkovic\LaravelCustomCasts\HasCustomCasts;
 
 class Trial extends Model
 {
@@ -21,19 +20,20 @@ class Trial extends Model
     public $type = 'trial';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected $casts = [
-        
+
     ];
 
     public function getStartCodesAttribute()
     {
         return StartCodes::toSelectArray();
     }
+
     public function getEndCodesAttribute()
     {
         return EndCodes::toSelectArray();
     }
-} 
+}

@@ -1,8 +1,8 @@
 
 <article class="grid-x grid-padding-x cell item" data-task-status="{{ $task->status }}">
     <header class="cell grid-x align-justify align-top">
-    <a href="{{ route('conflict-series.show', ['conflict-series' => $task->conflictSeries->id, 'task' => $task->id ]) }}"
-        class="cell auto">
+        <a href="{{ route('conflict-series.show', [$task->conflictSeries, 'task' => $task->id ]) }}"
+            class="cell auto">
             <h2 class="cell">
                 {{ $task->conflictSeries->name }}
             </h2>

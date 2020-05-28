@@ -1,10 +1,10 @@
 <?php
 
 use App\Imports\ReparationImport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CreateReparationsTable extends Migration
 {
@@ -17,7 +17,7 @@ class CreateReparationsTable extends Migration
     {
         Schema::create('reparations', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->string('property')->nullable();
             $table->string('money')->nullable();
             $table->string('training_education')->nullable();
