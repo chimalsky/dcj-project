@@ -13,18 +13,19 @@
         "davejamesmiller/laravel-breadcrumbs": "^5.2",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.2",
+        "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.11",
-        "laravel/telescope": "^2.0",
+        "laravel/telescope": "^3.5",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
         "maatwebsite/excel": "^3.1.19",
         "spatie/laravel-html": "^2.25",
         "spatie/laravel-schemaless-attributes": "^1.7",
         "vkovic/laravel-custom-casts": "^1.0",
-        "zoha/laravel-meta": "^1.6",
-        "laravel/ui": "^2.0",
-        "fruitcake/laravel-cors": "^1.0"
+        "webup/laravel-sendinblue": "^3.0",
+        "zoha/laravel-meta": "^1.6"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

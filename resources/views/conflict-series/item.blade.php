@@ -1,7 +1,7 @@
 
 <section class="grid-x cell item">
     <header class="cell grid-x">
-        <a href="{{ route('conflict-series.show', ['conflict-series' => $conflictSeries->id ]) }}"
+        <a href="{{ route('conflict-series.show', $conflictSeries->id) }}"
         class="cell">
             <h2 class="cell">
                 {{ $conflictSeries->years }} <br/>

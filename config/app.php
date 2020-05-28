@@ -169,6 +169,7 @@ return [
         App\Providers\FormServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Spatie\Html\HtmlServiceProvider::class,
+        Webup\LaravelSendinBlue\SendinBlueServiceProvider::class,
 
         /*
          * Application Service Providers...
