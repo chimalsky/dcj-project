@@ -2,6 +2,6 @@
 
 return [
     'table_names' => [
-        'conflicts' => 'conflicts' . '_18-1'
-    ]
+        'conflicts' => 'conflicts'.'_18-1',
+    ],
 ];

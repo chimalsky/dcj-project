@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class JusticeMeta extends Model
 {
-
     /**
      * The table associated with the model.
      *
@@ -15,5 +14,4 @@ class JusticeMeta extends Model
     protected $table = 'justice_meta';
 
     protected $guarded = ['id'];
-
 }

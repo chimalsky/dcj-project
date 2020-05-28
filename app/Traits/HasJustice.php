@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasJustice
 {
-    
     /**
      * A model has justice case.
      */
@@ -23,7 +22,7 @@ trait HasJustice
     }
 
     /**
-     * Model can access start date directly as attribute
+     * Model can access start date directly as attribute.
      */
     public function getStartDateAttribute()
     {
@@ -31,7 +30,7 @@ trait HasJustice
     }
 
     /**
-     * Model can access end date directly as attribute
+     * Model can access end date directly as attribute.
      */
     public function getEndDateAttribute()
     {

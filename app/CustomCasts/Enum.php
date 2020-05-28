@@ -2,8 +2,8 @@
 
 namespace App\CustomCasts;
 
-use Str;
 use Illuminate\Database\Eloquent\Model;
+use Str;
 use Vkovic\LaravelCustomCasts\CustomCastBase;
 
 class Enum extends CustomCastBase
@@ -14,29 +14,29 @@ class Enum extends CustomCastBase
     {
         parent::__construct($model, $attribute);
 
-        $enumClassName = "\App\Enums\\" 
-            . class_basename($model) 
-            . ucfirst($attribute);
+        $enumClassName = "\App\Enums\\"
+            .class_basename($model)
+            .ucfirst($attribute);
 
-        if (!class_exists($enumClassName)) {
+        if (! class_exists($enumClassName)) {
             $exploded = explode('_', $attribute);
 
             $enumClassName = "\App\Enums\\"
-                . class_basename($model)
-                . ucfirst(end($exploded));
+                .class_basename($model)
+                .ucfirst(end($exploded));
         }
 
-        if (!class_exists($enumClassName)) {
+        if (! class_exists($enumClassName)) {
             $enumClassName = "\App\Enums\\"
-                . class_basename('Trial')
-                . Str::studly($attribute);
+                .class_basename('Trial')
+                .Str::studly($attribute);
         }
-       
+
         $this->enum = $enumClassName;
     }
 
     public function setAttribute($value)
-    {        
+    {
         $value = str_replace(' ', '_', $value);
         $value = Str::before($value, '/');
 
@@ -45,6 +45,6 @@ class Enum extends CustomCastBase
 
     public function castAttribute($value)
     {
-        return $this->enum::getKey((int)$value) ?? null;
+        return $this->enum::getKey((int) $value) ?? null;
     }
 }

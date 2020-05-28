@@ -3,10 +3,10 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Storage;
 
 class ExportReady extends Notification
 {
@@ -47,7 +47,7 @@ class ExportReady extends Notification
         $url = url(Storage::url($this->fileName));
 
         logger($this->fileName);
-        
+
         return (new MailMessage)
                     ->line('Your DCJ download is now ready')
                     ->action('Download Data Here', $url);

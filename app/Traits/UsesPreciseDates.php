@@ -6,7 +6,6 @@ use Carbon\Carbon;
 
 trait UsesPreciseDates
 {
-
     public function getStartAttribute($value)
     {
         return $this->start_precision ? Carbon::parse($value) : null;
@@ -18,7 +17,7 @@ trait UsesPreciseDates
     }
 
     /**
-     * Model can access start date directly as attribute
+     * Model can access start date directly as attribute.
      */
     public function getStartYearAttribute()
     {
@@ -53,7 +52,6 @@ trait UsesPreciseDates
         }
     }
 
-
     public function getEndYearAttribute()
     {
         return $this->end ? $this->end->format('Y') : null;
@@ -87,5 +85,4 @@ trait UsesPreciseDates
                 return null;
         }
     }
-
 }

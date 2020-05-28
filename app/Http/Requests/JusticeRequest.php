@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class JusticeRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,7 +14,7 @@ class JusticeRequest extends FormRequest
     public function rules()
     {
         return [
-            'dyadicConflicts' => 'required_without_all'        
+            'dyadicConflicts' => 'required_without_all',
         ];
     }
 }

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Conflict;
-use App\Justice;
-use Illuminate\Http\Request;
 use App\Http\Requests\JusticeRequest;
+use App\Justice;
+use Auth;
+use Illuminate\Http\Request;
 
 class JusticeController extends Controller
 {
-
     public function __construct()
     {
         $this->authorizeResource(Justice::class);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +23,7 @@ class JusticeController extends Controller
     public function index()
     {
         $justices = Justice::all();
+
         return view('justice.index', compact('justices'));
     }
 
@@ -55,9 +56,9 @@ class JusticeController extends Controller
         $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'items']);
 
         $task = $request->input('task') ?? null;
-        
+
         $justice = Justice::create($justiceParams);
-        
+
         $justice->coding_notes = $justiceParams['coding_notes'];
 
         $justice->conflict()->associate($conflict);
@@ -70,7 +71,7 @@ class JusticeController extends Controller
         $justice->save();
 
         $justice->createItems($metaParams);
-        
+
         $justice->dyadicConflicts()->sync($dyadicConflictsParams);
 
         // todo: put this stuff in a db later.
@@ -81,14 +82,14 @@ class JusticeController extends Controller
             'reparation' => 'R',
             'amnesty' => 'A',
             'purge' => 'P',
-            'exile' => 'E'
+            'exile' => 'E',
         ];
-           
-        $convertedType = $processDictionary[$justice->type];            
 
-        $justice->dcjid = $conflict->old_conflict_id . "_" . $conflict->year 
-            . "_" . $convertedType . "_" . $justice->count;
-            
+        $convertedType = $processDictionary[$justice->type];
+
+        $justice->dcjid = $conflict->old_conflict_id.'_'.$conflict->year
+            .'_'.$convertedType.'_'.$justice->count;
+
         $justice->save();
 
         if ($relatedDcj = $justice->related) {
@@ -96,7 +97,6 @@ class JusticeController extends Controller
             $related->related = $justice->dcjid;
             $related->save();
         }
-
 
         return redirect()->route('conflict.show', ['conflict' => $conflict, 'task' => $task])
             ->with('status', "$justice->type $justice->dcjid created");
@@ -111,7 +111,7 @@ class JusticeController extends Controller
     public function show(Conflict $conflict, Justice $justice, Request $request)
     {
         $type = $request->input('type');
-        
+
         return view('justice.show', compact('justice', 'conflict', 'type'));
     }
 
@@ -124,7 +124,7 @@ class JusticeController extends Controller
     public function edit(Conflict $conflict, Justice $justice, Request $request)
     {
         $type = $request->input('type');
-        
+
         return view('justice.edit', compact('justice', 'conflict', 'type'));
     }
 
@@ -136,20 +136,20 @@ class JusticeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Conflict $conflict, JusticeRequest $request, Justice $justice)
-    {        
+    {
         $justiceableParams = $request->input('justiceable') ?? [];
         $dyadicConflictsParams = $request->input('dyadicConflicts') ?? [];
         $metaParams = $request->input('items') ?? [];
-       
+
         $justiceParams = $request->except(['justiceable', 'dyadicConflicts', 'task', 'formItems']);
-        
+
         $task = $request->input('task') ?? null;
 
         // Later these justice params should be moved into its own 'justice' base form
         // that all the other dcj process forms inherit from
-        $foobarParams = collect($justice->getFillable())->mapWithKeys(function($key) use ($justiceParams) {
+        $foobarParams = collect($justice->getFillable())->mapWithKeys(function ($key) use ($justiceParams) {
             return [
-                $key => $justiceParams[$key] ?? null
+                $key => $justiceParams[$key] ?? null,
             ];
         })->toArray();
 
@@ -158,11 +158,10 @@ class JusticeController extends Controller
         $justice->fill($foobarParams);
         $justice->coding_notes = $justiceParams['coding_notes'];
 
-
         if ($relatedDcjid = $request->input('related')) {
             $justice->related = $relatedDcjid;
         }
-        
+
         $justice->save();
 
         $justice->upsertItems($metaParams);
@@ -176,7 +175,7 @@ class JusticeController extends Controller
         }
 
         return redirect()->route('conflict.show', compact('conflict', 'justice', 'task'))
-            ->with('status', ucfirst($justice->type) . " $justice->dcjid updated");
+            ->with('status', ucfirst($justice->type)." $justice->dcjid updated");
     }
 
     /**
@@ -191,7 +190,6 @@ class JusticeController extends Controller
         $task = $request->input('task') ?? null;
 
         return redirect()->route('conflict.show', compact('conflict', 'justice', 'task'))
-            ->with('status', ucfirst($justice->type) . " $justice->dcjid was deleted");
-
+            ->with('status', ucfirst($justice->type)." $justice->dcjid was deleted");
     }
 }

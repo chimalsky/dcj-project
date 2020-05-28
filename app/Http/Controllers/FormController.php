@@ -15,6 +15,7 @@ class FormController extends Controller
     public function index()
     {
         $forms = Form::all();
+
         return view('form.index', compact('forms'));
     }
 
@@ -75,7 +76,7 @@ class FormController extends Controller
         $form->save();
 
         return redirect()->route('form.edit', compact('form'))
-            ->with('status', $form->schema->name . " form was updated");
+            ->with('status', $form->schema->name.' form was updated');
     }
 
     /**

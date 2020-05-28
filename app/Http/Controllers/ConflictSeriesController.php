@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Conflict;
 use App\ConflictSeries;
+use Auth;
 use Illuminate\Http\Request;
 
 class ConflictSeriesController extends Controller
@@ -32,7 +32,7 @@ class ConflictSeriesController extends Controller
 
         $conflictIds = $conflictEpisodes->unique('conflict_id')->pluck('conflict_id');
 
-        $conflictSeries = $conflictSeries->whereIn('id', $conflictIds)->paginate(20); 
+        $conflictSeries = $conflictSeries->whereIn('id', $conflictIds)->paginate(20);
 
         return view('conflict-series.index', compact('conflictSeries', 'query'));
     }
@@ -68,12 +68,12 @@ class ConflictSeriesController extends Controller
     {
         $taskWorkflow = $request->query('task') ?? false;
 
-        if ($taskWorkflow && !Auth::check()) {
+        if ($taskWorkflow && ! Auth::check()) {
             return redirect()->route('login');
         }
 
         $conflictSeries->load('episodes.dyads');
-        
+
         //$dyadicConflictYears = $conflictSeries->dyadicConflicts()->withCount(['justices'])->get();
         return view('conflict-series.show', compact('conflictSeries', 'taskWorkflow'));
     }

@@ -2,50 +2,50 @@
 
 namespace App;
 
-use DB;
-use Str;
-use Arr;
-use App\User;
-use App\Form;
 use App\Coding;
 use App\Conflict;
-use Zoha\MetableModel;
-use App\DyadicConflict;
-use App\Traits\Formable;
-use App\JusticeRelationship;
-use App\Traits\UsesPreciseDates;
 use App\CustomCasts\EnglishBoolean;
+use App\DyadicConflict;
+use App\Form;
+use App\JusticeRelationship;
+use App\Traits\Formable;
+use App\Traits\UsesPreciseDates;
+use App\User;
+use Arr;
 use Collective\Html\Eloquent\FormAccessible;
+use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Str;
 use Vkovic\LaravelCustomCasts\HasCustomCasts;
+use Zoha\MetableModel;
 
 class Justice extends MetableModel
-{   
-    use Formable, UsesPreciseDates, FormAccessible, 
+{
+    use Formable, UsesPreciseDates, FormAccessible,
         SoftDeletes, HasCustomCasts;
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected $hidden = ['coding_notes'];
 
     protected $fillable = [
         'type',
-        'start', 'end', 'implemented', 
+        'start', 'end', 'implemented',
         'civilian', 'rank_and_file', 'elite',
         'peace_initiated', 'implemented',
-        "start_precision",
-        "start_event",
-        "end_precision",
-        "end_event",
-        "target",
-        "scope",
-        "scope_count",
-        "sender",
-        "wrong",
-        "gender",
-        "sexviolence"
+        'start_precision',
+        'start_event',
+        'end_precision',
+        'end_event',
+        'target',
+        'scope',
+        'scope_count',
+        'sender',
+        'wrong',
+        'gender',
+        'sexviolence',
     ];
 
     protected $casts = [
@@ -59,7 +59,7 @@ class Justice extends MetableModel
 
         'peace_initiated' => EnglishBoolean::class,
 
-        'implemented' => EnglishBoolean::class        
+        'implemented' => EnglishBoolean::class,
     ];
 
     /**
@@ -70,7 +70,7 @@ class Justice extends MetableModel
     protected $with = [];
 
     /**
-     * A justice model can be associated with other justice models
+     * A justice model can be associated with other justice models.
      */
     /*public function relatedJustices()
     {
@@ -101,26 +101,26 @@ class Justice extends MetableModel
     {
         return $this->hasMany(JusticeRelationship::class, 'justice_a');
     }
-    
+
     public function getPossibleRelatedAttribute()
     {
         if (! $this->conflict) {
-            return; 
+            return;
         }
 
         $justice = $this;
 
         return $this->conflict->justices->pluck('dcjid', 'dcjid')
-            ->filter(function($value) use ($justice) {
+            ->filter(function ($value) use ($justice) {
                 return $value !== $justice->dcjid;
             });
     }
 
-    public function getDcjidTruncatedAttribute() 
+    public function getDcjidTruncatedAttribute()
     {
         $exploded = explode('_', $this->dcjid);
 
-        return $exploded[1] . '_' . $exploded[2] . '_' . $exploded[3];
+        return $exploded[1].'_'.$exploded[2].'_'.$exploded[3];
     }
 
     public function getCountAttribute()
@@ -131,12 +131,12 @@ class Justice extends MetableModel
             ->justices()->withTrashed()
             ->where('type', $this->type)
             ->get();
-        
+
         $index = $justiceOfTypes
-            ->search(function($item, $key) use ($justice) {
+            ->search(function ($item, $key) use ($justice) {
                 return $item->id === $justice->id;
             });
-        
+
         if (is_int($index)) {
             return $index + 1;
         }
@@ -149,9 +149,8 @@ class Justice extends MetableModel
         return [
             'Low' => 'Low',
             'Medium' => 'Medium',
-            'High' => 'High'
+            'High' => 'High',
         ];
-
     }
 
     public function getTargetCodesAttribute()
@@ -160,8 +159,8 @@ class Justice extends MetableModel
             'Side A' => 'Side A',
             'Side B' => 'Side B',
             'Both' => 'Both',
-            'Other' => 'Other'
-        ];  
+            'Other' => 'Other',
+        ];
     }
 
     public function getSenderCodesAttribute()
@@ -171,7 +170,7 @@ class Justice extends MetableModel
             'Side B' => 'Side B',
             'Both' => 'Both',
             'Other' => 'Other',
-            'International' => 'International'
+            'International' => 'International',
         ];
     }
 
@@ -180,7 +179,7 @@ class Justice extends MetableModel
         return [
             'Specific Individual' => 'Specific Individual',
             'Named Group' => 'Named Group',
-            'General Group' => 'General Group'
+            'General Group' => 'General Group',
         ];
     }
 
@@ -188,14 +187,14 @@ class Justice extends MetableModel
     {
         $coding = Coding::where([
             ['group', $this->type],
-            ['name', 'start_event']
+            ['name', 'start_event'],
         ])->first();
 
         $arr = json_decode($coding->codes);
 
-        return collect($arr)->mapWithKeys(function($item) {
+        return collect($arr)->mapWithKeys(function ($item) {
             return [
-                $item => $item
+                $item => $item,
             ];
         });
     }
@@ -204,14 +203,14 @@ class Justice extends MetableModel
     {
         $coding = Coding::where([
             ['group', $this->type],
-            ['name', 'end_event']
+            ['name', 'end_event'],
         ])->first();
 
         $arr = json_decode($coding->codes);
 
-        return collect($arr)->mapWithKeys(function($item) {
+        return collect($arr)->mapWithKeys(function ($item) {
             return [
-                $item => $item
+                $item => $item,
             ];
         });
     }
@@ -222,7 +221,7 @@ class Justice extends MetableModel
             1 => 'Affiliation',
             2 => 'Specific event',
             3 => 'The conflict',
-            4 => 'Other'
+            4 => 'Other',
         ];
     }
 
@@ -231,7 +230,7 @@ class Justice extends MetableModel
         return [
             0 => 'Men',
             1 => 'Women',
-            9 => 'Missing'
+            9 => 'Missing',
         ];
     }
 
@@ -239,7 +238,7 @@ class Justice extends MetableModel
     {
         return [
             0 => 'No sexual violence',
-            1 => 'Sexual violence'
+            1 => 'Sexual violence',
         ];
     }
 
@@ -255,13 +254,11 @@ class Justice extends MetableModel
     public function getNameAttribute()
     {
         $value = $this->form->schema['name'] ?? $this->form->name ?? 'Unnamed';
+
         return ucfirst($value); //. " #$this->count ";
     }
 
-
-    /**
+    /*
      *  Set Mutators
      */
-
-    
 }

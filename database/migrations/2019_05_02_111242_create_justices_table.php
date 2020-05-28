@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateJusticesTable extends Migration
 {
@@ -19,9 +19,9 @@ class CreateJusticesTable extends Migration
             $table->string('dcjid')->nullable();
 
             $table->boolean('implemented')->nullable();
-            
+
             $table->string('type');
-            
+
             $table->string('target')->nullable();
             $table->boolean('civilian')->nullable();
             $table->boolean('rank_and_file')->nullable();
@@ -37,7 +37,6 @@ class CreateJusticesTable extends Migration
             $table->string('start_event')->nullable();
             //$table->unsignedTinyInteger('start_code')->nullable();
             $table->string('start_precision')->nullable();
-
 
             $table->date('end')->nullable();
             $table->string('end_event')->nullable();
@@ -58,7 +57,7 @@ class CreateJusticesTable extends Migration
 
             $table->text('coding_notes')
                 ->nullable();
-            
+
             $table->string('related')->nullable()->default(null);
 
             $table->timestamps();

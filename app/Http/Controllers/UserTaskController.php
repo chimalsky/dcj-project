@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use App\ConflictSeries;
 use App\Task;
 use App\User;
-use App\ConflictSeries;
+use Auth;
 use Illuminate\Http\Request;
 
 class UserTaskController extends Controller
@@ -28,8 +28,8 @@ class UserTaskController extends Controller
             $tasks = $tasks->where('status', $status);
         }
 
-        if ($region = trim($request->query('region')) ) {
-            $conflictSeries = ConflictSeries::with('episodes')->get()->filter(function($cs) use ($region) {
+        if ($region = trim($request->query('region'))) {
+            $conflictSeries = ConflictSeries::with('episodes')->get()->filter(function ($cs) use ($region) {
                 return $region == $cs->region;
             });
 

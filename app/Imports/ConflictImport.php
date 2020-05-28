@@ -3,21 +3,21 @@
 namespace App\Imports;
 
 use App\Conflict;
-use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Row;
 
-class ConflictImport implements ToModel, 
+class ConflictImport implements
+    ToModel,
     WithHeadingRow,
     WithChunkReading
 {
-
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         return new Conflict([
@@ -40,7 +40,7 @@ class ConflictImport implements ToModel,
 
             'start_date' => $row['start_date'],
             'start_precision' => $row['start_prec'],
-            
+
             'start_2_date' => $row['start_date2'],
             'start_2_precision' => $row['start_prec2'],
 
@@ -52,7 +52,7 @@ class ConflictImport implements ToModel,
             'gwno_b' => $row['gwno_b'],
             'gwno_location' => $row['gwno_loc'],
 
-            'region' => $row['region']
+            'region' => $row['region'],
         ]);
     }
 

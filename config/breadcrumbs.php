@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'view' => 'partials.breadcrumbs', #--> resources/views/partials/breadcrumbs.blade.php
+    'view' => 'partials.breadcrumbs', //--> resources/views/partials/breadcrumbs.blade.php
 
     /*
     |--------------------------------------------------------------------------

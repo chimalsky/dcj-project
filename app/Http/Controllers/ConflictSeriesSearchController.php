@@ -20,7 +20,7 @@ class ConflictSeriesSearchController extends Controller
 
         $conflictIds = $conflictEpisodes->unique('conflict_id')->pluck('conflict_id');
 
-        $conflictSeries = ConflictSeries::whereIn('id', $conflictIds)->get(); 
+        $conflictSeries = ConflictSeries::whereIn('id', $conflictIds)->get();
 
         return view('conflict-series.search.index', compact('conflictSeries'));
     }

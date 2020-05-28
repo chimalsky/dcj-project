@@ -48,8 +48,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/debugger', 'JusticeDebuggerController@index');
 });
 
-
 //Route::put('form/{form}/')
 
 Auth::routes(['register' => false]);
-

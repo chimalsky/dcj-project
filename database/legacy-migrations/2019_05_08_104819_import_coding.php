@@ -1,9 +1,9 @@
 <?php
 
 use App\Coding;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class ImportCoding extends Migration
 {
@@ -24,8 +24,8 @@ class ImportCoding extends Migration
                     3 => 'Indictment',
                     4 => 'Trial/Hearing',
                     5 => 'Sentencing',
-                    6 => 'Punishment/Release'
-                ]
+                    6 => 'Punishment/Release',
+                ],
             ],
             [
                 'group' => 'trial',
@@ -33,8 +33,8 @@ class ImportCoding extends Migration
                 'codes' => [
                     1 => 'Trial',
                     2 => 'Sentenced',
-                    3 => 'Punished/Released'
-                ]
+                    3 => 'Punished/Released',
+                ],
             ],
 
             [
@@ -45,16 +45,16 @@ class ImportCoding extends Migration
                     2 => 'Establishment',
                     3 => 'Functioning',
                     4 => 'Ending',
-                    5 => 'Effectuate'
-                ]
+                    5 => 'Effectuate',
+                ],
             ],
             [
                 'group' => 'truth',
                 'name' => 'end_event',
                 'codes' => [
                     1 => 'Ending',
-                    2 => 'Effectuate'
-                ]
+                    2 => 'Effectuate',
+                ],
             ],
 
             [
@@ -63,15 +63,15 @@ class ImportCoding extends Migration
                 'codes' => [
                     1 => 'Initiated',
                     2 => 'Establishment',
-                    3 => 'Functioning'
-                ]
+                    3 => 'Functioning',
+                ],
             ],
             [
                 'group' => 'reparation',
                 'name' => 'end_event',
                 'codes' => [
                     1 => 'Functioning',
-                ]
+                ],
             ],
 
             [
@@ -81,15 +81,15 @@ class ImportCoding extends Migration
                     1 => 'Promised',
                     2 => 'Initiated',
                     3 => 'Establishment',
-                    4 => 'Functioning'
-                ]
+                    4 => 'Functioning',
+                ],
             ],
             [
                 'group' => 'amnesty',
                 'name' => 'end_event',
                 'codes' => [
-                    1 => 'Functioning'
-                ]
+                    1 => 'Functioning',
+                ],
             ],
 
             [
@@ -98,15 +98,15 @@ class ImportCoding extends Migration
                 'codes' => [
                     1 => 'Promised/Threatened',
                     2 => 'Initiated',
-                    3 => 'Functioning'
-                ]
+                    3 => 'Functioning',
+                ],
             ],
             [
                 'group' => 'purge',
                 'name' => 'end_event',
                 'codes' => [
-                    1 => 'Functioning'
-                ]
+                    1 => 'Functioning',
+                ],
             ],
 
             [
@@ -115,28 +115,26 @@ class ImportCoding extends Migration
                 'codes' => [
                     1 => 'Promised/Threatened',
                     2 => 'Initiated',
-                    3 => 'Functioning'
-                ]
+                    3 => 'Functioning',
+                ],
             ],
             [
                 'group' => 'exile',
                 'name' => 'end_event',
                 'codes' => [
-                    1 => 'Functioning'
-                ]
-            ]
+                    1 => 'Functioning',
+                ],
+            ],
         ]);
 
-        $dcjs->each(function($dcj) {
+        $dcjs->each(function ($dcj) {
             $coding = new Coding;
             $coding->group = $dcj['group'];
             $coding->name = $dcj['name'];
-            
-            
+
             $coding->codes = json_encode($dcj['codes']);
-            
+
             $coding->save();
-          
         });
     }
 

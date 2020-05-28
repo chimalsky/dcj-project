@@ -2,19 +2,19 @@
 
 namespace App;
 
-use DB;
-use App\Dyad;
-use App\Task;
-use App\Justice;
-use App\DyadidConflict;
 use App\ConflictSeries;
-use Illuminate\Database\Eloquent\Model;
+use App\Dyad;
+use App\DyadidConflict;
+use App\Justice;
+use App\Task;
+use DB;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class Conflict extends Model
 {
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     public function __construct(array $attributes = [])
@@ -34,9 +34,8 @@ class Conflict extends Model
         parent::boot();
 
         static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where(config('ucdp.table_names.conflicts') . '.type', '!=', 2);
+            $builder->where(config('ucdp.table_names.conflicts').'.type', '!=', 2);
         });
-    
     }
 
     public function series()
@@ -63,11 +62,11 @@ class Conflict extends Model
     public function getRegionAttribute($value)
     {
         $dictionary = [
-            "1" => "Europe",
-            "2" => "Middle East",
-            "3" => "Asia",
-            "4" => "Africa",
-            "5" => "Americas"
+            '1' => 'Europe',
+            '2' => 'Middle East',
+            '3' => 'Asia',
+            '4' => 'Africa',
+            '5' => 'Americas',
         ];
 
         $value = collect(explode(',', $value))->mode()[0];
@@ -98,5 +97,4 @@ class Conflict extends Model
     {
         return $this->dyads()->count() > 1;
     }
-    
 }
