@@ -2,17 +2,17 @@
 
 namespace App;
 
-use DB;
-use App\Dyad;
-use App\User;
-use App\Justice;
 use App\Conflict;
+use App\Dyad;
+use App\Justice;
+use App\User;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class ConflictSeries extends Model
 {
     protected $fillable = [
-        'id'
+        'id',
     ];
 
     public $timestamps = false;
@@ -44,14 +44,14 @@ class ConflictSeries extends Model
     public function justices()
     {
         return $this->hasManyThrough(
-            Justice::class, 
-            Conflict::class,    
+            Justice::class,
+            Conflict::class,
             'conflict_id',
             'conflict_id',
             'id',
             'id'
         );
-    }   
+    }
 
     public function getDyadsAttribute()
     {
@@ -72,9 +72,9 @@ class ConflictSeries extends Model
     {
         $sideAs = $this->episodes->pluck('side_a')->unique();
 
-        return $sideAs->reduce(function($carry, $item) {
+        return $sideAs->reduce(function ($carry, $item) {
             if (strlen($carry)) {
-                $carry .= " / ";
+                $carry .= ' / ';
             }
 
             return $carry .= $item;
@@ -85,11 +85,11 @@ class ConflictSeries extends Model
     {
         $sideBs = $this->episodes->pluck('side_b')->unique();
 
-        return $sideBs->reduce(function($carry, $item) {
+        return $sideBs->reduce(function ($carry, $item) {
             if (strlen($carry)) {
-                $carry .= " / ";
+                $carry .= ' / ';
             }
-            
+
             return $carry .= $item;
         }, '');
     }
@@ -99,7 +99,7 @@ class ConflictSeries extends Model
         $yearMin = $this->episodes->min('year');
         $yearMax = $this->episodes->max('year');
 
-        return $yearMin . " -- " . $yearMax;
+        return $yearMin.' -- '.$yearMax;
     }
 
     public function getNameAttribute()
@@ -108,8 +108,8 @@ class ConflictSeries extends Model
 
         $sideA = $this->sideA;
         $sideB = $this->sideB;
-        
-        return "UCDP " . $this->id . " | " . $this->years . ' @ ' . $this->location;
+
+        return 'UCDP '.$this->id.' | '.$this->years.' @ '.$this->location;
     }
 
     public function getIsPolydyadicAttribute()

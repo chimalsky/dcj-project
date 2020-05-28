@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateFormFormItemTable extends Migration
 {
@@ -15,16 +15,16 @@ class CreateFormFormItemTable extends Migration
     {
         Schema::create('form_form_item', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->unsignedBigInteger('form_id')
                 ->references('id')
                 ->on('forms')
                 ->onDelete('cascade');
-            
+
             $table->unsignedBigInteger('form_item_id')
                 ->references('id')
                 ->on('form_items')
-                ->onDelete('cascade');  
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

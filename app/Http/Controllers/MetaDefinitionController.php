@@ -59,7 +59,7 @@ class MetaDefinitionController extends Controller
      */
     public function edit(MetaDefinition $metaDefinition)
     {
-        return view('meta-definition.edit', compact('metaDefinition')); 
+        return view('meta-definition.edit', compact('metaDefinition'));
     }
 
     /**
@@ -71,7 +71,6 @@ class MetaDefinitionController extends Controller
      */
     public function update(Request $request, MetaDefinition $metaDefinition)
     {
-        
     }
 
     /**

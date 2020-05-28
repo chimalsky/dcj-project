@@ -5,26 +5,23 @@ Breadcrumbs::for('home', function ($trail) {
     $trail->push('Conflicts', route('home'));
 });
 
-
 Breadcrumbs::for('conflict-series.index', function ($trail) {
-    
     if (isTaskWorkflow()) {
         $trail->parent('task.index');
     } else {
     }
 
-    $trail->push("Conflicts", route('conflict-series.index'));
+    $trail->push('Conflicts', route('conflict-series.index'));
 });
 
 Breadcrumbs::for('conflict-series.show', function ($trail, $conflictSeries) {
-    
     if (isTaskWorkflow()) {
         $trail->parent('task.index');
     } else {
         $trail->parent('home');
     }
 
-    $trail->push("UCDP " . $conflictSeries->id, route('conflict-series.show', $conflictSeries));
+    $trail->push('UCDP '.$conflictSeries->id, route('conflict-series.show', $conflictSeries));
 });
 
 Breadcrumbs::for('conflict.index', function ($trail) {
@@ -32,16 +29,16 @@ Breadcrumbs::for('conflict.index', function ($trail) {
 });
 
 Breadcrumbs::for('conflict.show', function ($trail, $conflict) {
-    if  (isTaskWorkflow()) {
+    if (isTaskWorkflow()) {
         //d($conflict, $conflict->series);
         $trail->parent('task.index');
 
-        $trail->push("UCDP " . $conflict->series->id, route('conflict-series.show', $conflict->series));
+        $trail->push('UCDP '.$conflict->series->id, route('conflict-series.show', $conflict->series));
     } else {
         $trail->parent('conflict-series.show', $conflict->series);
     }
-    
-    $trail->push($conflict->year . " @ " . $conflict->location, route('conflict.show', $conflict));
+
+    $trail->push($conflict->year.' @ '.$conflict->location, route('conflict.show', $conflict));
 });
 
 Breadcrumbs::for('justice.index', function ($trail) {
@@ -60,7 +57,6 @@ Breadcrumbs::for('justice.edit', function ($trail, $conflict, $justice) {
     $trail->push("$justice->name", route('justice.edit', ['conflict' => $conflict, 'justice' => $justice]));
 });
 
-
 Breadcrumbs::for('justice.show', function ($trail, $conflict, $justice) {
     $trail->parent('conflict.show', $conflict);
 
@@ -76,17 +72,15 @@ Breadcrumbs::for('user.create', function ($trail) {
     $trail->push('Add Crew Member', route('user.create'));
 });
 
-
 Breadcrumbs::for('task.index', function ($trail) {
     if (Auth::check() && Auth::user()->can('create', 'App\Task')) {
         $title = 'Tasks';
-        $route = route("task.index");
-
+        $route = route('task.index');
     } else {
         $title = 'My Tasks';
-        $route = route("user.task.index", [
+        $route = route('user.task.index', [
             'user' => Auth::id(),
-            'task' => request()->query('task') ?? null
+            'task' => request()->query('task') ?? null,
         ]);
     }
 
@@ -94,11 +88,10 @@ Breadcrumbs::for('task.index', function ($trail) {
 });
 
 Breadcrumbs::for('user.task.index', function ($trail, $user) {
-    $title = $user->name . "'s Tasks";
+    $title = $user->name."'s Tasks";
 
-    $trail->push($title, route("user.task.index", $user));
+    $trail->push($title, route('user.task.index', $user));
 });
-
 
 Breadcrumbs::for('task.create', function ($trail) {
     $trail->push('Assign Tasks', route('task.create'));

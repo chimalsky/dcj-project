@@ -1,9 +1,9 @@
 <?php
 
 use App\Justice;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class MigrateJusticesToMeta extends Migration
 {
@@ -16,7 +16,7 @@ class MigrateJusticesToMeta extends Migration
     {
         $justices = Justice::with('justiceable');
 
-        $justices->each(function($justice) {
+        $justices->each(function ($justice) {
             $process = $justice->justiceable;
 
             $attributes = $process->makeHidden('id')->toArray();
@@ -32,6 +32,5 @@ class MigrateJusticesToMeta extends Migration
      */
     public function down()
     {
-        
     }
 }

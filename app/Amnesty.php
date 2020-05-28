@@ -16,6 +16,6 @@ class Amnesty extends Model
     public $type = 'amnesty';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 }

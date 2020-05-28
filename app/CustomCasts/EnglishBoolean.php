@@ -7,7 +7,7 @@ use Vkovic\LaravelCustomCasts\CustomCastBase;
 class EnglishBoolean extends CustomCastBase
 {
     public function setAttribute($value)
-    {              
+    {
         if (! gettype($value) == 'string') {
             return $value;
         }
@@ -32,25 +32,22 @@ class EnglishBoolean extends CustomCastBase
                 break;
             case null:
                 return null;
-                break;  
+                break;
         }
     }
 
     public function castAttribute($value)
-    {   
+    {
         if ($value === 1) {
             $value = 'yes';
-        }
-        else if ($value === 0) {
+        } elseif ($value === 0) {
             $value = 'no';
-        }
-        else if ($value === 2) {
+        } elseif ($value === 2) {
             $value = 'N/A';
-        }
-        else {
+        } else {
             return null;
         }
-        
+
         return ucfirst($value);
     }
 }

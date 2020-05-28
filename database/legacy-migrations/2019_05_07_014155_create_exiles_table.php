@@ -1,9 +1,9 @@
 <?php
 
 use App\Imports\ExileImport;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateExilesTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateExilesTable extends Migration
     {
         Schema::create('exiles', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->string('permanent')->nullable();
         });
 

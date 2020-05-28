@@ -1,9 +1,9 @@
 <?php
 
 use App\Imports\AmnestyImport;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateAmnestiesTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateAmnestiesTable extends Migration
     public function up()
     {
         Schema::create('amnesties', function (Blueprint $table) {
-            $table->increments  ('id');
+            $table->increments('id');
             $table->string('limited')->nullable();
             $table->string('unconditional')->nullable();
         });

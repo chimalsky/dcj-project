@@ -1,10 +1,10 @@
 <?php
 
-use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\DyadicIntegrationTwo;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CreateDyadicConflictsTable extends Migration
 {
@@ -15,21 +15,19 @@ class CreateDyadicConflictsTable extends Migration
      */
     public function up()
     {
-        
-
         Schema::create('dyadic_conflicts', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('dyad_id')
                 ->nullable();
-                
+
             $table->unsignedInteger('conflictyear_id')
                 ->references('id')
                 ->on('conflicts')
                 ->onDelete('cascade');
 
             $table->unsignedTinyInteger('type')->nullable();
-            
+
             $table->string('location');
             $table->unsignedTinyInteger('incompatibility');
 

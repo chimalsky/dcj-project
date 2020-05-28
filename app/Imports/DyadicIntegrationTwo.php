@@ -5,23 +5,24 @@ namespace App\Imports;
 use App\Conflict;
 use App\DyadicConflict;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class DyadicIntegrationTwo implements ToModel,
+class DyadicIntegrationTwo implements
+    ToModel,
     WithHeadingRow,
     WithChunkReading
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         $conflictYear = Conflict::withoutGlobalScopes()->where([
             ['conflict_id', $row['conflict_id']],
-            ['year', $row['year']]
+            ['year', $row['year']],
         ])->first();
 
         return new DyadicConflict([
@@ -43,7 +44,7 @@ class DyadicIntegrationTwo implements ToModel,
 
             'start_date' => $row['start_date'],
             'start_precision' => $row['start_prec'],
-            
+
             'start_2_date' => $row['start_date2'],
             'start_2_precision' => $row['start_prec2'],
 
@@ -54,10 +55,8 @@ class DyadicIntegrationTwo implements ToModel,
 
             'gwno_location' => $row['gwno_loc'],
 
-            'region' => $row['region']
+            'region' => $row['region'],
         ]);
-        
-        
     }
 
     public function chunkSize(): int

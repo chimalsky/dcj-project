@@ -16,6 +16,6 @@ class Truth extends Model
     public $type = 'truth';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 }

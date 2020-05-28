@@ -2,19 +2,19 @@
 
 namespace App;
 
-use DB;
-use App\Dyad;
-use App\Task;
-use App\Justice;
 use App\Conflict;
 use App\ConflictSeries;
-use Illuminate\Database\Eloquent\Model;
+use App\Dyad;
+use App\Justice;
+use App\Task;
+use DB;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class DyadicConflict extends Model
 {
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     protected $table = 'dyadic_conflicts';
@@ -56,11 +56,11 @@ class DyadicConflict extends Model
     public function getRegionAttribute($value)
     {
         $dictionary = [
-            "1" => "Europe",
-            "2" => "Middle East",
-            "3" => "Asia",
-            "4" => "Africa",
-            "5" => "Americas"
+            '1' => 'Europe',
+            '2' => 'Middle East',
+            '3' => 'Asia',
+            '4' => 'Africa',
+            '5' => 'Americas',
         ];
 
         $value = collect(explode(',', $value))->mode()[0];
@@ -86,5 +86,4 @@ class DyadicConflict extends Model
     {
         return "$this->year $this->side_a vs. $this->side_b";
     }
-    
 }

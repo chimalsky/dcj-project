@@ -16,6 +16,6 @@ class Exile extends Model
     public $type = 'exile';
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 }

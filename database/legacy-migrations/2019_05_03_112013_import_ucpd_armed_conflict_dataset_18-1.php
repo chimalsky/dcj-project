@@ -2,14 +2,14 @@
 
 use App\Conflict;
 use App\ConflictSeries;
-use App\Imports\DyadImport;
 use App\Imports\ConflictImport;
 use App\Imports\DyadicIntegration;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Schema;
+use App\Imports\DyadImport;
 use App\Imports\TranslateConflictImport;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ImportUcpdArmedConflictDataset181 extends Migration
 {
@@ -25,7 +25,7 @@ class ImportUcpdArmedConflictDataset181 extends Migration
         });
 
         $tableName = config('ucdp.table_names.conflicts');
-        
+
         Schema::create($tableName, function (Blueprint $table) {
             $table->increments('id');
 
@@ -40,7 +40,7 @@ class ImportUcpdArmedConflictDataset181 extends Migration
             $table->unsignedInteger('old_conflict_id')->nullable();
 
             $table->unsignedTinyInteger('type')->nullable();
-            
+
             $table->string('location');
             $table->unsignedTinyInteger('incompatibility');
 
@@ -74,13 +74,13 @@ class ImportUcpdArmedConflictDataset181 extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ucdp_dyads', function(Blueprint $table) {
+        Schema::create('ucdp_dyads', function (Blueprint $table) {
             $table->integer('id');
             $table->integer('old_id');
             $table->string('name');
         });
 
-        Schema::create('translate_conflicts', function(Blueprint $table) {
+        Schema::create('translate_conflicts', function (Blueprint $table) {
             $table->integer('new_id');
             $table->string('old_id');
         });
@@ -90,9 +90,9 @@ class ImportUcpdArmedConflictDataset181 extends Migration
         Excel::import(new DyadImport, 'public/translate_dyad.xlsx');
 
         $conflicts = Conflict::all();
-        $conflicts->each(function($episode) {
+        $conflicts->each(function ($episode) {
             ConflictSeries::firstOrCreate([
-                'id' => $episode->conflict_id
+                'id' => $episode->conflict_id,
             ]);
         });
     }

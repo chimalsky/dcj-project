@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Hash;
 use App\Task;
-use Illuminate\Notifications\Notifiable;
+use Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'name', 'email', 'password', 'role',
     ];
 
     /**
@@ -48,5 +48,4 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Conflict::class, Task::class, 'user_id', 'conflict_ucdp_id');
     }
-
 }

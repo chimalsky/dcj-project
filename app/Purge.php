@@ -16,6 +16,6 @@ class Purge extends Model
     public $timestamps = false;
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 }

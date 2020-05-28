@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use URL;
-use Auth;
-use Route;
 use App\Conflict;
-use Illuminate\Http\Request;
-use App\Imports\ConflictImport;
 use App\Http\Requests\StoreConflict;
+use App\Imports\ConflictImport;
+use Auth;
+use Illuminate\Http\Request;
+use Route;
+use URL;
 
 class ConflictController extends Controller
 {
@@ -18,7 +18,7 @@ class ConflictController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
+    {
         $me = Auth::user();
         $tasks = $me->tasks ?? null;
 
@@ -71,9 +71,9 @@ class ConflictController extends Controller
         $justices = $conflict->justices()->latest('updated_at');
 
         if ($justiceType) {
-            $justices = $justices->where('type', $justiceType);;
-        }                                                                                                                               
-        
+            $justices = $justices->where('type', $justiceType);
+        }
+
         $justices = $justices->get();
 
         $selectedDyadicConflict = $conflict->dyads->firstWhere('dyad_id', $request->query('dyad')) ?? $conflict->dyads->first();

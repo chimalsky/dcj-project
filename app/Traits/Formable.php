@@ -9,21 +9,22 @@ trait Formable
     public function getFormAttribute()
     {
         $type = $this->type;
+
         return Form::where('name', $type)->first();
     }
 
-    public static function possibleForms() 
+    public static function possibleForms()
     {
         return Form::all();
     }
 
     public function getItemsAttribute()
     {
-        return $this->meta()->get()->mapWithKeys(function($item) {
+        return $this->meta()->get()->mapWithKeys(function ($item) {
             return [
-                $item->key => $item->value ?? null
+                $item->key => $item->value ?? null,
             ];
-        }); 
+        });
     }
 
     public function createItems($metaParams)
@@ -38,7 +39,7 @@ trait Formable
         $this->setMeta($filtered->toArray());
     }
 
-    public function filterParams($params) 
+    public function filterParams($params)
     {
         return $this->form->filterParams($params);
     }

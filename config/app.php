@@ -170,7 +170,6 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Spatie\Html\HtmlServiceProvider::class,
 
-
         /*
          * Application Service Providers...
          */

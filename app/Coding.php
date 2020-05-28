@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Coding extends Model
 {
     protected $guarded = [
-        'id'
+        'id',
     ];
 }

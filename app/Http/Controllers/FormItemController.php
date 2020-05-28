@@ -40,7 +40,7 @@ class FormItemController extends Controller
             'name' => $request->input('name'),
             'type' => $request->input('type'),
             'label' => $request->input('label'),
-            'options' => $request->input('options')
+            'options' => $request->input('options'),
         ]);
 
         $form->addItem($formItem);
@@ -95,7 +95,7 @@ class FormItemController extends Controller
     {
         $itemName = $request->input('name');
 
-        // Todo : move away from the schemaless system so that we can obviate 
+        // Todo : move away from the schemaless system so that we can obviate
         // functions like this.
 
         $itemIndex = $form->items->pluck('name')->search($itemName);
