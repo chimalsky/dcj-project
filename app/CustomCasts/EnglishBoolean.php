@@ -27,9 +27,6 @@ class EnglishBoolean extends CustomCastBase
             case '':
                 return null;
                 break;
-            case 'foobar-null':
-                return 'asdf';
-                break;
             case null:
                 return null;
                 break;
