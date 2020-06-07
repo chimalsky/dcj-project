@@ -35,6 +35,8 @@ class EnglishBoolean extends CustomCastBase
 
     public function castAttribute($value)
     {
+        return $value; 
+        
         if ($value === 1) {
             $value = 'yes';
         } elseif ($value === 0) {
