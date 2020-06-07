@@ -7,13 +7,13 @@
         class="cell grid-x grid-margin-x">
 
         {{ $model->$name }}
-        @if ($model->$name === 1) 
+        @if ($model->$name == 1) 
             ONE
         @endif
-        @if ($model->$name === 0)
+        @if ($model->$name == 0)
             ZERO
         @endif
-        @if ($model->$name === 2)
+        @if ($model->$name == 2)
             TWO OR NA 
         @endif
 
