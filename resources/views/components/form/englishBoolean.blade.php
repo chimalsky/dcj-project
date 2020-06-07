@@ -6,6 +6,7 @@
     <div data-controller="radio-group"
         class="cell grid-x grid-margin-x">
 
+        debugging 
         {{ $model->$name }}
         <div class="cell shrink"> 
             {{ Form::radio($name, $values[1] ?? 'Yes', $model->$name, [
