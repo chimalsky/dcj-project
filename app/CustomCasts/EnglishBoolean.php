@@ -35,7 +35,10 @@ class EnglishBoolean extends CustomCastBase
 
     public function castAttribute($value)
     {
-        //return $value; 
+        return $value;
+        if (is_null($value)) {
+            return null;
+        }
 
         if ($value === 1) {
             $value = 'yes';
@@ -43,9 +46,7 @@ class EnglishBoolean extends CustomCastBase
             $value = 'no';
         } elseif ($value === 2) {
             $value = 'N/A';
-        } else {
-            return null;
-        }
+        } 
 
         return ucfirst($value);
     }

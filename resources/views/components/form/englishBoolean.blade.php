@@ -6,7 +6,7 @@
     <div data-controller="radio-group"
         class="cell grid-x grid-margin-x">
 
-        {{ $model->$name }}
+        {{ $model->$name }} ---
         @if ($model->$name == 1) 
             ONE
         @endif
@@ -14,7 +14,7 @@
             ZERO
         @endif
         @if ($model->$name == 2)
-            TWO OR NA 
+            TWO 
         @endif
 
         <div class="cell shrink"> 
