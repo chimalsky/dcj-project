@@ -6,7 +6,17 @@
     <div data-controller="radio-group"
         class="cell grid-x grid-margin-x">
 
-        {{ $model }}
+        {{ $model->$name }}
+        @if ($model->$name === 1) 
+            ONE
+        @endif
+        @if ($model->$name === 0)
+            ZERO
+        @endif
+        @if ($model->$name === 2)
+            TWO OR NA 
+        @endif
+
         <div class="cell shrink"> 
             {{ Form::radio($name, $values[1] ?? 'Yes', $model->$name, [
                 'id' => "$name-0",
@@ -35,3 +45,5 @@
         </div>
     </div>
 </section>
+
+
