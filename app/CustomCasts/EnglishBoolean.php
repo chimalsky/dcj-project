@@ -35,19 +35,18 @@ class EnglishBoolean extends CustomCastBase
 
     public function castAttribute($value)
     {
-        return $value;
-        if (is_null($value)) {
+        if ($value == 1) {
+            $value = 'yes';
+        } elseif (!is_null($value) && $value == 0) {
+            $value = 'no';
+        } elseif ($value == 2) {
+            $value = 'N/A';
+        }  elseif (is_null($value)) {
             return null;
         }
-
-        if ($value === 1) {
-            $value = 'yes';
-        } elseif ($value === 0) {
-            $value = 'no';
-        } elseif ($value === 2) {
-            $value = 'N/A';
-        } 
 
         return ucfirst($value);
     }
 }
+
+       
