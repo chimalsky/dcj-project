@@ -27,9 +27,6 @@ class EnglishBoolean extends CustomCastBase
             case '':
                 return null;
                 break;
-            case 'foobar-null':
-                return 'asdf';
-                break;
             case null:
                 return null;
                 break;
@@ -38,16 +35,18 @@ class EnglishBoolean extends CustomCastBase
 
     public function castAttribute($value)
     {
-        if ($value === 1) {
+        if ($value == 1) {
             $value = 'yes';
-        } elseif ($value === 0) {
+        } elseif (!is_null($value) && $value == 0) {
             $value = 'no';
-        } elseif ($value === 2) {
+        } elseif ($value == 2) {
             $value = 'N/A';
-        } else {
+        }  elseif (is_null($value)) {
             return null;
         }
 
         return ucfirst($value);
     }
 }
+
+       
